@@ -199,22 +199,6 @@ export default async function ResourcesPage() {
         </div>
       </section>
 
-      {/* Bottom CTA — only for guests */}
-      {!isLoggedIn && (
-        <section className="bg-[#0D3572] py-12 text-white text-center">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <h2 className="text-2xl font-bold mb-3">Unlock the Full Resource Library</h2>
-            <p className="text-white/70 mb-6 max-w-xl mx-auto">
-              RAS members get unrestricted access to all forms, guides, training materials, and compliance tools.
-            </p>
-            <Link href="/join">
-              <Button className="bg-[#C9A227] text-[#0D3572] hover:bg-[#b8911f] border-0 font-bold px-8">
-                Become a Member
-              </Button>
-            </Link>
-          </div>
-        </section>
-      )}
     </div>
   );
 }

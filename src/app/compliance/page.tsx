@@ -235,22 +235,6 @@ export default async function CompliancePage() {
         </>
       )}
 
-      {/* Bottom CTA for guests */}
-      {!isLoggedIn && (
-        <section className="bg-[#0D3572] py-10 text-center text-white">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <h3 className="text-xl font-bold mb-3">Unlock All 4 Compliance Pillars</h3>
-            <p className="text-white/70 text-sm mb-5 max-w-md mx-auto">
-              Members access all checklists, government contacts, and downloadable audit tools.
-            </p>
-            <Link href="/join">
-              <Button className="bg-[#C9A227] text-[#0D3572] hover:bg-[#b8911f] border-0 font-bold">
-                Become a Member
-              </Button>
-            </Link>
-          </div>
-        </section>
-      )}
     </div>
   );
 }
