@@ -8,24 +8,27 @@ import { Menu, X, ShoppingBag } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import SeychellesFlag from "@/components/SeychellesFlag";
-
-const navLinks = [
-  { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
-  { href: "/resources", label: "Resources" },
-  { href: "/compliance", label: "Compliance" },
-  { href: "/directory", label: "Directory" },
-  { href: "/join", label: "Join" },
-];
+import { useLanguage } from "@/components/LanguageProvider";
 
 export default function Navbar() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { locale, setLocale, t } = useLanguage();
+
+  const navLinks = [
+    { href: "/", label: t.nav.home },
+    { href: "/about", label: t.nav.about },
+    { href: "/resources", label: t.nav.resources },
+    { href: "/compliance", label: t.nav.compliance },
+    { href: "/directory", label: t.nav.directory },
+    { href: "/join", label: t.nav.join },
+  ];
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-[#0D3572] text-white shadow-lg">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
+
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5 shrink-0">
             <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#C9A227]">
@@ -33,12 +36,12 @@ export default function Navbar() {
             </div>
             <div className="hidden sm:block">
               <p className="text-sm font-bold leading-tight tracking-wide text-white">
-                Retailers Association
+                {t.nav.brand}
               </p>
               <div className="flex items-center gap-1 mt-0.5">
                 <SeychellesFlag width={14} height={9} className="rounded-sm" />
                 <p className="text-[10px] font-medium tracking-widest text-[#C9A227] uppercase">
-                  of Seychelles
+                  {t.nav.brandSub}
                 </p>
               </div>
             </div>
@@ -65,8 +68,28 @@ export default function Navbar() {
             ))}
           </nav>
 
-          {/* Right side: auth */}
-          <div className="hidden md:flex items-center gap-3">
+          {/* Right side: language switcher + auth */}
+          <div className="hidden md:flex items-center gap-2">
+
+            {/* Language toggle */}
+            <button
+              onClick={() => setLocale(locale === "en" ? "sc" : "en")}
+              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-md border border-white/20 hover:border-white/40 hover:bg-white/10 transition-colors text-xs font-semibold text-white/80 hover:text-white"
+              title={locale === "en" ? "Switch to Seselwa" : "Switch to English"}
+            >
+              {locale === "en" ? (
+                <>
+                  <SeychellesFlag width={16} height={11} className="rounded-sm" />
+                  <span>Seselwa</span>
+                </>
+              ) : (
+                <>
+                  <span className="text-base leading-none">🇬🇧</span>
+                  <span>English</span>
+                </>
+              )}
+            </button>
+
             <Show when="signed-in">
               <Link
                 href="/member"
@@ -77,7 +100,7 @@ export default function Navbar() {
                     : "text-white/80 hover:text-white hover:bg-white/10"
                 )}
               >
-                My Dashboard
+                {t.nav.dashboard}
               </Link>
               <UserButton appearance={{ elements: { avatarBox: "h-8 w-8" } }} />
             </Show>
@@ -86,14 +109,14 @@ export default function Navbar() {
                 href="/sign-in"
                 className="px-3 py-2 rounded-md text-sm font-medium text-white/80 hover:text-white hover:bg-white/10 transition-colors"
               >
-                Login
+                {t.nav.login}
               </Link>
               <Link href="/join">
                 <Button
                   size="sm"
                   className="bg-[#C9A227] text-[#0D3572] hover:bg-[#b8911f] font-semibold border-0"
                 >
-                  Join Now
+                  {t.nav.joinNow}
                 </Button>
               </Link>
             </Show>
@@ -131,13 +154,31 @@ export default function Navbar() {
             ))}
           </nav>
           <div className="mt-3 pt-3 border-t border-white/10 flex flex-col gap-2">
+            {/* Mobile language toggle */}
+            <button
+              onClick={() => setLocale(locale === "en" ? "sc" : "en")}
+              className="flex items-center gap-2 px-3 py-2.5 rounded-md text-sm font-medium text-white/80 hover:text-white hover:bg-white/10 transition-colors w-full"
+            >
+              {locale === "en" ? (
+                <>
+                  <SeychellesFlag width={18} height={12} className="rounded-sm" />
+                  <span>Pase ar Seselwa</span>
+                </>
+              ) : (
+                <>
+                  <span className="text-base leading-none">🇬🇧</span>
+                  <span>Switch to English</span>
+                </>
+              )}
+            </button>
+
             <Show when="signed-in">
               <Link
                 href="/member"
                 onClick={() => setMobileOpen(false)}
                 className="px-3 py-2.5 rounded-md text-sm font-medium text-white/80 hover:text-white hover:bg-white/10 transition-colors"
               >
-                My Dashboard
+                {t.nav.dashboard}
               </Link>
               <div className="px-3">
                 <UserButton />
@@ -149,14 +190,14 @@ export default function Navbar() {
                 onClick={() => setMobileOpen(false)}
                 className="px-3 py-2.5 rounded-md text-sm font-medium text-white/80 hover:text-white hover:bg-white/10 transition-colors"
               >
-                Login
+                {t.nav.login}
               </Link>
               <Link href="/join" onClick={() => setMobileOpen(false)}>
                 <Button
                   size="sm"
                   className="w-full bg-[#C9A227] text-[#0D3572] hover:bg-[#b8911f] font-semibold border-0"
                 >
-                  Join Now
+                  {t.nav.joinNow}
                 </Button>
               </Link>
             </Show>
