@@ -13,7 +13,7 @@ import { useLanguage } from "@/components/LanguageProvider";
 export default function Navbar() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const { locale, setLocale, t } = useLanguage();
+  const { t } = useLanguage(); // locale + setLocale reserved for Creole toggle (coming soon)
 
   const navLinks = [
     { href: "/", label: t.nav.home },
@@ -71,24 +71,19 @@ export default function Navbar() {
           {/* Right side: language switcher + auth */}
           <div className="hidden md:flex items-center gap-2">
 
-            {/* Language toggle */}
+            {/* Creole toggle — coming soon
             <button
               onClick={() => setLocale(locale === "en" ? "sc" : "en")}
               className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-md border border-white/20 hover:border-white/40 hover:bg-white/10 transition-colors text-xs font-semibold text-white/80 hover:text-white"
-              title={locale === "en" ? "Switch to Seselwa" : "Switch to English"}
+              title={locale === "en" ? "Switch to Creole" : "Switch to English"}
             >
               {locale === "en" ? (
-                <>
-                  <SeychellesFlag width={16} height={11} className="rounded-sm" />
-                  <span>Seselwa</span>
-                </>
+                <><SeychellesFlag width={16} height={11} className="rounded-sm" /><span>Creole</span></>
               ) : (
-                <>
-                  <span className="text-base leading-none">🇬🇧</span>
-                  <span>English</span>
-                </>
+                <><span className="text-base leading-none">🇬🇧</span><span>English</span></>
               )}
             </button>
+            */}
 
             <Show when="signed-in">
               <Link
@@ -154,23 +149,18 @@ export default function Navbar() {
             ))}
           </nav>
           <div className="mt-3 pt-3 border-t border-white/10 flex flex-col gap-2">
-            {/* Mobile language toggle */}
+            {/* Mobile Creole toggle — coming soon
             <button
               onClick={() => setLocale(locale === "en" ? "sc" : "en")}
               className="flex items-center gap-2 px-3 py-2.5 rounded-md text-sm font-medium text-white/80 hover:text-white hover:bg-white/10 transition-colors w-full"
             >
               {locale === "en" ? (
-                <>
-                  <SeychellesFlag width={18} height={12} className="rounded-sm" />
-                  <span>Pase ar Seselwa</span>
-                </>
+                <><SeychellesFlag width={18} height={12} className="rounded-sm" /><span>Pase ar Kreol</span></>
               ) : (
-                <>
-                  <span className="text-base leading-none">🇬🇧</span>
-                  <span>Switch to English</span>
-                </>
+                <><span className="text-base leading-none">🇬🇧</span><span>Switch to English</span></>
               )}
             </button>
+            */}
 
             <Show when="signed-in">
               <Link
