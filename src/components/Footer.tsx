@@ -137,14 +137,23 @@ export default function Footer() {
               &copy; {new Date().getFullYear()} Retailers Association of Seychelles. All rights reserved.
             </p>
           </div>
-          <p className="text-white/50 text-xs">
+          <div className="flex items-center gap-4">
             <a
               href="mailto:retailersassociationsey@yahoo.com"
-              className="hover:text-[#C9A227] transition-colors"
+              className="text-white/50 text-xs hover:text-[#C9A227] transition-colors"
             >
               retailersassociationsey@yahoo.com
             </a>
-          </p>
+            <span className="text-white/20 text-xs">|</span>
+            <a
+              href="https://www.balavivek.pro/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white/40 text-xs hover:text-[#C9A227] transition-colors"
+            >
+              Dev: balavivek.pro
+            </a>
+          </div>
         </div>
       </div>
     </footer>
