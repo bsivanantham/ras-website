@@ -1,18 +1,20 @@
+import Image from "next/image";
 import { Users, Target, Heart, TrendingUp, Globe, UserCircle2 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import SeychellesFlag from "@/components/SeychellesFlag";
 
 const committee = [
-  { role: "Chairman", name: "Muthukumaran" },
-  { role: "Ex-Chairman", name: "Shanmugan" },
-  { role: "Vice-Chairman", name: "Rajpradeep" },
-  { role: "Secretary", name: "Balakumaran" },
-  { role: "Treasurer", name: "Sekaarkumar" },
-  { role: "Assistant Treasurer", name: "Manikandan" },
-  { role: "Assistant Secretary", name: "Harish" },
-  { role: "Committee Member", name: "Ganeshkumar" },
-  { role: "Committee Member", name: "Subramanian" },
-  { role: "Committee Member", name: "Vengadanarayanan" },
-  { role: "Committee Member", name: "Divya A.S" },
+  { role: "Chairman", name: "Muthukumaran", highlight: true },
+  { role: "Vice Chairman", name: "Raj Pradeep", highlight: true },
+  { role: "Secretary", name: "Bala Kumaran", highlight: false },
+  { role: "Asst. Secretary", name: "Harish", highlight: false },
+  { role: "Treasurer", name: "Sekaar Kumar", highlight: false },
+  { role: "Asst. Treasurer", name: "Manikandan", highlight: false },
+  { role: "Committee Member", name: "Divya", highlight: false },
+  { role: "Committee Member", name: "Subramanian Vijay", highlight: false },
+  { role: "Committee Member", name: "Vengadanarayanan", highlight: false },
+  { role: "Committee Member", name: "Ganeshkumar", highlight: false },
+  { role: "Committee Member", name: "Karthikeyan", highlight: false },
 ];
 
 const values = [
@@ -46,21 +48,26 @@ export default function AboutPage() {
   return (
     <div className="flex flex-col">
       {/* Hero */}
-      <section className="bg-[#0D3572] text-white py-16 md:py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl">
-            <p className="text-[#C9A227] text-sm font-semibold uppercase tracking-wider mb-3">
+      <section className="bg-[#0D3572] text-white py-16 md:py-24 relative overflow-hidden">
+        {/* Flag accent top-right */}
+        <div className="absolute top-0 right-0 opacity-20">
+          <SeychellesFlag width={280} height={187} />
+        </div>
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="flex items-center gap-3 mb-4">
+            <SeychellesFlag width={40} height={27} className="rounded-sm shadow" />
+            <p className="text-[#C9A227] text-sm font-semibold uppercase tracking-wider">
               About Us
             </p>
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">
-              Championing Retail Excellence in Seychelles
-            </h1>
-            <p className="text-white/80 text-lg leading-relaxed">
-              The Retailers Association of Seychelles (RAS) is the authoritative voice for
-              retail businesses across the islands — connecting members with government,
-              service providers, and each other.
-            </p>
           </div>
+          <h1 className="text-4xl md:text-5xl font-bold mb-6 max-w-3xl">
+            Championing Retail Excellence in Seychelles
+          </h1>
+          <p className="text-white/80 text-lg leading-relaxed max-w-2xl">
+            The Retailers Association of Seychelles (RAS) is the authoritative voice for
+            retail businesses across the islands — connecting members with government,
+            service providers, and each other.
+          </p>
         </div>
       </section>
 
@@ -112,7 +119,7 @@ export default function AboutPage() {
 
       {/* Our Story */}
       <section className="py-16 bg-[#EFF4FF]">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 max-w-4xl">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
             <p className="text-[#C9A227] text-sm font-semibold uppercase tracking-wider mb-3">
               Our Story
@@ -120,7 +127,7 @@ export default function AboutPage() {
             <h2 className="text-3xl font-bold text-[#0D3572] mb-6">
               Built by Retailers, for Retailers
             </h2>
-            <div className="prose prose-gray max-w-none space-y-4 text-gray-700 leading-relaxed">
+            <div className="space-y-4 text-gray-700 leading-relaxed">
               <p>
                 The Retailers Association of Seychelles was founded by a group of passionate retail
                 business owners who recognised a critical gap: Seychelles retailers lacked a unified
@@ -153,34 +160,72 @@ export default function AboutPage() {
       {/* Committee 2026 */}
       <section className="py-16 bg-white">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <p className="text-[#C9A227] text-sm font-semibold uppercase tracking-wider mb-3">
-              Leadership
-            </p>
-            <h2 className="text-3xl font-bold text-[#0D3572] mb-4">Committee 2026</h2>
+          <div className="text-center mb-10">
+            <div className="flex items-center justify-center gap-3 mb-3">
+              <SeychellesFlag width={32} height={21} className="rounded-sm shadow-sm" />
+              <p className="text-[#C9A227] text-sm font-semibold uppercase tracking-wider">
+                Leadership
+              </p>
+              <SeychellesFlag width={32} height={21} className="rounded-sm shadow-sm" />
+            </div>
+            <h2 className="text-3xl font-bold text-[#0D3572] mb-4">RAS Committee 2026</h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
               Our elected committee brings together experienced retail professionals committed to
               serving the membership and advancing the interests of Seychelles retailers.
             </p>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-4">
+
+          {/* Committee group photo */}
+          <div className="mb-12 rounded-2xl overflow-hidden shadow-lg relative">
+            <Image
+              src="/images/committee-2026.jpg"
+              alt="RAS Committee 2026 — group photo"
+              width={1200}
+              height={600}
+              className="w-full object-cover max-h-[480px]"
+              priority
+            />
+          </div>
+
+          {/* Committee cards */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
             {committee.map((member) => (
               <Card
                 key={`${member.role}-${member.name}`}
-                className="bg-white border border-[#0D3572]/10 shadow-sm hover:shadow-md transition-shadow text-center"
+                className={`border text-center transition-shadow hover:shadow-md ${
+                  member.highlight
+                    ? "border-[#C9A227] bg-[#0D3572] text-white"
+                    : "border-[#0D3572]/10 bg-white"
+                }`}
               >
                 <CardHeader className="pb-2">
                   <div className="flex justify-center mb-3">
-                    <div className="h-16 w-16 rounded-full bg-[#0D3572]/10 flex items-center justify-center">
-                      <UserCircle2 className="h-10 w-10 text-[#0D3572]/60" />
+                    <div
+                      className={`h-16 w-16 rounded-full flex items-center justify-center ${
+                        member.highlight ? "bg-[#C9A227]/20" : "bg-[#0D3572]/10"
+                      }`}
+                    >
+                      <UserCircle2
+                        className={`h-10 w-10 ${
+                          member.highlight ? "text-[#C9A227]" : "text-[#0D3572]/60"
+                        }`}
+                      />
                     </div>
                   </div>
-                  <CardTitle className="text-[#0D3572] text-sm font-bold leading-tight">
+                  <CardTitle
+                    className={`text-sm font-bold leading-tight ${
+                      member.highlight ? "text-white" : "text-[#0D3572]"
+                    }`}
+                  >
                     {member.name}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-[#C9A227] text-xs font-semibold uppercase tracking-wide">
+                  <p
+                    className={`text-xs font-semibold uppercase tracking-wide ${
+                      member.highlight ? "text-[#C9A227]" : "text-[#C9A227]"
+                    }`}
+                  >
                     {member.role}
                   </p>
                 </CardContent>
@@ -191,8 +236,11 @@ export default function AboutPage() {
       </section>
 
       {/* Values */}
-      <section className="py-16 bg-[#0D3572] text-white">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <section className="py-16 bg-[#0D3572] text-white relative overflow-hidden">
+        <div className="absolute bottom-0 left-0 opacity-10">
+          <SeychellesFlag width={300} height={200} />
+        </div>
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-12">
             <p className="text-[#C9A227] text-sm font-semibold uppercase tracking-wider mb-3">
               Our Values

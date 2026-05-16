@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import {
   BookOpen,
   Shield,
@@ -11,7 +12,6 @@ import {
   Bug,
   Scale,
   ClipboardList,
-  Star,
   Building2,
   HeartHandshake,
   Truck,
@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import SeychellesFlag from "@/components/SeychellesFlag";
 
 const features = [
   {
@@ -124,10 +125,14 @@ export default function HomePage() {
             backgroundSize: "20px 20px",
           }}
         />
+        {/* Seychelles flag — large decorative, top-right */}
+        <div className="absolute top-0 right-0 opacity-15 pointer-events-none">
+          <SeychellesFlag width={420} height={280} />
+        </div>
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-24 md:py-32">
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 rounded-full bg-[#C9A227]/20 px-4 py-1.5 text-[#C9A227] text-sm font-medium mb-6">
-              <Star className="h-3.5 w-3.5" />
+              <SeychellesFlag width={18} height={12} className="rounded-sm" />
               Fair Service to Our Nation
             </div>
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight mb-6">
@@ -177,6 +182,60 @@ export default function HomePage() {
                 <p className="text-sm text-gray-500 mt-1 font-medium">{stat.label}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Brochure / Platform preview */}
+      <section className="py-16 bg-white">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+            <div>
+              <div className="flex items-center gap-2 mb-3">
+                <SeychellesFlag width={28} height={19} className="rounded-sm shadow-sm" />
+                <p className="text-[#C9A227] text-sm font-semibold uppercase tracking-wider">
+                  Stronger Retailers, Stronger Seychelles
+                </p>
+              </div>
+              <h2 className="text-3xl font-bold text-[#0D3572] mb-4">
+                Your Partner in Compliance.<br />Your Partner in Growth.
+              </h2>
+              <p className="text-gray-600 leading-relaxed mb-6">
+                RAS gives every retailer in Seychelles a single platform for laws, contacts, vetted
+                providers, and peer support — so you spend less time navigating bureaucracy and more
+                time growing your business.
+              </p>
+              <div className="space-y-3">
+                {[
+                  "Stay compliant with Seychelles laws",
+                  "Improve store quality & safety",
+                  "Save time with ready resources",
+                  "Connect with verified service providers",
+                  "Build customer trust & loyalty",
+                ].map((item) => (
+                  <div key={item} className="flex items-center gap-2 text-sm text-gray-700">
+                    <CheckCircle className="h-4 w-4 text-[#1B8A4B] shrink-0" />
+                    {item}
+                  </div>
+                ))}
+              </div>
+              <div className="mt-8">
+                <Link href="/join">
+                  <button className="inline-flex items-center gap-2 bg-[#0D3572] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#0a2a5e] transition-colors text-sm">
+                    Become a Member <ArrowRight className="h-4 w-4" />
+                  </button>
+                </Link>
+              </div>
+            </div>
+            <div className="rounded-2xl overflow-hidden shadow-xl">
+              <Image
+                src="/images/brochure.jpg"
+                alt="RAS Platform — Retail Support Brochure"
+                width={800}
+                height={560}
+                className="w-full object-cover"
+              />
+            </div>
           </div>
         </div>
       </section>

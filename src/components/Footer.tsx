@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { MapPin, Phone, Mail, ExternalLink } from "lucide-react";
+import SeychellesFlag from "@/components/SeychellesFlag";
 
 export default function Footer() {
   return (
@@ -130,9 +131,12 @@ export default function Footer() {
       {/* Bottom bar */}
       <div className="border-t border-white/10 bg-[#0a2a5a]">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row items-center justify-between gap-2">
-          <p className="text-white/50 text-xs">
-            &copy; {new Date().getFullYear()} Retailers Association of Seychelles. All rights reserved.
-          </p>
+          <div className="flex items-center gap-2">
+            <SeychellesFlag width={20} height={13} className="rounded-sm opacity-80" />
+            <p className="text-white/50 text-xs">
+              &copy; {new Date().getFullYear()} Retailers Association of Seychelles. All rights reserved.
+            </p>
+          </div>
           <p className="text-white/50 text-xs">
             <a
               href="mailto:retailersassociationsey@yahoo.com"

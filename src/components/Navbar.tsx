@@ -7,6 +7,7 @@ import { Show, UserButton } from "@clerk/nextjs";
 import { Menu, X, ShoppingBag } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import SeychellesFlag from "@/components/SeychellesFlag";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -34,9 +35,12 @@ export default function Navbar() {
               <p className="text-sm font-bold leading-tight tracking-wide text-white">
                 Retailers Association
               </p>
-              <p className="text-[10px] font-medium tracking-widest text-[#C9A227] uppercase">
-                of Seychelles
-              </p>
+              <div className="flex items-center gap-1 mt-0.5">
+                <SeychellesFlag width={14} height={9} className="rounded-sm" />
+                <p className="text-[10px] font-medium tracking-widest text-[#C9A227] uppercase">
+                  of Seychelles
+                </p>
+              </div>
             </div>
             <div className="block sm:hidden">
               <p className="text-sm font-bold text-white">RAS</p>
