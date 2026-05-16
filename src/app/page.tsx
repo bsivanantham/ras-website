@@ -116,9 +116,20 @@ export default function HomePage() {
   return (
     <div className="flex flex-col">
       {/* Hero */}
-      <section className="relative bg-[#0D3572] text-white overflow-hidden">
+      <section className="relative bg-[#0D3572] text-white overflow-hidden min-h-[600px] flex items-center">
+        {/* Retail shop background image */}
+        <Image
+          src="/images/hero-bg.jpg"
+          alt="Seychelles retail store"
+          fill
+          className="object-cover object-center"
+          priority
+        />
+        {/* Dark blue overlay so text stays readable */}
+        <div className="absolute inset-0 bg-[#0D3572]/80" />
+        {/* Subtle diagonal texture on top of overlay */}
         <div
-          className="absolute inset-0 opacity-10"
+          className="absolute inset-0 opacity-5"
           style={{
             backgroundImage:
               "repeating-linear-gradient(45deg, #C9A227 0, #C9A227 1px, transparent 0, transparent 50%)",
@@ -129,7 +140,7 @@ export default function HomePage() {
         <div className="absolute top-0 right-0 opacity-15 pointer-events-none">
           <SeychellesFlag width={420} height={280} />
         </div>
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-24 md:py-32">
+        <div className="relative w-full mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-24 md:py-32">
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 rounded-full bg-[#C9A227]/20 px-4 py-1.5 text-[#C9A227] text-sm font-medium mb-6">
               <SeychellesFlag width={18} height={12} className="rounded-sm" />
@@ -156,8 +167,7 @@ export default function HomePage() {
               <Link href="/resources">
                 <Button
                   size="lg"
-                  variant="outline"
-                  className="border-white/40 text-white hover:bg-white/10 hover:text-white px-8 h-12 text-base"
+                  className="bg-transparent border border-white/60 text-white hover:bg-white/15 hover:border-white font-semibold px-8 h-12 text-base"
                 >
                   Explore Resources
                 </Button>
