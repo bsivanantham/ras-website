@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { useAuth, UserButton } from "@clerk/nextjs";
+import { Show, UserButton } from "@clerk/nextjs";
 import { Menu, X, ShoppingBag } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -20,7 +20,6 @@ const navLinks = [
 export default function Navbar() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const { isSignedIn } = useAuth();
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-[#0D3572] text-white shadow-lg">
@@ -64,43 +63,36 @@ export default function Navbar() {
 
           {/* Right side: auth */}
           <div className="hidden md:flex items-center gap-3">
-            {isSignedIn ? (
-              <>
-                <Link
-                  href="/member"
-                  className={cn(
-                    "px-3 py-2 rounded-md text-sm font-medium transition-colors",
-                    pathname === "/member"
-                      ? "bg-white/20 text-white"
-                      : "text-white/80 hover:text-white hover:bg-white/10"
-                  )}
+            <Show when="signed-in">
+              <Link
+                href="/member"
+                className={cn(
+                  "px-3 py-2 rounded-md text-sm font-medium transition-colors",
+                  pathname === "/member"
+                    ? "bg-white/20 text-white"
+                    : "text-white/80 hover:text-white hover:bg-white/10"
+                )}
+              >
+                My Dashboard
+              </Link>
+              <UserButton appearance={{ elements: { avatarBox: "h-8 w-8" } }} />
+            </Show>
+            <Show when="signed-out">
+              <Link
+                href="/sign-in"
+                className="px-3 py-2 rounded-md text-sm font-medium text-white/80 hover:text-white hover:bg-white/10 transition-colors"
+              >
+                Login
+              </Link>
+              <Link href="/join">
+                <Button
+                  size="sm"
+                  className="bg-[#C9A227] text-[#0D3572] hover:bg-[#b8911f] font-semibold border-0"
                 >
-                  My Dashboard
-                </Link>
-                <UserButton
-                  appearance={{
-                    elements: { avatarBox: "h-8 w-8" },
-                  }}
-                />
-              </>
-            ) : (
-              <>
-                <Link
-                  href="/sign-in"
-                  className="px-3 py-2 rounded-md text-sm font-medium text-white/80 hover:text-white hover:bg-white/10 transition-colors"
-                >
-                  Login
-                </Link>
-                <Link href="/join">
-                  <Button
-                    size="sm"
-                    className="bg-[#C9A227] text-[#0D3572] hover:bg-[#b8911f] font-semibold border-0"
-                  >
-                    Join Now
-                  </Button>
-                </Link>
-              </>
-            )}
+                  Join Now
+                </Button>
+              </Link>
+            </Show>
           </div>
 
           {/* Mobile hamburger */}
@@ -135,38 +127,35 @@ export default function Navbar() {
             ))}
           </nav>
           <div className="mt-3 pt-3 border-t border-white/10 flex flex-col gap-2">
-            {isSignedIn ? (
-              <>
-                <Link
-                  href="/member"
-                  onClick={() => setMobileOpen(false)}
-                  className="px-3 py-2.5 rounded-md text-sm font-medium text-white/80 hover:text-white hover:bg-white/10 transition-colors"
+            <Show when="signed-in">
+              <Link
+                href="/member"
+                onClick={() => setMobileOpen(false)}
+                className="px-3 py-2.5 rounded-md text-sm font-medium text-white/80 hover:text-white hover:bg-white/10 transition-colors"
+              >
+                My Dashboard
+              </Link>
+              <div className="px-3">
+                <UserButton />
+              </div>
+            </Show>
+            <Show when="signed-out">
+              <Link
+                href="/sign-in"
+                onClick={() => setMobileOpen(false)}
+                className="px-3 py-2.5 rounded-md text-sm font-medium text-white/80 hover:text-white hover:bg-white/10 transition-colors"
+              >
+                Login
+              </Link>
+              <Link href="/join" onClick={() => setMobileOpen(false)}>
+                <Button
+                  size="sm"
+                  className="w-full bg-[#C9A227] text-[#0D3572] hover:bg-[#b8911f] font-semibold border-0"
                 >
-                  My Dashboard
-                </Link>
-                <div className="px-3">
-                  <UserButton />
-                </div>
-              </>
-            ) : (
-              <>
-                <Link
-                  href="/sign-in"
-                  onClick={() => setMobileOpen(false)}
-                  className="px-3 py-2.5 rounded-md text-sm font-medium text-white/80 hover:text-white hover:bg-white/10 transition-colors"
-                >
-                  Login
-                </Link>
-                <Link href="/join" onClick={() => setMobileOpen(false)}>
-                  <Button
-                    size="sm"
-                    className="w-full bg-[#C9A227] text-[#0D3572] hover:bg-[#b8911f] font-semibold border-0"
-                  >
-                    Join Now
-                  </Button>
-                </Link>
-              </>
-            )}
+                  Join Now
+                </Button>
+              </Link>
+            </Show>
           </div>
         </div>
       )}
