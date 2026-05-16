@@ -17,6 +17,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://retailers.sc"),
   title: "Retailers Association of Seychelles | Fair Service to Our Nation",
   description:
     "The Retailers Association of Seychelles (RAS) supports retail businesses across Mahé and the islands with compliance guidance, resources, and a strong member community.",
@@ -29,12 +30,42 @@ export const metadata: Metadata = {
     "Victoria",
     "Mahé",
   ],
+  authors: [{ name: "Balavivek Sivanantham", url: "https://www.balavivek.pro/" }],
+  creator: "Balavivek Sivanantham",
   openGraph: {
     title: "Retailers Association of Seychelles",
     description: "Fair Service to Our Nation — supporting Seychelles retailers since inception.",
+    url: "https://retailers.sc",
+    siteName: "Retailers Association of Seychelles",
     locale: "en_SC",
     type: "website",
   },
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      name: "Retailers Association of Seychelles",
+      url: "https://retailers.sc",
+      description:
+        "The Retailers Association of Seychelles supports retail businesses across Mahé and the islands with compliance guidance, resources, and a strong member community.",
+      creator: {
+        "@type": "Person",
+        name: "Balavivek Sivanantham",
+        url: "https://www.balavivek.pro/",
+        jobTitle: "Full Stack Developer",
+      },
+    },
+    {
+      "@type": "Person",
+      name: "Balavivek Sivanantham",
+      url: "https://www.balavivek.pro/",
+      jobTitle: "Full Stack Developer",
+      sameAs: ["https://www.balavivek.pro/"],
+    },
+  ],
 };
 
 export default function RootLayout({
@@ -48,6 +79,10 @@ export default function RootLayout({
       className={`${inter.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         <ClerkProvider>
           <LanguageProvider>
             <Navbar />
