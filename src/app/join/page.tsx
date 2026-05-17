@@ -81,7 +81,7 @@ export default function JoinPage() {
               Become a RAS Member
             </h1>
             <p className="text-white/80 text-lg leading-relaxed">
-              Join over 200 retail businesses across Seychelles and gain access to compliance
+              Join 355 retail businesses across Seychelles and gain access to compliance
               tools, expert resources, and a community that advocates for your success.
             </p>
           </div>
@@ -126,10 +126,8 @@ export default function JoinPage() {
                 </CardHeader>
                 <CardContent className="pt-4 space-y-4">
                   <div className="bg-white/10 rounded-xl p-4 text-center">
-                    <p className="text-[#C9A227] text-3xl font-bold">SCR</p>
-                    <p className="text-white/70 text-sm mt-1">
-                      Contact RAS for annual pricing
-                    </p>
+                    <p className="text-[#C9A227] text-3xl font-bold">SCR 500</p>
+                    <p className="text-white/70 text-sm mt-1">per year</p>
                   </div>
                   <ul className="space-y-2">
                     {[
