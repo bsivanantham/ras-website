@@ -137,7 +137,7 @@ export default function HomePage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
           <div className="grid grid-cols-3 gap-4 text-center">
             {[
-              { value: "200+", label: t.stats.members },
+              { value: "355", label: t.stats.members },
               { value: "15+", label: t.stats.years },
               { value: "100+", label: t.stats.resources },
             ].map((stat) => (
