@@ -1,5 +1,5 @@
 import { SignUp } from "@clerk/nextjs";
-import { ShoppingBag } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 export default function SignUpPage() {
@@ -8,8 +8,15 @@ export default function SignUpPage() {
       {/* Branded header */}
       <div className="mb-8 text-center">
         <Link href="/" className="inline-flex flex-col items-center gap-3">
-          <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#0D3572]">
-            <ShoppingBag className="h-7 w-7 text-[#C9A227]" />
+          <div className="h-20 w-20 rounded-full bg-white p-1 shadow-md">
+            <Image
+              src="/images/logo.jpg"
+              alt="RAS Logo"
+              width={80}
+              height={80}
+              className="rounded-full object-contain"
+              priority
+            />
           </div>
           <div>
             <p className="text-xl font-bold text-[#0D3572] leading-tight">

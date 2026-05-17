@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { MapPin, Phone, Mail, ExternalLink } from "lucide-react";
 import SeychellesFlag from "@/components/SeychellesFlag";
@@ -9,9 +10,20 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* About RAS */}
           <div>
-            <h3 className="text-[#C9A227] font-bold text-sm uppercase tracking-wider mb-4">
-              About RAS
-            </h3>
+            <div className="flex items-center gap-3 mb-4">
+              <div className="h-12 w-12 rounded-full bg-white p-0.5 shrink-0">
+                <Image
+                  src="/images/logo.jpg"
+                  alt="RAS Logo"
+                  width={48}
+                  height={48}
+                  className="rounded-full object-contain"
+                />
+              </div>
+              <h3 className="text-[#C9A227] font-bold text-sm uppercase tracking-wider">
+                About RAS
+              </h3>
+            </div>
             <p className="text-white/75 text-sm leading-relaxed mb-4">
               The Retailers Association of Seychelles is the representative body for retail
               businesses across Mahé and the islands, advocating for fair trade and

@@ -3,8 +3,9 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import Image from "next/image";
 import { Show, UserButton } from "@clerk/nextjs";
-import { Menu, X, ShoppingBag } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import SeychellesFlag from "@/components/SeychellesFlag";
@@ -31,8 +32,15 @@ export default function Navbar() {
 
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5 shrink-0">
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#C9A227]">
-              <ShoppingBag className="h-5 w-5 text-[#0D3572]" />
+            <div className="h-10 w-10 rounded-full bg-white p-0.5 shadow shrink-0">
+              <Image
+                src="/images/logo.jpg"
+                alt="RAS Logo"
+                width={40}
+                height={40}
+                className="rounded-full object-contain"
+                priority
+              />
             </div>
             <div className="hidden sm:block">
               <p className="text-sm font-bold leading-tight tracking-wide text-white">
