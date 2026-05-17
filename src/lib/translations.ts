@@ -71,7 +71,7 @@ export const translations: Record<Locale, TranslationKeys> = {
       headingPre: "Your All-In-One Platform for",
       headingHighlight: "Retail Success",
       description:
-        "The Retailers Association of Seychelles empowers retail business owners across Mahé and the islands with compliance tools, expert resources, and a strong community voice. Grow your business with confidence.",
+        "The Retailers Association of Seychelles empowers retail business owners across Mahé, Praslin, La Digue, and the outer islands with compliance tools, expert resources, and a strong community voice. Grow your business with confidence.",
       joinNow: "Join Now",
       exploreResources: "Explore Resources",
     },
