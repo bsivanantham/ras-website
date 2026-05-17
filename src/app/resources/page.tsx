@@ -24,6 +24,7 @@ const categories = [
     resources: [
       { title: "Consumer Protection Act", description: "The primary legislation protecting consumer rights and outlining retailer obligations in Seychelles.", type: "PDF", access: "public" },
       { title: "Public Health Act — Food Safety Provisions", description: "Regulations covering food storage, handling, labelling, and expiry date management for retail food businesses.", type: "PDF", access: "public" },
+      { title: "Competition Law in Seychelles — FTA 2022 Guide", description: "A plain-language guide to the Fair Trading Act 2022 covering anti-competitive practices, cartels, abuse of dominance, mergers, and the Corporate Immunity Policy — essential reading for all retailers.", type: "PDF", access: "public" },
       { title: "Trade Licensing Regulations 2023", description: "Requirements for obtaining and renewing trade licences for retail, wholesale, and import/export businesses.", type: "PDF", access: "member" },
       { title: "Employment Act — Retail Sector Summary", description: "A plain-language summary of employer obligations under the Seychelles Employment Act, prepared for retailers.", type: "PDF", access: "member" },
     ],
@@ -73,6 +74,7 @@ const categories = [
       { title: "Seychelles Revenue Commission", description: "The authority for tax registration, business licences, and fiscal compliance for all Seychelles businesses.", type: "Link", access: "public" },
       { title: "Public Health Authority", description: "The body responsible for food safety inspections, health certificates, and public health compliance.", type: "Link", access: "public" },
       { title: "Seychelles Bureau of Standards", description: "Standards authority for product quality, labelling requirements, and certification processes.", type: "Link", access: "public" },
+      { title: "Fair Trading Commission (FTC)", description: "Enforces the Fair Trading Act 2022 — investigates anti-competitive practices, cartels, abuse of dominance, and oversees merger approvals. Contact: competition@ftc.sc | +248 264 4763.", type: "Link", access: "public" },
       { title: "Labour Commissioner's Office", description: "Official resource for employment disputes, worker rights, and employer obligations under Seychelles law.", type: "Link", access: "public" },
     ],
   },

@@ -5,6 +5,7 @@ import {
   Thermometer,
   AlertTriangle,
   Trash2,
+  Scale,
   CheckCircle,
   ExternalLink,
   Phone,
@@ -59,6 +60,22 @@ const pillars = [
       "Keep a disposal log recording product name, batch, quantity, and date removed",
       "Train staff to check expiry dates when receiving new stock deliveries",
       "Use shelf-edge date stickers for slow-moving items to flag upcoming expirations",
+    ],
+  },
+  {
+    icon: Scale,
+    title: "Fair Trading & Competition Law",
+    description:
+      "Under the Fair Trading Act 2022 (FTA 2022), all retailers in Seychelles are subject to competition law enforced by the Fair Trading Commission (FTC). Violations can result in fines of up to SCR 500,000 or 10% of annual turnover.",
+    checklist: [
+      "Never agree with competitors to fix prices, divide markets, or limit supply — this constitutes a cartel, which is a criminal offence under the FTA 2022.",
+      "Do not participate in collusive tendering or bid rigging on any procurement or contract.",
+      "If your business holds a dominant market position, do not impose unfair prices, refuse access to essential facilities, or engage in exclusive dealing that harms competition.",
+      "Avoid resale price maintenance — do not force or agree with resellers on the price at which they must sell to their customers.",
+      "Do not engage in tied selling — requiring a customer to buy a second product in order to obtain the desired product.",
+      "For any proposed mergers where combined annual turnover or assets of the parties equals or exceeds SCR 10 million, notify and seek approval from the Fair Trading Commission before proceeding.",
+      "If you suspect a cartel or anti-competitive practice, consider the Corporate Immunity Policy — the first party to disclose to the FTC may receive full immunity from fines.",
+      "Keep records of all supplier agreements and distribution contracts to demonstrate compliance with vertical relationship rules.",
     ],
   },
   {
@@ -128,8 +145,8 @@ export default async function CompliancePage() {
             <h1 className="text-4xl md:text-5xl font-bold mb-6">Stay Compliant, Stay Protected</h1>
             <p className="text-white/80 text-lg leading-relaxed">
               Navigating Seychelles retail regulations doesn&apos;t have to be complicated. This hub
-              covers the four pillars of retail compliance — with practical checklists you can action today.{" "}
-              {!isLoggedIn && <span className="text-[#C9A227] font-semibold">Join RAS to unlock all four pillars.</span>}
+              covers five pillars of retail compliance — with practical checklists you can action today.{" "}
+              {!isLoggedIn && <span className="text-[#C9A227] font-semibold">Join RAS to unlock all five pillars.</span>}
             </p>
           </div>
         </div>
@@ -141,7 +158,7 @@ export default async function CompliancePage() {
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row items-center justify-between gap-3">
             <div className="flex items-center gap-2 text-sm text-[#0D3572]">
               <Lock className="h-4 w-4 text-[#C9A227] shrink-0" />
-              <span>Previewing <strong>1 of 4 compliance pillars</strong> — members access all checklists, gov links & downloadable audit tools.</span>
+              <span>Previewing <strong>1 of 5 compliance pillars</strong> — members access all checklists, gov links & downloadable audit tools.</span>
             </div>
             <div className="flex gap-2 shrink-0">
               <Link href="/sign-in">

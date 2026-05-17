@@ -1,7 +1,17 @@
+import Link from "next/link";
 import Image from "next/image";
-import { Users, Target, Heart, TrendingUp, Globe, UserCircle2 } from "lucide-react";
+import { Users, Target, Heart, TrendingUp, Globe, UserCircle2, ScrollText, ChevronRight } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import SeychellesFlag from "@/components/SeychellesFlag";
+
+const aims = [
+  "To bring and maintain good standards in the retail business of all kinds in the Republic of Seychelles.",
+  "To protect, safeguard and represent the interests of all retail traders, merchants, businessmen, and shop-keepers for issues affecting them individually or collectively, and to voice those interests with the Government of Seychelles and its Agencies.",
+  "To foster goodwill, understanding, and good fellowship among members of the Association and the consumers as a whole.",
+  "To nurture, develop, and maintain good relationships with Government Agencies so as to better achieve the objectives of this Association.",
+  "To extend all kinds of help to fellow members of the Association at the time of need.",
+  "To hold gatherings to discuss the development of the retail business in the Republic of Seychelles and the objectives of the Association.",
+];
 
 const committee = [
   { role: "Chairman", name: "Muthukumaran", highlight: true },
@@ -117,8 +127,70 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Our Story */}
+      {/* Aims & Objects */}
       <section className="py-16 bg-[#EFF4FF]">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+            <div>
+              <p className="text-[#C9A227] text-sm font-semibold uppercase tracking-wider mb-3">
+                Our Constitution
+              </p>
+              <h2 className="text-3xl font-bold text-[#0D3572] mb-4">Aims &amp; Objects</h2>
+              <p className="text-gray-600 text-sm leading-relaxed mb-6">
+                As set out in Article III of the RAS Constitution, the Association is formed with the
+                following aims and objects:
+              </p>
+              <ul className="space-y-4">
+                {aims.map((aim, i) => (
+                  <li key={i} className="flex items-start gap-3">
+                    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#0D3572] text-white text-xs font-bold shrink-0 mt-0.5">
+                      {String.fromCharCode(97 + i)}
+                    </span>
+                    <span className="text-gray-700 text-sm leading-relaxed">{aim}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Governance card */}
+            <div className="bg-[#0D3572] rounded-2xl p-8 text-white">
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#C9A227]/20 mb-5">
+                <ScrollText className="h-6 w-6 text-[#C9A227]" />
+              </div>
+              <h3 className="text-xl font-bold mb-3">RAS Constitution</h3>
+              <p className="text-white/75 text-sm leading-relaxed mb-5">
+                The RAS Constitution is the governing document of the Association. It sets out our
+                name, aims, membership rules, fee structure, meeting procedures, management committee
+                composition, and the rules for amendment and dissolution.
+              </p>
+              <ul className="space-y-2 mb-6">
+                {[
+                  "Annual membership fee: SR 500.00",
+                  "Management Committee: 11 elected + 1 Ex officio",
+                  "AGM quorum: 20 members or 1/3 of registered members",
+                  "Dissolution requires 90% membership vote",
+                  "Amendment requires 2/3 majority at General Meeting",
+                ].map((item) => (
+                  <li key={item} className="flex items-start gap-2 text-sm text-white/80">
+                    <ChevronRight className="h-4 w-4 text-[#C9A227] shrink-0 mt-0.5" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+              <Link
+                href="/constitution"
+                className="inline-flex items-center gap-2 bg-[#C9A227] text-[#0D3572] px-5 py-2.5 rounded-lg font-semibold text-sm hover:bg-[#b8911f] transition-colors"
+              >
+                <ScrollText className="h-4 w-4" />
+                Read Full Constitution
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Our Story */}
+      <section className="py-16 bg-white">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
             <p className="text-[#C9A227] text-sm font-semibold uppercase tracking-wider mb-3">
