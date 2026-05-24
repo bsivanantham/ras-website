@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Geist_Mono } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -90,6 +91,7 @@ export default function RootLayout({
             <Footer />
           </LanguageProvider>
         </ClerkProvider>
+        <Analytics />
       </body>
     </html>
   );
