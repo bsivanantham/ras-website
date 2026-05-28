@@ -1,20 +1,21 @@
 import Image from "next/image";
-import { Users, Target, Heart, TrendingUp, Globe, UserCircle2 } from "lucide-react";
+import { Users, Target, Heart, TrendingUp, Globe, UserCircle2, Phone, Lock } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import SeychellesFlag from "@/components/SeychellesFlag";
+import { auth } from "@clerk/nextjs/server";
 
 const committee = [
-  { role: "Chairman", name: "Muthukumaran", highlight: true },
-  { role: "Vice Chairman", name: "Raj Pradeep", highlight: true },
-  { role: "Secretary", name: "Bala Kumaran", highlight: false },
-  { role: "Asst. Secretary", name: "Harish", highlight: false },
-  { role: "Treasurer", name: "Sekaar Kumar", highlight: false },
-  { role: "Asst. Treasurer", name: "Manikandan", highlight: false },
-  { role: "Committee Member", name: "Divya", highlight: false },
-  { role: "Committee Member", name: "Subramanian Vijay", highlight: false },
-  { role: "Committee Member", name: "Vengadanarayanan", highlight: false },
-  { role: "Committee Member", name: "Ganeshkumar", highlight: false },
-  { role: "Committee Member", name: "Karthikeyan", highlight: false },
+  { role: "Chairman", name: "MuthuKumaran", phone: "2521500", highlight: true },
+  { role: "Vice Chairman", name: "Raj Pradeep", phone: "2737273", highlight: true },
+  { role: "Secretary", name: "Bala Kumaran", phone: "2819678", highlight: false },
+  { role: "Asst. Secretary", name: "Harish", phone: "2817817", highlight: false },
+  { role: "Treasurer", name: "Sekaar Kumar", phone: "2727374", highlight: false },
+  { role: "Asst. Treasurer", name: "Manikandan", phone: "2723873", highlight: false },
+  { role: "Committee Member", name: "Divya", phone: "2808999", highlight: false },
+  { role: "Committee Member", name: "Subramanian Vijay", phone: "2722292", highlight: false },
+  { role: "Committee Member", name: "Vengadanarayanan", phone: "2763838", highlight: false },
+  { role: "Committee Member", name: "Ganeshkumar", phone: "2833366", highlight: false },
+  { role: "Committee Member", name: "Karthikeyan", phone: "2500707", highlight: false },
 ];
 
 const values = [
@@ -44,31 +45,35 @@ const values = [
   },
 ];
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const { userId } = await auth();
+  const isLoggedIn = !!userId;
+
   return (
     <div className="flex flex-col">
       {/* Hero */}
-      <section className="bg-[#0D3572] text-white py-16 md:py-24 relative overflow-hidden">
-        {/* Flag accent top-right */}
-        <div className="absolute top-0 right-0 opacity-20">
-          <SeychellesFlag width={280} height={187} />
+      <section className="relative bg-[#0D3572] text-white overflow-hidden min-h-[320px] sm:min-h-[380px] flex items-center">
+        <Image src="/images/hero-about.jpg" alt="Retailers Association of Seychelles team meeting" fill className="object-cover object-center" priority />
+        <div className="absolute inset-0 bg-[#0D3572]/85" />
+        <div className="absolute inset-0 opacity-5" style={{ backgroundImage: "repeating-linear-gradient(45deg, #C9A227 0, #C9A227 1px, transparent 0, transparent 50%)", backgroundSize: "20px 20px" }} />
+        <div className="absolute top-0 right-0 opacity-15 pointer-events-none">
+          <SeychellesFlag width={420} height={280} />
         </div>
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="relative w-full mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 md:py-24">
           <div className="flex items-center gap-3 mb-4">
             <SeychellesFlag width={40} height={27} className="rounded-sm shadow" />
-            <p className="text-[#C9A227] text-sm font-semibold uppercase tracking-wider">
-              About Us
-            </p>
+            <p className="text-[#C9A227] text-sm font-semibold uppercase tracking-wider">About Us</p>
           </div>
           <h1 className="text-4xl md:text-5xl font-bold mb-6 max-w-3xl">
             Championing Retail Excellence in Seychelles
           </h1>
           <p className="text-white/80 text-lg leading-relaxed max-w-2xl">
-            The Retailers Association of Seychelles (RAS) is the authoritative voice for
+            The Retailers Association of Seychelles is the authoritative voice for
             retail businesses across the islands — connecting members with government,
             service providers, and each other.
           </p>
         </div>
+        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-[#1B8A4B] via-[#C9A227] to-[#1B8A4B]" />
       </section>
 
       {/* Mission */}
@@ -83,7 +88,7 @@ export default function AboutPage() {
                 Fair Service to Our Nation
               </h2>
               <p className="text-gray-700 leading-relaxed mb-4">
-                RAS exists to represent, support, and empower retail businesses across Seychelles.
+                Retailers Association of Seychelles exists to represent, support, and empower retail businesses across Seychelles.
                 We work to ensure that every retailer — from the corner shop in Mahé to the
                 multi-branch operator — has access to the guidance, resources, and advocacy they
                 need to operate legally, ethically, and profitably.
@@ -117,41 +122,104 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Our Story */}
+      {/* History of RAS */}
       <section className="py-16 bg-[#EFF4FF]">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
             <p className="text-[#C9A227] text-sm font-semibold uppercase tracking-wider mb-3">
-              Our Story
+              Our History
             </p>
-            <h2 className="text-3xl font-bold text-[#0D3572] mb-6">
-              Built by Retailers, for Retailers
+            <h2 className="text-3xl font-bold text-[#0D3572] mb-8">
+              History of Retailers Association of Seychelles
             </h2>
-            <div className="space-y-4 text-gray-700 leading-relaxed">
-              <p>
-                The Retailers Association of Seychelles was founded by a group of passionate retail
-                business owners who recognised a critical gap: Seychelles retailers lacked a unified
-                platform to navigate the increasingly complex regulatory environment, access
-                affordable services, and speak with one voice to government.
-              </p>
-              <p>
-                Since our establishment, RAS has grown into one of the most active business
-                associations in Seychelles, with a membership spanning grocery stores, pharmacies,
-                hardware outlets, clothing retailers, importers, and wholesalers across Mahé and
-                the outer islands.
-              </p>
-              <p>
-                Over the years, we have successfully advocated for fairer licensing processes,
-                clearer public health guidelines, and better access to waste management and pest
-                control services for our members. We have also built a comprehensive resources
-                library that helps retailers stay compliant without the need for expensive
-                professional advice.
-              </p>
-              <p>
-                Today, RAS serves as the definitive support network for Seychelles retailers —
-                connecting businesses with the people, information, and services they need to
-                grow responsibly and sustainably.
-              </p>
+
+            {/* Timeline */}
+            <div className="space-y-8">
+              {/* 2010 — Founded */}
+              <div className="flex gap-4 sm:gap-6">
+                <div className="flex flex-col items-center shrink-0">
+                  <div className="h-10 w-10 rounded-full bg-[#0D3572] flex items-center justify-center shrink-0">
+                    <span className="text-white text-xs font-extrabold">2010</span>
+                  </div>
+                  <div className="w-0.5 bg-[#0D3572]/20 flex-1 mt-2" />
+                </div>
+                <div className="pb-8">
+                  <h3 className="text-[#0D3572] font-bold text-base mb-2">Association Founded</h3>
+                  <p className="text-gray-700 text-sm leading-relaxed mb-3">
+                    In the year 2010, a small group of dedicated retailers found it necessary to form
+                    an association. Its main objectives were:
+                  </p>
+                  <ol className="space-y-1.5 list-none">
+                    {[
+                      { n: 1, text: "To maintain high standard of service to consumers." },
+                      { n: 2, text: "To protect, safeguard and represent the interests of retailers." },
+                      { n: 3, text: "To foster good will and understanding amongst its members." },
+                      { n: 4, text: "To ensure good relationship with consumers, suppliers and government agencies." },
+                    ].map(({ n, text }) => (
+                      <li key={n} className="flex items-start gap-2 text-sm text-gray-700">
+                        <span className="h-5 w-5 rounded-full bg-[#C9A227] text-white text-xs flex items-center justify-center shrink-0 font-bold mt-0.5">
+                          {n}
+                        </span>
+                        {text}
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+              </div>
+
+              {/* 2011 — Registered */}
+              <div className="flex gap-4 sm:gap-6">
+                <div className="flex flex-col items-center shrink-0">
+                  <div className="h-10 w-10 rounded-full bg-[#0D3572] flex items-center justify-center shrink-0">
+                    <span className="text-white text-xs font-extrabold">2011</span>
+                  </div>
+                  <div className="w-0.5 bg-[#0D3572]/20 flex-1 mt-2" />
+                </div>
+                <div className="pb-8">
+                  <h3 className="text-[#0D3572] font-bold text-base mb-2">Officially Registered</h3>
+                  <p className="text-gray-700 text-sm leading-relaxed">
+                    Our constitution was drafted and the Retailers Association was registered in the
+                    year 2011. Its first chairman was{" "}
+                    <strong className="text-[#0D3572]">Mr. Karumbairam Cholarajan</strong>.
+                  </p>
+                </div>
+              </div>
+
+              {/* Growth */}
+              <div className="flex gap-4 sm:gap-6">
+                <div className="flex flex-col items-center shrink-0">
+                  <div className="h-10 w-10 rounded-full bg-[#C9A227] flex items-center justify-center shrink-0">
+                    <span className="text-white text-xs font-extrabold">370+</span>
+                  </div>
+                  <div className="w-0.5 bg-[#0D3572]/20 flex-1 mt-2" />
+                </div>
+                <div className="pb-8">
+                  <h3 className="text-[#0D3572] font-bold text-base mb-2">Growing Membership</h3>
+                  <p className="text-gray-700 text-sm leading-relaxed">
+                    The association enrolled 100 members in its first year. To date our membership
+                    has grown to over <strong className="text-[#0D3572]">370 members</strong>. Most
+                    members are retailers from the grocery sector from Mahé, Praslin, and La Digue.
+                  </p>
+                </div>
+              </div>
+
+              {/* Today */}
+              <div className="flex gap-4 sm:gap-6">
+                <div className="flex flex-col items-center shrink-0">
+                  <div className="h-10 w-10 rounded-full bg-[#0D3572] flex items-center justify-center shrink-0">
+                    <span className="text-white text-xs font-extrabold">Now</span>
+                  </div>
+                </div>
+                <div>
+                  <h3 className="text-[#0D3572] font-bold text-base mb-2">Strong &amp; United</h3>
+                  <p className="text-gray-700 text-sm leading-relaxed">
+                    Over the years, the association has had its ups and downs. However, the unity of
+                    our members and the support of our esteem customers and suppliers and the
+                    cooperation of government agencies have enabled the association to overcome the
+                    difficulties which affected the smooth functioning of our trade.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -168,7 +236,7 @@ export default function AboutPage() {
               </p>
               <SeychellesFlag width={32} height={21} className="rounded-sm shadow-sm" />
             </div>
-            <h2 className="text-3xl font-bold text-[#0D3572] mb-4">RAS Committee 2026</h2>
+            <h2 className="text-3xl font-bold text-[#0D3572] mb-4">Retailers Association of Seychelles — Committee 2026</h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
               Our elected committee brings together experienced retail professionals committed to
               serving the membership and advancing the interests of Seychelles retailers.
@@ -188,7 +256,7 @@ export default function AboutPage() {
           </div>
 
           {/* Committee cards */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4">
             {committee.map((member) => (
               <Card
                 key={`${member.role}-${member.name}`}
@@ -221,13 +289,21 @@ export default function AboutPage() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p
-                    className={`text-xs font-semibold uppercase tracking-wide ${
-                      member.highlight ? "text-[#C9A227]" : "text-[#C9A227]"
-                    }`}
-                  >
+                  <p className="text-xs font-semibold uppercase tracking-wide text-[#C9A227]">
                     {member.role}
                   </p>
+                  {isLoggedIn ? (
+                    <a
+                      href={`tel:+248${member.phone}`}
+                      className="flex items-center justify-center gap-1 text-xs mt-2 text-[#C9A227] hover:underline"
+                    >
+                      <Phone className="h-3 w-3" /> {member.phone}
+                    </a>
+                  ) : (
+                    <p className="flex items-center justify-center gap-1 text-xs mt-2 text-gray-400 italic">
+                      <Lock className="h-3 w-3" /> Members only
+                    </p>
+                  )}
                 </CardContent>
               </Card>
             ))}
