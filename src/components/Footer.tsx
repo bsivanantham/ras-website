@@ -1,65 +1,36 @@
 import Image from "next/image";
-import Link from "next/link";
-import { MapPin, Phone, Mail, ExternalLink } from "lucide-react";
+import { Mail, Clock, Phone, MapPin } from "lucide-react";
 import SeychellesFlag from "@/components/SeychellesFlag";
 
 export default function Footer() {
   return (
     <footer className="bg-[#0D3572] text-white">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* About RAS */}
           <div>
             <div className="flex items-center gap-3 mb-4">
-              <div className="h-12 w-12 rounded-full bg-white p-0.5 shrink-0">
+              <div className="h-20 w-20 rounded-full bg-white p-0.5 shrink-0">
                 <Image
                   src="/images/logo.jpg"
                   alt="RAS Logo"
-                  width={48}
-                  height={48}
+                  width={80}
+                  height={80}
                   className="rounded-full object-contain"
                 />
               </div>
               <h3 className="text-[#C9A227] font-bold text-sm uppercase tracking-wider">
-                About RAS
+                About Retailers Association of Seychelles
               </h3>
             </div>
             <p className="text-white/75 text-sm leading-relaxed mb-4">
               The Retailers Association of Seychelles is the representative body for retail
-              businesses across Mahé and the islands, advocating for fair trade and
-              supporting members with compliance, resources, and community.
+              businesses across Mahé, Praslin, La Digue, and the outer islands, advocating
+              for fair trade and supporting members with compliance, resources, and community.
             </p>
             <p className="text-[#C9A227] text-xs font-medium italic">
-              "Fair Service to Our Nation"
+              &ldquo;Fair Service to Our Nation&rdquo;
             </p>
-          </div>
-
-          {/* Quick Links */}
-          <div>
-            <h3 className="text-[#C9A227] font-bold text-sm uppercase tracking-wider mb-4">
-              Quick Links
-            </h3>
-            <ul className="space-y-2">
-              {[
-                { href: "/", label: "Home" },
-                { href: "/about", label: "About Us" },
-                { href: "/resources", label: "Resources" },
-                { href: "/compliance", label: "Compliance Hub" },
-                { href: "/directory", label: "Service Directory" },
-                { href: "/contact", label: "Contact Us" },
-                { href: "/join", label: "Join RAS" },
-                { href: "/member", label: "Member Dashboard" },
-              ].map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-white/75 text-sm hover:text-[#C9A227] transition-colors"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
           </div>
 
           {/* Contact Info */}
@@ -68,74 +39,54 @@ export default function Footer() {
               Contact Info
             </h3>
             <ul className="space-y-3">
-              <li className="flex items-start gap-3">
-                <MapPin className="h-4 w-4 text-[#C9A227] mt-0.5 shrink-0" />
-                <span className="text-white/75 text-sm leading-relaxed">
-                  Bois De Rose Avenue,
-                  <br />
-                  Victoria, Mahé,
-                  <br />
-                  Seychelles
-                </span>
+              <li className="flex items-center gap-3">
+                <MapPin className="h-4 w-4 text-[#C9A227] shrink-0" />
+                <span className="text-white/75 text-sm">Mahé, Seychelles</span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="h-4 w-4 text-[#C9A227] shrink-0" />
-                <a
-                  href="tel:+2484323343"
-                  className="text-white/75 text-sm hover:text-[#C9A227] transition-colors"
-                >
-                  +248 4 323 343
-                </a>
+                <div className="text-white/75 text-sm">
+                  <a href="tel:+2482521500" className="hover:text-[#C9A227] transition-colors block">
+                    +248 2 521 500
+                  </a>
+                  <a href="tel:+2482737273" className="hover:text-[#C9A227] transition-colors block">
+                    +248 2 737 273
+                  </a>
+                  <a href="tel:+2482819678" className="hover:text-[#C9A227] transition-colors block">
+                    +248 281 96 78
+                  </a>
+                </div>
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="h-4 w-4 text-[#C9A227] shrink-0" />
                 <a
-                  href="mailto:info@retailers.sc"
-                  className="text-white/75 text-sm hover:text-[#C9A227] transition-colors"
+                  href="mailto:retailersassociationseychelles@gmail.com"
+                  className="text-white/75 text-sm hover:text-[#C9A227] transition-colors break-words"
                 >
-                  info@retailers.sc
+                  retailersassociationseychelles@gmail.com
                 </a>
               </li>
+              <li className="flex items-start gap-3">
+                <Clock className="h-4 w-4 text-[#C9A227] shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-white/75 text-sm">Monday – Friday</p>
+                  <p className="text-white/75 text-sm">8:30 AM – 4:30 PM</p>
+                </div>
+              </li>
               <li className="flex items-center gap-3">
-                <Mail className="h-4 w-4 text-[#C9A227] shrink-0" />
+                <svg className="h-4 w-4 text-[#C9A227] shrink-0 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M24 12.073C24 5.404 18.627 0 12 0S0 5.404 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.235 2.686.235v2.97h-1.513c-1.491 0-1.956.93-1.956 1.887v2.267h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/>
+                </svg>
                 <a
-                  href="mailto:retailersassociationsey@yahoo.com"
+                  href="https://www.facebook.com/share/1CWzHos1CE/"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-white/75 text-sm hover:text-[#C9A227] transition-colors"
                 >
-                  retailersassociationsey
-                  <br />
-                  @yahoo.com
+                  Follow us on Facebook
                 </a>
               </li>
             </ul>
-          </div>
-
-          {/* Social */}
-          <div>
-            <h3 className="text-[#C9A227] font-bold text-sm uppercase tracking-wider mb-4">
-              Connect With Us
-            </h3>
-            <p className="text-white/75 text-sm mb-4">
-              Stay updated with the latest news, events, and compliance updates from RAS.
-            </p>
-            <a
-              href="https://www.facebook.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-white/75 text-sm hover:text-[#C9A227] transition-colors"
-            >
-              <ExternalLink className="h-4 w-4" />
-              Facebook Page
-            </a>
-            <div className="mt-6 pt-6 border-t border-white/10">
-              <p className="text-white/60 text-xs leading-relaxed">
-                Office Hours:
-                <br />
-                Monday – Friday
-                <br />
-                8:30 AM – 4:30 PM
-              </p>
-            </div>
           </div>
         </div>
       </div>
@@ -148,23 +99,6 @@ export default function Footer() {
             <p className="text-white/50 text-xs">
               &copy; {new Date().getFullYear()} Retailers Association of Seychelles. All rights reserved.
             </p>
-          </div>
-          <div className="flex items-center gap-4">
-            <a
-              href="mailto:retailersassociationsey@yahoo.com"
-              className="text-white/50 text-xs hover:text-[#C9A227] transition-colors"
-            >
-              retailersassociationsey@yahoo.com
-            </a>
-            <span className="text-white/20 text-xs">|</span>
-            <a
-              href="https://www.balavivek.pro/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-white/40 text-xs hover:text-[#C9A227] transition-colors"
-            >
-              Dev: balavivek.pro
-            </a>
           </div>
         </div>
       </div>

@@ -105,7 +105,7 @@ export const translations: Record<Locale, TranslationKeys> = {
     },
     cta: {
       title: "Ready to grow your business?",
-      desc: "Join 355 Seychelles retailers who rely on RAS for compliance, resources, and community support.",
+      desc: "Join 370+ Seychelles retailers who rely on RAS for compliance, resources, and community support.",
       button: "Become a Member Today",
     },
     partner: {
