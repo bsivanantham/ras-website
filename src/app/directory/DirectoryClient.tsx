@@ -17,6 +17,7 @@ type Provider = {
   email: string | null;
   phone: string | null;
   phone2?: string | null;
+  email2?: string | null;
 };
 
 const filterCategories = [
@@ -129,7 +130,8 @@ export const providers: Provider[] = [
     description: "Oversees fair competition and trade practices in Seychelles. Contact for price-fixing complaints, anti-competitive behaviour, and consumer protection.",
     website: "www.ftc.sc",
     websiteHref: "https://www.ftc.sc",
-    email: "info@ftc.sc",
+    email: "jean-philip.esparon@ftc.gov.sc",
+    email2: "jean-Philippe.tambara@ftc.gov.sc",
     phone: null,
   },
   // Police & Emergency
@@ -295,9 +297,16 @@ function ProviderCard({ provider }: Readonly<{ provider: Provider }>) {
           {provider.email && (
             <div className="flex items-center gap-2 text-xs text-gray-500">
               <Mail className="h-3.5 w-3.5 text-[#0D3572] shrink-0" />
-              <a href={`mailto:${provider.email}`} className="hover:text-[#0D3572] transition-colors break-words">
-                {provider.email}
-              </a>
+              <div className="flex flex-col gap-0.5">
+                <a href={`mailto:${provider.email}`} className="hover:text-[#0D3572] transition-colors break-words">
+                  {provider.email}
+                </a>
+                {provider.email2 && (
+                  <a href={`mailto:${provider.email2}`} className="hover:text-[#0D3572] transition-colors break-words">
+                    {provider.email2}
+                  </a>
+                )}
+              </div>
             </div>
           )}
           {provider.websiteHref && (
