@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { auth } from "@clerk/nextjs/server";
 import {
   Shield,
@@ -9,7 +8,6 @@ import {
   ExternalLink,
   Phone,
   Mail,
-  Lock,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -129,31 +127,12 @@ export default async function CompliancePage() {
             <p className="text-white/80 text-lg leading-relaxed">
               Navigating Seychelles retail regulations doesn&apos;t have to be complicated. This hub
               covers the four pillars of retail compliance — with practical checklists you can action today.{" "}
-              {!isLoggedIn && <span className="text-[#C9A227] font-semibold">Join RAS to unlock all four pillars.</span>}
+              {!isLoggedIn && <span className="text-[#C9A227] font-semibold">Join Retailers Association of Seychelles to unlock all four pillars.</span>}
             </p>
           </div>
         </div>
       </section>
 
-      {/* Guest banner */}
-      {!isLoggedIn && (
-        <div className="bg-[#C9A227]/15 border-b border-[#C9A227]/30">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row items-center justify-between gap-3">
-            <div className="flex items-center gap-2 text-sm text-[#0D3572]">
-              <Lock className="h-4 w-4 text-[#C9A227] shrink-0" />
-              <span>Previewing <strong>1 of 4 compliance pillars</strong> — members access all checklists, gov links & downloadable audit tools.</span>
-            </div>
-            <div className="flex gap-2 shrink-0">
-              <Link href="/sign-in">
-                <Button size="sm" variant="outline" className="border-[#0D3572]/40 text-[#0D3572]">Sign In</Button>
-              </Link>
-              <Link href="/join">
-                <Button size="sm" className="bg-[#0D3572] text-white hover:bg-[#0a2a5a] border-0">Join Today</Button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* Intro */}
       <section className="py-10 bg-white border-b border-gray-100">
@@ -190,18 +169,21 @@ export default async function CompliancePage() {
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
               <div className="flex flex-col md:flex-row items-center justify-between gap-6">
                 <div>
-                  <h3 className="text-xl font-bold text-[#0D3572] mb-1">Need help with compliance? Contact RAS.</h3>
+                  <h3 className="text-xl font-bold text-[#0D3572] mb-1">Need help with compliance? Contact Retailers Association of Seychelles.</h3>
                   <p className="text-gray-700 text-sm leading-relaxed max-w-xl">
                     Our team can assist with compliance queries, connect you with the right government department, or arrange a compliance review for your store.
                   </p>
                 </div>
                 <div className="flex flex-col sm:flex-row gap-3 shrink-0">
-                  <a href="tel:+2484323343">
-                    <Button className="bg-[#0D3572] text-white hover:bg-[#0a2a5a] border-0 gap-2 w-full sm:w-auto">
-                      <Phone className="h-4 w-4" /> Call Us
-                    </Button>
-                  </a>
-                  <a href="mailto:info@retailers.sc">
+                  <Button className="bg-[#0D3572] text-white hover:bg-[#0a2a5a] border-0 gap-2 w-full sm:w-auto pointer-events-none">
+                    <Phone className="h-4 w-4" />
+                    <a href="tel:+2482521500" className="hover:underline pointer-events-auto">+248 2 521 500</a>
+                    <span>/</span>
+                    <a href="tel:+2482737273" className="hover:underline pointer-events-auto">+248 2 737 273</a>
+                    <span>/</span>
+                    <a href="tel:+2482819678" className="hover:underline pointer-events-auto">+248 281 96 78</a>
+                  </Button>
+                  <a href="mailto:retailersassociationseychelles@gmail.com">
                     <Button variant="outline" className="border-[#0D3572] text-[#0D3572] hover:bg-[#0D3572] hover:text-white gap-2 w-full sm:w-auto">
                       <Mail className="h-4 w-4" /> Email Us
                     </Button>
