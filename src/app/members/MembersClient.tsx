@@ -62,11 +62,12 @@ const PAGE_SIZES = [10, 25, 50, 100];
 const SORTED = [...members].sort((a, b) => a.shop.localeCompare(b.shop));
 
 export default function MembersClient() {
-  const [query,    setQuery]    = useState("");
-  const [region,   setRegion]   = useState("All");
-  const [letter,   setLetter]   = useState<string | null>(null);
-  const [pageSize, setPageSize] = useState(10);
-  const [page,     setPage]     = useState(1);
+  const [query,         setQuery]         = useState("");
+  const [region,        setRegion]        = useState("All");
+  const [letter,        setLetter]        = useState<string | null>(null);
+  const [certifiedOnly, setCertifiedOnly] = useState(false);
+  const [pageSize,      setPageSize]      = useState(10);
+  const [page,          setPage]          = useState(1);
 
   function reset() { setPage(1); }
 
@@ -76,6 +77,7 @@ export default function MembersClient() {
     return SORTED.filter((m) => {
       if (!regionDef.match(m)) return false;
       if (letter && !m.shop.startsWith(letter)) return false;
+      if (certifiedOnly && !m.rcpt) return false;
       if (!q) return true;
       return (
         m.shop.toLowerCase().includes(q) ||
@@ -83,13 +85,13 @@ export default function MembersClient() {
         m.address?.toLowerCase().includes(q)
       );
     });
-  }, [query, region, letter]);
+  }, [query, region, letter, certifiedOnly]);
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
   const safePage   = Math.min(page, totalPages);
   const paginated  = filtered.slice((safePage - 1) * pageSize, safePage * pageSize);
 
-  const hasFilters = !!letter || region !== "All" || !!query;
+  const hasFilters = !!letter || region !== "All" || !!query || certifiedOnly;
 
   return (
     <div>
@@ -122,6 +124,20 @@ export default function MembersClient() {
         ))}
       </div>
 
+      {/* Certified filter */}
+      <div className="mb-3">
+        <button
+          onClick={() => { setCertifiedOnly((v) => !v); reset(); }}
+          className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold transition-colors border ${
+            certifiedOnly
+              ? "bg-[#C9A227] text-white border-[#C9A227]"
+              : "bg-white border-[#C9A227]/40 text-[#C9A227]"
+          }`}
+        >
+          ✓ Certified 2026 Members Only
+        </button>
+      </div>
+
       {/* A–Z letter picker */}
       <div className="flex gap-1 overflow-x-auto pb-1 mb-4 -mx-4 px-4 sm:mx-0 sm:px-0 scrollbar-hide">
         <button
@@ -152,7 +168,7 @@ export default function MembersClient() {
         {filtered.length} member{filtered.length === 1 ? "" : "s"}
         {hasFilters && (
           <button
-            onClick={() => { setQuery(""); setRegion("All"); setLetter(null); reset(); }}
+            onClick={() => { setQuery(""); setRegion("All"); setLetter(null); setCertifiedOnly(false); reset(); }}
             className="ml-2 text-[#0D3572] font-semibold hover:underline"
           >
             Clear
@@ -219,7 +235,7 @@ export default function MembersClient() {
           <p className="text-sm">No members found</p>
           {hasFilters && (
             <button
-              onClick={() => { setQuery(""); setRegion("All"); setLetter(null); reset(); }}
+              onClick={() => { setQuery(""); setRegion("All"); setLetter(null); setCertifiedOnly(false); reset(); }}
               className="mt-3 text-xs font-semibold text-[#0D3572] hover:underline"
             >
               Clear all filters
