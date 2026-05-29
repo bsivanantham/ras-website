@@ -18,14 +18,32 @@ const events = [
     title: "Executive Committee Meeting — May 2026",
     date: "May 20, 2026",
     location: "Victoria, Mahé",
-    description: "Executive Committee meeting for May 2026. All committee members are requested to attend.",
+    description: "Executive Committee meeting for May 2026 and handing over of documents. Meeting successfully held.",
+    status: "done" as const,
   },
   {
     id: "ev-2",
     title: "Handing Over of Documents",
     date: "May 20, 2026",
     location: "Victoria, Mahé",
-    description: "Official handing over of documents. Committee members to be present.",
+    description: "Official handing over of documents. Committee members were present.",
+    status: "done" as const,
+  },
+  {
+    id: "ev-3",
+    title: "FTC Meeting — RRP Clarification",
+    date: "Jun 1, 2026",
+    location: "Victoria, Mahé",
+    description: "Meeting with the Fair Trading Commission regarding RRP clarification, SIBA-related issues, and STC case updates.",
+    status: "upcoming" as const,
+  },
+  {
+    id: "ev-4",
+    title: "SACOS Insurance Meeting",
+    date: "Jun 3, 2026",
+    location: "Victoria, Mahé",
+    description: "Meeting with SACOS Insurance to discuss possible insurance benefits and support packages for RAS members.",
+    status: "upcoming" as const,
   },
 ];
 
@@ -97,7 +115,7 @@ export default async function MemberPage() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="pt-4 space-y-4">
-                  {events.map((event) => (
+                  {events.filter((e) => e.status === "upcoming").map((event) => (
                     <div
                       key={event.id}
                       className="flex gap-4 pb-4 border-b border-gray-50 last:border-0 last:pb-0"
@@ -114,12 +132,45 @@ export default async function MemberPage() {
                       </div>
                       <div>
                         <p className="font-semibold text-[#0D3572] text-sm">{event.title}</p>
-                        <p className="text-xs text-[#1B8A4B] font-medium mt-0.5">
-                          {event.location}
-                        </p>
-                        <p className="text-xs text-gray-600 mt-1 leading-relaxed">
-                          {event.description}
-                        </p>
+                        <p className="text-xs text-[#1B8A4B] font-medium mt-0.5">{event.location}</p>
+                        <p className="text-xs text-gray-600 mt-1 leading-relaxed">{event.description}</p>
+                      </div>
+                    </div>
+                  ))}
+                </CardContent>
+              </Card>
+
+              {/* Past Events */}
+              <Card className="bg-white border border-[#0D3572]/10 shadow-sm">
+                <CardHeader className="border-b border-gray-100">
+                  <CardTitle className="text-[#0D3572] font-bold flex items-center gap-2">
+                    <CheckCircle className="h-5 w-5 text-[#1B8A4B]" />
+                    Past Events
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="pt-4 space-y-4">
+                  {events.filter((e) => e.status === "done").map((event) => (
+                    <div
+                      key={event.id}
+                      className="flex gap-4 pb-4 border-b border-gray-50 last:border-0 last:pb-0 opacity-70"
+                    >
+                      <div className="flex flex-col items-center justify-start shrink-0 w-12">
+                        <div className="bg-gray-200 rounded-lg px-2 py-1 text-center w-full">
+                          <p className="text-gray-500 text-xs font-bold leading-tight">
+                            {event.date.split(" ")[0].toUpperCase().slice(0, 3)}
+                          </p>
+                          <p className="text-gray-600 text-base font-bold leading-tight">
+                            {event.date.split(" ")[1].replace(",", "")}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <p className="font-semibold text-gray-500 text-sm">{event.title}</p>
+                          <Badge className="bg-[#1B8A4B] text-white text-[10px] px-1.5 py-0.5 h-auto">Done</Badge>
+                        </div>
+                        <p className="text-xs text-gray-400 font-medium mt-0.5">{event.location}</p>
+                        <p className="text-xs text-gray-400 mt-1 leading-relaxed">{event.description}</p>
                       </div>
                     </div>
                   ))}

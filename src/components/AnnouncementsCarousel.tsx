@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { ChevronLeft, ChevronRight, Download, CalendarDays, FileText, Gavel, ExternalLink, Truck, Tag } from "lucide-react";
+import { ChevronLeft, ChevronRight, Download, CalendarDays, FileText, Gavel, ExternalLink, Truck, Tag, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 
@@ -28,6 +28,7 @@ type Announcement = {
   href: string | null;
   actionLabel: string | null;
   preview: Preview;
+  done?: boolean;
 };
 
 export const publicAnnouncements: Announcement[] = [
@@ -128,16 +129,56 @@ const announcements: Announcement[] = [
   },
   {
     id: "ann-5",
-    badge: "Upcoming Meeting",
-    badgeColor: "bg-green-100 text-green-700",
-    Icon: CalendarDays,
+    badge: "Completed Meeting",
+    badgeColor: "bg-gray-100 text-gray-500",
+    Icon: CheckCircle,
     title: "Executive Committee Meeting — May 2026",
     description:
-      "Executive Committee meeting for May 2026 and handing over of documents. All committee members are requested to attend.",
+      "Executive Committee meeting for May 2026 and handing over of documents. Meeting successfully held.",
     date: "20 May 2026",
     href: null,
     actionLabel: null,
+    done: true,
     preview: { type: "event", month: "MAY", day: "20", location: "Victoria, Mahé" },
+  },
+  {
+    id: "ann-gsp",
+    badge: "Price List",
+    badgeColor: "bg-emerald-100 text-emerald-700",
+    Icon: Tag,
+    title: "GSP Price List — Effective 1 June 2026",
+    description:
+      "Government-controlled price list effective from 1st June 2026. Download the full list for all regulated goods categories and applicable price ceilings.",
+    date: "Effective 1 June 2026",
+    href: "/docs/GSP%20Price%20List%20w.e.f_%201st%20Jun%202026.pdf",
+    actionLabel: "Download Price List (PDF)",
+    preview: { type: "pdf", src: "/docs/GSP%20Price%20List%20w.e.f_%201st%20Jun%202026.pdf" },
+  },
+  {
+    id: "ann-ftc-meeting",
+    badge: "Upcoming Meeting",
+    badgeColor: "bg-blue-100 text-blue-700",
+    Icon: CalendarDays,
+    title: "FTC Meeting — RRP Clarification",
+    description:
+      "Meeting with the Fair Trading Commission regarding RRP clarification, SIBA-related issues, and STC case updates. All relevant members are requested to attend.",
+    date: "1 June 2026",
+    href: null,
+    actionLabel: null,
+    preview: { type: "event", month: "JUN", day: "1", location: "Victoria, Mahé" },
+  },
+  {
+    id: "ann-sacos-meeting",
+    badge: "Upcoming Meeting",
+    badgeColor: "bg-teal-100 text-teal-700",
+    Icon: CalendarDays,
+    title: "SACOS Insurance Meeting",
+    description:
+      "Meeting with SACOS Insurance to discuss possible insurance benefits and support packages for RAS members.",
+    date: "3 June 2026",
+    href: null,
+    actionLabel: null,
+    preview: { type: "event", month: "JUN", day: "3", location: "Victoria, Mahé" },
   },
 ];
 
@@ -303,10 +344,17 @@ export default function AnnouncementsCarousel({ items = announcements, label = "
                     {ann.actionLabel}
                   </Button>
                 </a>
+              ) : ann.done ? (
+                <span className="inline-flex items-center gap-2 text-sm font-semibold text-[#1B8A4B]">
+                  <CheckCircle className="h-4 w-4" aria-hidden="true" />
+                  Completed — {ann.date}
+                </span>
               ) : (
                 <span className="inline-flex items-center gap-2 text-sm text-[#1B8A4B] font-semibold">
                   <CalendarDays className="h-4 w-4" aria-hidden="true" />
-                  12 June 2026, Victoria, Mahé
+                  {ann.preview.type === "event"
+                    ? `${ann.preview.day} ${ann.preview.month.charAt(0)}${ann.preview.month.slice(1).toLowerCase()} 2026, ${ann.preview.location}`
+                    : ann.date}
                 </span>
               )}
             </div>

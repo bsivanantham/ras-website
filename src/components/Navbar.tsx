@@ -22,7 +22,7 @@ export default function Navbar() {
     { href: "/resources", label: t.nav.resources },
     { href: "/directory", label: t.nav.directory },
     ...(isSignedIn
-      ? [{ href: "/members", label: "Members" }]
+      ? [{ href: "/members", label: "Members" }, { href: "/advertisements", label: "Ads" }]
       : [{ href: "/join", label: t.nav.join }]),
   ];
 
