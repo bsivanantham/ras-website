@@ -1,22 +1,22 @@
 import Image from "next/image";
-import { Users, Target, Heart, TrendingUp, Globe, UserCircle2, Phone, Lock } from "lucide-react";
+import { Users, Target, Heart, TrendingUp, Globe, UserCircle2, Phone, Lock, Mail } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import SeychellesFlag from "@/components/SeychellesFlag";
 import { auth } from "@clerk/nextjs/server";
 
 const committee = [
-  { role: "Chairman", name: "MuthuKumaran", phone: "2521500", highlight: true },
-  { role: "Vice Chairman", name: "Raj Pradeep", phone: "2737273", highlight: true },
-  { role: "Secretary", name: "Bala Kumaran", phone: "2819678", highlight: false },
-  { role: "Asst. Secretary", name: "Harish", phone: "2817817", highlight: false },
-  { role: "Treasurer", name: "Sekaar Kumar", phone: "2727374", highlight: false },
-  { role: "Asst. Treasurer", name: "Manikandan", phone: "2723873", highlight: false },
-  { role: "Committee Member", name: "Divya", phone: "2808999", highlight: false },
-  { role: "Committee Member", name: "Subramanian Vijay", phone: "2722292", highlight: false },
-  { role: "Committee Member", name: "Vengadanarayanan", phone: "2763838", highlight: false },
-  { role: "Committee Member", name: "Ganeshkumar", phone: "2833366", highlight: false },
-  { role: "Committee Member", name: "Karthikeyan", phone: "2500707", highlight: false },
-  { role: "Ex Officio", name: "Shanmugam", phone: "2725077", highlight: false },
+  { role: "Chairman", name: "MuthuKumaran", phone: "2521500", email: "chairman@ras.sc", highlight: true },
+  { role: "Vice Chairman", name: "Raj Pradeep", phone: "2737273", email: "admin@ras.sc", highlight: true },
+  { role: "Secretary", name: "Bala Kumaran", phone: "2819678", email: "secretary@ras.sc", highlight: false },
+  { role: "Asst. Secretary", name: "Harish", phone: "2817817", email: null, highlight: false },
+  { role: "Treasurer", name: "Sekaar Kumar", phone: "2727374", email: null, highlight: false },
+  { role: "Asst. Treasurer", name: "Manikandan", phone: "2723873", email: null, highlight: false },
+  { role: "Committee Member", name: "Divya", phone: "2808999", email: null, highlight: false },
+  { role: "Committee Member", name: "Subramanian Vijay", phone: "2722292", email: null, highlight: false },
+  { role: "Committee Member", name: "Vengadanarayanan", phone: "2763838", email: null, highlight: false },
+  { role: "Committee Member", name: "Ganeshkumar", phone: "2833366", email: null, highlight: false },
+  { role: "Committee Member", name: "Karthikeyan", phone: "2500707", email: null, highlight: false },
+  { role: "Ex Officio", name: "Shanmugam", phone: "2725077", email: null, highlight: false },
 ];
 
 const values = [
@@ -294,12 +294,22 @@ export default async function AboutPage() {
                     {member.role}
                   </p>
                   {isLoggedIn ? (
-                    <a
-                      href={`tel:+248${member.phone}`}
-                      className="flex items-center justify-center gap-1 text-xs mt-2 text-[#C9A227] hover:underline"
-                    >
-                      <Phone className="h-3 w-3" /> {member.phone}
-                    </a>
+                    <div className="flex flex-col items-center gap-1 mt-2">
+                      <a
+                        href={`tel:+248${member.phone}`}
+                        className="flex items-center justify-center gap-1 text-xs text-[#C9A227] hover:underline"
+                      >
+                        <Phone className="h-3 w-3" /> {member.phone}
+                      </a>
+                      {member.email && (
+                        <a
+                          href={`mailto:${member.email}`}
+                          className="flex items-center justify-center gap-1 text-xs text-[#C9A227] hover:underline break-all"
+                        >
+                          <Mail className="h-3 w-3 shrink-0" /> {member.email}
+                        </a>
+                      )}
+                    </div>
                   ) : (
                     <p className="flex items-center justify-center gap-1 text-xs mt-2 text-gray-400 italic">
                       <Lock className="h-3 w-3" /> Members only

@@ -57,14 +57,19 @@ export default function Footer() {
                   </a>
                 </div>
               </li>
-              <li className="flex items-center gap-3">
-                <Mail className="h-4 w-4 text-[#C9A227] shrink-0" />
-                <a
-                  href="mailto:admin@ras.sc"
-                  className="text-white/75 text-sm hover:text-[#C9A227] transition-colors break-words"
-                >
-                  admin@ras.sc
-                </a>
+              <li className="flex items-start gap-3">
+                <Mail className="h-4 w-4 text-[#C9A227] shrink-0 mt-0.5" />
+                <div className="flex flex-col gap-1">
+                  {["admin@ras.sc", "chairman@ras.sc", "secretary@ras.sc"].map((email) => (
+                    <a
+                      key={email}
+                      href={`mailto:${email}`}
+                      className="text-white/75 text-sm hover:text-[#C9A227] transition-colors"
+                    >
+                      {email}
+                    </a>
+                  ))}
+                </div>
               </li>
               <li className="flex items-start gap-3">
                 <Clock className="h-4 w-4 text-[#C9A227] shrink-0 mt-0.5" />
