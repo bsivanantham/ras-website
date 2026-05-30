@@ -18,7 +18,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://retailers.sc"),
+  metadataBase: new URL("https://ras.sc"),
   title: "Retailers Association of Seychelles | Fair Service to Our Nation",
   description:
     "The Retailers Association of Seychelles (RAS) supports retail businesses across Mahé and the islands with compliance guidance, resources, and a strong member community.",
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Retailers Association of Seychelles",
     description: "Fair Service to Our Nation — supporting Seychelles retailers since inception.",
-    url: "https://retailers.sc",
+    url: "https://ras.sc",
     siteName: "Retailers Association of Seychelles",
     locale: "en_SC",
     type: "website",
@@ -49,7 +49,7 @@ const jsonLd = {
     {
       "@type": "WebSite",
       name: "Retailers Association of Seychelles",
-      url: "https://retailers.sc",
+      url: "https://ras.sc",
       description:
         "The Retailers Association of Seychelles supports retail businesses across Mahé and the islands with compliance guidance, resources, and a strong member community.",
       creator: {
