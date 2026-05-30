@@ -38,7 +38,7 @@ const categories = [
     resources: [
       { title: "Control of Supplies and Services Order 2026", description: "Maximum wholesale and retail mark-up now in effect. Category 1: 15% maximum margin. Category 2: 18% maximum margin (temporary — valid until 6 March 2027).", type: "PDF", access: "member", href: "/docs/SI%208%202026%20-%20Control%20of%20Supplies%20and%20Services%20(Maximum%20Wholesale%20and%20Retail%20Mark-up)%20Order%202026%20(1).pdf" },
       { title: "Competition Law in Seychelles", description: "Essential guide to competition law applicable to Seychelles retailers — anti-competitive practices, fair pricing obligations, and regulatory requirements.", type: "PDF", access: "member", href: "/docs/Competition-Law-in-Seychelles-148-x-210-mm-1.pdf" },
-      { title: "GSP Price List — Effective 1 June 2026", description: "Government-controlled price list effective from 1st June 2026. Contains price ceilings for all regulated goods categories.", type: "PDF", access: "member", href: "/docs/GSP%20Price%20List%20w.e.f_%201st%20Jun%202026.pdf" },
+      { title: "GSP Price List — Effective 1 June 2026", description: "GSP private firm price list effective from 1st June 2026. Reference pricing for goods supplied by GSP.", type: "PDF", access: "member", href: "/docs/GSP%20Price%20List%20w.e.f_%201st%20Jun%202026.pdf" },
     ],
   },
 ];
