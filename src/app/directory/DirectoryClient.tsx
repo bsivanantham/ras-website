@@ -134,6 +134,16 @@ export const providers: Provider[] = [
     email2: "jean-Philippe.tambara@ftc.gov.sc",
     phone: null,
   },
+  {
+    id: "8",
+    name: "Seychelles Licensing Authority (SLA)",
+    category: "Legal & Licensing",
+    description: "Issues and manages business licences, trade licences, and other regulatory permits required for operating a retail business in Seychelles.",
+    website: "www.sla.gov.sc",
+    websiteHref: "https://www.sla.gov.sc",
+    email: null,
+    phone: null,
+  },
   // Police & Emergency
   {
     id: "27",
