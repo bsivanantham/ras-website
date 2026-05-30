@@ -183,7 +183,7 @@ export default async function CompliancePage() {
                     <span>/</span>
                     <a href="tel:+2482819678" className="hover:underline pointer-events-auto">+248 281 96 78</a>
                   </Button>
-                  <a href="mailto:retailersassociationseychelles@gmail.com">
+                  <a href="mailto:admin@ras.sc">
                     <Button variant="outline" className="border-[#0D3572] text-[#0D3572] hover:bg-[#0D3572] hover:text-white gap-2 w-full sm:w-auto">
                       <Mail className="h-4 w-4" /> Email Us
                     </Button>

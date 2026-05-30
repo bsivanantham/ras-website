@@ -453,7 +453,7 @@ export default function DirectoryClient({ isLoggedIn }: Readonly<{ isLoggedIn: b
           <p className="text-gray-600 text-sm mb-4">
             Retailers Association of Seychelles can assist members in navigating government contacts and service providers. Get in touch with our team.
           </p>
-          <a href="mailto:retailersassociationseychelles@gmail.com">
+          <a href="mailto:admin@ras.sc">
             <Button variant="outline" className="border-[#0D3572] text-[#0D3572] hover:bg-[#0D3572] hover:text-white">
               Contact Us
             </Button>

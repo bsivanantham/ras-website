@@ -61,7 +61,7 @@ export default async function SignUpPage({
           </p>
 
           <a
-            href="mailto:retailersassociationseychelles@gmail.com?subject=RAS Membership Enquiry"
+            href="mailto:admin@ras.sc?cc=secretary@ras.sc&subject=RAS Membership Enquiry"
             className="inline-flex items-center justify-center gap-2 w-full bg-[#0D3572] text-white font-semibold rounded-lg px-5 py-3 hover:bg-[#0a2a5a] transition-colors"
           >
             <Mail className="h-4 w-4" />
@@ -69,7 +69,7 @@ export default async function SignUpPage({
           </a>
 
           <p className="text-xs text-gray-400 mt-3">
-            retailersassociationseychelles@gmail.com
+            admin@ras.sc
           </p>
 
           <div className="mt-6 pt-5 border-t border-gray-100 space-y-3">

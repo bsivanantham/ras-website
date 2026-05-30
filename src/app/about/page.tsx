@@ -16,6 +16,7 @@ const committee = [
   { role: "Committee Member", name: "Vengadanarayanan", phone: "2763838", highlight: false },
   { role: "Committee Member", name: "Ganeshkumar", phone: "2833366", highlight: false },
   { role: "Committee Member", name: "Karthikeyan", phone: "2500707", highlight: false },
+  { role: "Ex Officio", name: "Shanmugam", phone: "2725077", highlight: false },
 ];
 
 const values = [

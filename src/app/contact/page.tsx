@@ -62,10 +62,10 @@ export default function ContactPage() {
       if (json.success) {
         setSubmitted(true);
       } else {
-        setError("Something went wrong. Please email us directly at retailersassociationseychelles@gmail.com");
+        setError("Something went wrong. Please email us directly at admin@ras.sc");
       }
     } catch {
-      setError("Something went wrong. Please email us directly at retailersassociationseychelles@gmail.com");
+      setError("Something went wrong. Please email us directly at admin@ras.sc");
     } finally {
       setSubmitting(false);
     }
@@ -268,10 +268,10 @@ export default function ContactPage() {
                     <div>
                       <p className="text-sm font-semibold text-[#0D3572]">Email</p>
                       <a
-                        href="mailto:retailersassociationseychelles@gmail.com"
+                        href="mailto:admin@ras.sc"
                         className="text-sm text-gray-600 hover:text-[#C9A227] transition-colors"
                       >
-                        retailersassociationseychelles@gmail.com
+                        admin@ras.sc
                       </a>
                     </div>
                   </div>
