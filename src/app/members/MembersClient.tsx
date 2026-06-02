@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import Image from "next/image";
 import { Search, Phone, MapPin, Store, User, ChevronLeft, ChevronRight } from "lucide-react";
 import { members, type Member } from "@/data/members";
 
@@ -185,10 +186,14 @@ export default function MembersClient() {
           >
             {/* Certified badge */}
             {m.rcpt && (
-              <div className="absolute top-0 right-0 bg-[#C9A227] text-white text-[9px] font-bold leading-tight px-2 py-1 rounded-bl-lg rounded-tr-xl flex flex-col items-center">
-                <span>✓ CERTIFIED</span>
-                <span>2026 MEMBER</span>
-              </div>
+              <Image
+                src="/images/certified.png"
+                alt="Certified RAS Member"
+                width={60}
+                height={60}
+                className="absolute -top-3 -right-3"
+                unoptimized
+              />
             )}
             {/* Shop */}
             <div className="flex items-start gap-2">
