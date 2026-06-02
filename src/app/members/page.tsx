@@ -1,6 +1,13 @@
+import type { Metadata } from "next";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { Users } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "Member Directory",
+  description:
+    "Browse certified RAS members across Mahé, Praslin, and La Digue — the official directory of retail businesses in the Retailers Association of Seychelles.",
+};
 import MembersClient from "./MembersClient";
 import { members } from "@/data/members";
 

@@ -1,6 +1,13 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { auth } from "@clerk/nextjs/server";
+
+export const metadata: Metadata = {
+  title: "Resources",
+  description:
+    "STC price lists, FTC notices, and Seychelles retail laws — official documents and compliance resources for RAS members.",
+};
 import { Scale, Download, ExternalLink, Lock, Building2, ShieldCheck } from "lucide-react";
 import SeychellesFlag from "@/components/SeychellesFlag";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";

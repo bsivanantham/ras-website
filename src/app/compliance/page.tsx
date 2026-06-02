@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { auth } from "@clerk/nextjs/server";
 import {
   Shield,
@@ -9,6 +10,12 @@ import {
   Phone,
   Mail,
 } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "Compliance Guide",
+  description:
+    "Seychelles retail compliance — FTC regulations, STC Category 1 & 2 price controls, mark-up limits, and RRP enforcement rules for retailers.",
+};
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import ContentGate from "@/components/ContentGate";

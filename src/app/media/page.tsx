@@ -1,6 +1,13 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import { auth } from "@clerk/nextjs/server";
 import { ExternalLink } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "Media & Press Coverage",
+  description:
+    "Press features and news coverage of the Retailers Association of Seychelles — Seychelles Nation articles, State House meetings, and member event photos.",
+};
 import GalleryClient from "@/app/gallery/GalleryClient";
 import SeychellesFlag from "@/components/SeychellesFlag";
 

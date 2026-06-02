@@ -1,5 +1,12 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import { Users, Target, Heart, TrendingUp, Globe, UserCircle2, Phone, Lock, Mail } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "About RAS",
+  description:
+    "Learn about the Retailers Association of Seychelles — our mission, history, and the committee leading retail businesses across Mahé, Praslin, and La Digue.",
+};
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import SeychellesFlag from "@/components/SeychellesFlag";
 import { auth } from "@clerk/nextjs/server";

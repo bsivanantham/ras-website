@@ -1,9 +1,16 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { auth } from "@clerk/nextjs/server";
 import { Button } from "@/components/ui/button";
 import SeychellesFlag from "@/components/SeychellesFlag";
 import DirectoryClient from "./DirectoryClient";
+
+export const metadata: Metadata = {
+  title: "Service Directory",
+  description:
+    "Find vetted service providers for Seychelles retailers — suppliers, logistics, legal, and financial services recommended by the Retailers Association of Seychelles.",
+};
 
 export default async function DirectoryPage() {
   const { userId } = await auth();
