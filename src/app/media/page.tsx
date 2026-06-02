@@ -7,6 +7,15 @@ import SeychellesFlag from "@/components/SeychellesFlag";
 const newsArticles = [
   {
     source: "Seychelles Nation",
+    year: "2026",
+    title: "RAS — 15 Years of Supporting Retail Businesses in Seychelles",
+    description:
+      "The Retailers Association of Seychelles was featured in the Seychelles Nation on 2 June 2026, highlighting 15 years of supporting retail businesses across Mahé, Praslin, and La Digue.",
+    image: "/images/annouscemedia1.jpeg",
+    href: "/docs/Retailers%2015%20years.pdf",
+  },
+  {
+    source: "Seychelles Nation",
     year: "2023",
     title: "Retailers Association adopts La Retraite Home for the Elderly",
     description:

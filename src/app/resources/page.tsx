@@ -1,22 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import { auth } from "@clerk/nextjs/server";
-import { Scale, Download, ExternalLink, Lock, Building2, ShieldCheck, Newspaper } from "lucide-react";
+import { Scale, Download, ExternalLink, Lock, Building2, ShieldCheck } from "lucide-react";
 import SeychellesFlag from "@/components/SeychellesFlag";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
 const categories = [
-  {
-    id: "news",
-    icon: Newspaper,
-    title: "RAS in the News",
-    description: "Articles, features, and media coverage about the Retailers Association of Seychelles.",
-    resources: [
-      { title: "RAS Featured in Seychelles Nation — 2 June 2026", description: "Retailers Association of Seychelles featured in the Seychelles Nation newspaper, highlighting 15 years of supporting retail businesses across Mahé, Praslin, and La Digue.", type: "PDF", access: "public", href: "/docs/Retailers%2015%20years.pdf" },
-    ],
-  },
   {
     id: "stc",
     icon: Building2,
