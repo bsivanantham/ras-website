@@ -48,7 +48,73 @@ export const publicAnnouncements: Announcement[] = [
 ];
 
 const announcements: Announcement[] = [
-  ...publicAnnouncements,
+  // ── Newest first ─────────────────────────────────────────────────────────
+  {
+    id: "ann-ras-update",
+    badge: "General Update",
+    badgeColor: "bg-blue-100 text-blue-700",
+    Icon: FileText,
+    title: "RAS — Working Together for a Stronger Retail Community",
+    description:
+      "RAS continues its mission to support all members — creating awareness on energy saving, collecting membership fee renewals, and taking note of member feedback and concerns.",
+    date: "June 2026",
+    href: null,
+    actionLabel: null,
+    preview: { type: "image", src: "/images/annouscemedia1.jpeg" },
+  },
+  {
+    id: "ann-sacos-meeting",
+    badge: "Upcoming Meeting",
+    badgeColor: "bg-teal-100 text-teal-700",
+    Icon: CalendarDays,
+    title: "SACOS Insurance Meeting",
+    description:
+      "Meeting with SACOS Insurance to discuss possible insurance benefits and support packages for RAS members.",
+    date: "3 June 2026",
+    href: null,
+    actionLabel: null,
+    preview: { type: "event", month: "JUN", day: "3", location: "Victoria, Mahé" },
+  },
+  {
+    id: "ann-ftc-meeting",
+    badge: "Upcoming Meeting",
+    badgeColor: "bg-blue-100 text-blue-700",
+    Icon: CalendarDays,
+    title: "FTC Meeting — RRP Clarification",
+    description:
+      "Meeting with the Fair Trading Commission regarding RRP clarification, SIBA-related issues, and STC case updates. All relevant members are requested to attend.",
+    date: "1 June 2026",
+    href: null,
+    actionLabel: null,
+    preview: { type: "event", month: "JUN", day: "1", location: "Victoria, Mahé" },
+  },
+  {
+    id: "ann-gsp",
+    badge: "Price List",
+    badgeColor: "bg-emerald-100 text-emerald-700",
+    Icon: Tag,
+    title: "GSP Price List — Effective 1 June 2026",
+    description:
+      "GSP private firm price list effective from 1st June 2026. Download the full list for reference pricing on goods supplied by GSP.",
+    date: "Effective 1 June 2026",
+    href: "/docs/GSP%20Price%20List%20w.e.f_%201st%20Jun%202026.pdf",
+    actionLabel: "Download Price List (PDF)",
+    preview: { type: "pdf", src: "/docs/GSP%20Price%20List%20w.e.f_%201st%20Jun%202026.pdf" },
+  },
+  {
+    id: "ann-5",
+    badge: "Completed Meeting",
+    badgeColor: "bg-gray-100 text-gray-500",
+    Icon: CheckCircle,
+    title: "Executive Committee Meeting — May 2026",
+    description:
+      "Executive Committee meeting for May 2026 and handing over of documents. Meeting successfully held.",
+    date: "20 May 2026",
+    href: null,
+    actionLabel: null,
+    done: true,
+    preview: { type: "event", month: "MAY", day: "20", location: "Victoria, Mahé" },
+  },
   {
     id: "ann-2",
     badge: "New Regulation",
@@ -88,6 +154,7 @@ const announcements: Announcement[] = [
     actionLabel: "Download Guide (PDF)",
     preview: { type: "pdf", src: COMP_PDF },
   },
+  ...publicAnnouncements,
   {
     id: "ann-stc-press",
     badge: "STC Press Release",
@@ -126,72 +193,6 @@ const announcements: Announcement[] = [
     href: "/images/stc1.jpeg",
     actionLabel: "View Tue/Thu Routes",
     preview: { type: "image", src: "/images/stc1.jpeg" },
-  },
-  {
-    id: "ann-5",
-    badge: "Completed Meeting",
-    badgeColor: "bg-gray-100 text-gray-500",
-    Icon: CheckCircle,
-    title: "Executive Committee Meeting — May 2026",
-    description:
-      "Executive Committee meeting for May 2026 and handing over of documents. Meeting successfully held.",
-    date: "20 May 2026",
-    href: null,
-    actionLabel: null,
-    done: true,
-    preview: { type: "event", month: "MAY", day: "20", location: "Victoria, Mahé" },
-  },
-  {
-    id: "ann-gsp",
-    badge: "Price List",
-    badgeColor: "bg-emerald-100 text-emerald-700",
-    Icon: Tag,
-    title: "GSP Price List — Effective 1 June 2026",
-    description:
-      "Government-controlled price list effective from 1st June 2026. Download the full list for all regulated goods categories and applicable price ceilings.",
-    date: "Effective 1 June 2026",
-    href: "/docs/GSP%20Price%20List%20w.e.f_%201st%20Jun%202026.pdf",
-    actionLabel: "Download Price List (PDF)",
-    preview: { type: "pdf", src: "/docs/GSP%20Price%20List%20w.e.f_%201st%20Jun%202026.pdf" },
-  },
-  {
-    id: "ann-ftc-meeting",
-    badge: "Upcoming Meeting",
-    badgeColor: "bg-blue-100 text-blue-700",
-    Icon: CalendarDays,
-    title: "FTC Meeting — RRP Clarification",
-    description:
-      "Meeting with the Fair Trading Commission regarding RRP clarification, SIBA-related issues, and STC case updates. All relevant members are requested to attend.",
-    date: "1 June 2026",
-    href: null,
-    actionLabel: null,
-    preview: { type: "event", month: "JUN", day: "1", location: "Victoria, Mahé" },
-  },
-  {
-    id: "ann-sacos-meeting",
-    badge: "Upcoming Meeting",
-    badgeColor: "bg-teal-100 text-teal-700",
-    Icon: CalendarDays,
-    title: "SACOS Insurance Meeting",
-    description:
-      "Meeting with SACOS Insurance to discuss possible insurance benefits and support packages for RAS members.",
-    date: "3 June 2026",
-    href: null,
-    actionLabel: null,
-    preview: { type: "event", month: "JUN", day: "3", location: "Victoria, Mahé" },
-  },
-  {
-    id: "ann-ras-update",
-    badge: "General Update",
-    badgeColor: "bg-blue-100 text-blue-700",
-    Icon: FileText,
-    title: "RAS — Working Together for a Stronger Retail Community",
-    description:
-      "RAS continues its mission to support all members — creating awareness on energy saving, collecting membership fee renewals, and taking note of member feedback and concerns.",
-    date: "June 2026",
-    href: null,
-    actionLabel: null,
-    preview: { type: "image", src: "/images/annouscemedia1.jpeg" },
   },
 ];
 
