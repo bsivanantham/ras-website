@@ -50,6 +50,19 @@ export const publicAnnouncements: Announcement[] = [
 const announcements: Announcement[] = [
   // ── Newest first ─────────────────────────────────────────────────────────
   {
+    id: "ann-nation-article",
+    badge: "In the News",
+    badgeColor: "bg-yellow-100 text-yellow-800",
+    Icon: FileText,
+    title: "RAS Featured in Seychelles Nation Newspaper",
+    description:
+      "Retailers Association of Seychelles was featured in the Seychelles Nation on 2 June 2026 — highlighting 15 years of supporting retail businesses across Mahé, Praslin, and La Digue.",
+    date: "2 June 2026",
+    href: "/docs/Retailers%2015%20years.pdf",
+    actionLabel: "Read the Article (PDF)",
+    preview: { type: "pdf", src: "/docs/Retailers%2015%20years.pdf" },
+  },
+  {
     id: "ann-ras-update",
     badge: "General Update",
     badgeColor: "bg-blue-100 text-blue-700",
