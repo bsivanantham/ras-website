@@ -63,6 +63,19 @@ const announcements: Announcement[] = [
     preview: { type: "pdf", src: "/docs/Retailers%2015%20years.pdf" },
   },
   {
+    id: "ann-ftc-outcome",
+    badge: "Notice to Retailers",
+    badgeColor: "bg-red-100 text-red-700",
+    Icon: Gavel,
+    title: "FTC Meeting Outcome — Right to Set Your Own Price",
+    description:
+      "Following discussions between RAS and the Fair Trading Commission: retailers have the right to determine their own selling prices. RRP materials are not required in-store — RRP can only appear on the product itself. Remove all RRP posters and stickers by 24 August 2026.",
+    date: "Deadline: 24 August 2026",
+    href: null,
+    actionLabel: null,
+    preview: { type: "image", src: "/images/annouce2.jpeg" },
+  },
+  {
     id: "ann-ras-update",
     badge: "General Update",
     badgeColor: "bg-blue-100 text-blue-700",
