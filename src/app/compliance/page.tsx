@@ -10,15 +10,79 @@ import {
   Phone,
   Mail,
 } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import ContentGate from "@/components/ContentGate";
 
 export const metadata: Metadata = {
   title: "Compliance Guide",
   description:
     "Seychelles retail compliance — FTC regulations, STC Category 1 & 2 price controls, mark-up limits, and RRP enforcement rules for retailers.",
 };
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import ContentGate from "@/components/ContentGate";
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "What are the health and safety requirements for retail stores in Seychelles?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Retailers must maintain clean entrances, adequate ventilation, display a valid trade licence and health certificate, keep a stocked first-aid kit, conduct monthly fire safety checks, train staff on food hygiene, and maintain quarterly pest control records.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "What food handling standards must Seychelles retailers follow?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Retailers selling perishables must store raw and cooked foods separately, keep refrigerators at 0–4°C and freezers at −18°C or below, log temperatures twice daily, never sell expired products, and ensure all food handlers hold a valid food handler's certificate.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "How should retailers in Seychelles manage expiry dates?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Implement FIFO stock rotation, conduct daily spot-checks on perishables, perform a full shelf audit weekly, remove products within 3 days of expiry and quarantine them, and maintain a disposal log recording product name, batch, quantity, and removal date.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "What procedures apply to damaged goods in Seychelles retail stores?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Designate a quarantine zone, remove damaged items immediately, record them with photos, contact the supplier within 24 hours, follow Public Health Authority guidance for disposal, and notify the PHA within 24 hours for any recalled products.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "What is the maximum retail mark-up for Category 1 goods in Seychelles?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Under the Control of Supplies and Services Order 2026, Category 1 goods have a maximum mark-up of 15% and Category 2 goods have a maximum mark-up of 18% (valid until 6 March 2027).",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Can retailers in Seychelles set their own selling prices?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes. The Fair Trading Commission has confirmed retailers have the right to set their own resale prices. Recommended Retail Prices (RRP) may only appear on the product itself — not on posters, shelf labels, or stickers. The deadline to remove all RRP display materials is 24 August 2026.",
+      },
+    },
+  ],
+};
+
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://ras.sc" },
+    { "@type": "ListItem", position: 2, name: "Compliance Guide", item: "https://ras.sc/compliance" },
+  ],
+};
 
 const pillars = [
   {
@@ -125,6 +189,8 @@ export default async function CompliancePage() {
 
   return (
     <div className="flex flex-col">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
       {/* Hero */}
       <section className="bg-[#0D3572] text-white py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

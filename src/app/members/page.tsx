@@ -2,14 +2,23 @@ import type { Metadata } from "next";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { Users } from "lucide-react";
+import MembersClient from "./MembersClient";
+import { members } from "@/data/members";
 
 export const metadata: Metadata = {
   title: "Member Directory",
   description:
     "Browse certified RAS members across Mahé, Praslin, and La Digue — the official directory of retail businesses in the Retailers Association of Seychelles.",
 };
-import MembersClient from "./MembersClient";
-import { members } from "@/data/members";
+
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://ras.sc" },
+    { "@type": "ListItem", position: 2, name: "Member Directory", item: "https://ras.sc/members" },
+  ],
+};
 
 export default async function MembersPage() {
   const { userId } = await auth();
@@ -17,6 +26,7 @@ export default async function MembersPage() {
 
   return (
     <div className="flex flex-col">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
       {/* Hero */}
       <section className="bg-[#0D3572] text-white py-10 sm:py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

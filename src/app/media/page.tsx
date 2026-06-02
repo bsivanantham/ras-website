@@ -2,14 +2,23 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { auth } from "@clerk/nextjs/server";
 import { ExternalLink } from "lucide-react";
+import GalleryClient from "@/app/gallery/GalleryClient";
+import SeychellesFlag from "@/components/SeychellesFlag";
 
 export const metadata: Metadata = {
   title: "Media & Press Coverage",
   description:
     "Press features and news coverage of the Retailers Association of Seychelles — Seychelles Nation articles, State House meetings, and member event photos.",
 };
-import GalleryClient from "@/app/gallery/GalleryClient";
-import SeychellesFlag from "@/components/SeychellesFlag";
+
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://ras.sc" },
+    { "@type": "ListItem", position: 2, name: "Media & Press Coverage", item: "https://ras.sc/media" },
+  ],
+};
 
 const newsArticles = [
   {
@@ -63,8 +72,35 @@ export default async function MediaPage() {
   const { userId } = await auth();
   const isLoggedIn = !!userId;
 
+  const newsArticlesJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Retailers Association of Seychelles Press Coverage",
+    itemListElement: newsArticles.map((article, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      item: {
+        "@type": "NewsArticle",
+        headline: article.title,
+        description: article.description,
+        image: article.image.startsWith("http") ? article.image : `https://ras.sc${article.image}`,
+        url: article.href.startsWith("http") ? article.href : `https://ras.sc${article.href}`,
+        datePublished: `${article.year}-01-01`,
+        publisher: {
+          "@type": "Organization",
+          name: article.source,
+        },
+        about: {
+          "@id": "https://ras.sc/#organization",
+        },
+      },
+    })),
+  };
+
   return (
     <div className="flex flex-col">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(newsArticlesJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
       {/* Hero */}
       <section className="relative bg-[#0D3572] text-white overflow-hidden min-h-[320px] sm:min-h-[380px] flex items-center">
         <Image src="/images/hero-media.jpg" alt="Camera and media journalism" fill className="object-cover object-center" priority />

@@ -12,12 +12,22 @@ export const metadata: Metadata = {
     "Find vetted service providers for Seychelles retailers — suppliers, logistics, legal, and financial services recommended by the Retailers Association of Seychelles.",
 };
 
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://ras.sc" },
+    { "@type": "ListItem", position: 2, name: "Service Directory", item: "https://ras.sc/directory" },
+  ],
+};
+
 export default async function DirectoryPage() {
   const { userId } = await auth();
   const isLoggedIn = !!userId;
 
   return (
     <div className="flex flex-col">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
       {/* Hero */}
       <section className="relative bg-[#0D3572] text-white overflow-hidden min-h-[320px] sm:min-h-[380px] flex items-center">
         <Image src="/images/hero-directory.jpg" alt="Seychelles tropical beach and boats" fill className="object-cover object-center" priority />

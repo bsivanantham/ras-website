@@ -1,15 +1,24 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Users, Target, Heart, TrendingUp, Globe, UserCircle2, Phone, Lock, Mail } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import SeychellesFlag from "@/components/SeychellesFlag";
+import { auth } from "@clerk/nextjs/server";
 
 export const metadata: Metadata = {
   title: "About RAS",
   description:
     "Learn about the Retailers Association of Seychelles — our mission, history, and the committee leading retail businesses across Mahé, Praslin, and La Digue.",
 };
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import SeychellesFlag from "@/components/SeychellesFlag";
-import { auth } from "@clerk/nextjs/server";
+
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://ras.sc" },
+    { "@type": "ListItem", position: 2, name: "About RAS", item: "https://ras.sc/about" },
+  ],
+};
 
 const committee = [
   { role: "Chairman", name: "MuthuKumaran", phone: "2521500", email: "chairman@ras.sc", highlight: true },
@@ -59,6 +68,7 @@ export default async function AboutPage() {
 
   return (
     <div className="flex flex-col">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
       {/* Hero */}
       <section className="relative bg-[#0D3572] text-white overflow-hidden min-h-[320px] sm:min-h-[380px] flex items-center">
         <Image src="/images/hero-about.jpg" alt="Retailers Association of Seychelles team meeting" fill className="object-cover object-center" priority />

@@ -2,17 +2,26 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { auth } from "@clerk/nextjs/server";
+import { Scale, Download, ExternalLink, Lock, Building2, ShieldCheck } from "lucide-react";
+import SeychellesFlag from "@/components/SeychellesFlag";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 
 export const metadata: Metadata = {
   title: "Resources",
   description:
     "STC price lists, FTC notices, and Seychelles retail laws — official documents and compliance resources for RAS members.",
 };
-import { Scale, Download, ExternalLink, Lock, Building2, ShieldCheck } from "lucide-react";
-import SeychellesFlag from "@/components/SeychellesFlag";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://ras.sc" },
+    { "@type": "ListItem", position: 2, name: "Resources", item: "https://ras.sc/resources" },
+  ],
+};
 
 const categories = [
   {
@@ -155,6 +164,7 @@ export default async function ResourcesPage() {
 
   return (
     <div className="flex flex-col">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
       {/* Hero */}
       <section className="relative bg-[#0D3572] text-white overflow-hidden min-h-[320px] sm:min-h-[380px] flex items-center">
         <Image src="/images/hero-resources.jpg" alt="Library resource shelves" fill className="object-cover object-center" priority />
