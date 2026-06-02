@@ -191,7 +191,7 @@ export default function MembersClient() {
                 alt="Certified RAS Member"
                 width={60}
                 height={60}
-                className="absolute -top-3 -right-3"
+                className="absolute top-2 right-2"
                 unoptimized
               />
             )}
