@@ -180,6 +180,19 @@ const announcements: Announcement[] = [
     actionLabel: null,
     preview: { type: "event", month: "JUN", day: "3", location: "Victoria, Mahé" },
   },
+  {
+    id: "ann-ras-update",
+    badge: "General Update",
+    badgeColor: "bg-blue-100 text-blue-700",
+    Icon: FileText,
+    title: "RAS — Working Together for a Stronger Retail Community",
+    description:
+      "RAS continues its mission to support all members — creating awareness on energy saving, collecting membership fee renewals, and taking note of member feedback and concerns.",
+    date: "June 2026",
+    href: null,
+    actionLabel: null,
+    preview: { type: "image", src: "/images/annouscemedia1.jpeg" },
+  },
 ];
 
 function PreviewPanel({ preview }: Readonly<{ preview: Preview }>) {

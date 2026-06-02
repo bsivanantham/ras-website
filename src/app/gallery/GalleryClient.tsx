@@ -8,6 +8,7 @@ export const photos = [
   { src: "/images/committee-2026.jpg", alt: "Retailers Association of Seychelles Committee 2026", caption: "Retailers Association of Seychelles Committee 2026" },
   { src: "/images/download%20(3).png", alt: "Executive Committee Meeting — 20 May 2026", caption: "Executive Committee Meeting — 20 May 2026" },
   { src: "/images/image1.jpeg", alt: "Retailers Association of Seychelles Event", caption: "Retailers Association of Seychelles Event" },
+  { src: "/images/annouscemedia1.jpeg", alt: "RAS Member Newsletter — June 2026", caption: "RAS Member Newsletter — June 2026" },
 ];
 
 export default function GalleryClient() {
