@@ -76,19 +76,6 @@ const announcements: Announcement[] = [
     preview: { type: "event", month: "JUN", day: "3", location: "Victoria, Mahé" },
   },
   {
-    id: "ann-ftc-meeting",
-    badge: "Upcoming Meeting",
-    badgeColor: "bg-blue-100 text-blue-700",
-    Icon: CalendarDays,
-    title: "FTC Meeting — RRP Clarification",
-    description:
-      "Meeting with the Fair Trading Commission regarding RRP clarification, SIBA-related issues, and STC case updates. All relevant members are requested to attend.",
-    date: "1 June 2026",
-    href: null,
-    actionLabel: null,
-    preview: { type: "event", month: "JUN", day: "1", location: "Victoria, Mahé" },
-  },
-  {
     id: "ann-gsp",
     badge: "Price List",
     badgeColor: "bg-emerald-100 text-emerald-700",
@@ -100,20 +87,6 @@ const announcements: Announcement[] = [
     href: "/docs/GSP%20Price%20List%20w.e.f_%201st%20Jun%202026.pdf",
     actionLabel: "Download Price List (PDF)",
     preview: { type: "pdf", src: "/docs/GSP%20Price%20List%20w.e.f_%201st%20Jun%202026.pdf" },
-  },
-  {
-    id: "ann-5",
-    badge: "Completed Meeting",
-    badgeColor: "bg-gray-100 text-gray-500",
-    Icon: CheckCircle,
-    title: "Executive Committee Meeting — May 2026",
-    description:
-      "Executive Committee meeting for May 2026 and handing over of documents. Meeting successfully held.",
-    date: "20 May 2026",
-    href: null,
-    actionLabel: null,
-    done: true,
-    preview: { type: "event", month: "MAY", day: "20", location: "Victoria, Mahé" },
   },
   {
     id: "ann-2",
@@ -289,7 +262,8 @@ export default function AnnouncementsCarousel({ items = announcements, label = "
   return (
     <section
       className="py-12 bg-white"
-      onMouseEnter={() => setPaused(true)}
+      aria-label="Announcements carousel"
+onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -351,19 +325,21 @@ export default function AnnouncementsCarousel({ items = announcements, label = "
               <p className="text-xs text-gray-400 font-medium">{ann.date}</p>
             </div>
             <div className="mt-4 sm:mt-6">
-              {ann.href ? (
+              {ann.href && (
                 <a href={ann.href} target="_blank" rel="noopener noreferrer">
                   <Button className="bg-[#0D3572] text-white hover:bg-[#0a2a5a] border-0 gap-2 h-10 sm:h-auto">
                     <Download className="h-4 w-4" />
                     {ann.actionLabel}
                   </Button>
                 </a>
-              ) : ann.done ? (
+              )}
+              {!ann.href && ann.done && (
                 <span className="inline-flex items-center gap-2 text-sm font-semibold text-[#1B8A4B]">
                   <CheckCircle className="h-4 w-4" aria-hidden="true" />
                   Completed — {ann.date}
                 </span>
-              ) : (
+              )}
+              {!ann.href && !ann.done && (
                 <span className="inline-flex items-center gap-2 text-sm text-[#1B8A4B] font-semibold">
                   <CalendarDays className="h-4 w-4" aria-hidden="true" />
                   {ann.preview.type === "event"

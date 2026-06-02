@@ -35,7 +35,7 @@ const events = [
     date: "Jun 1, 2026",
     location: "Victoria, Mahé",
     description: "Meeting with the Fair Trading Commission regarding RRP clarification, SIBA-related issues, and STC case updates.",
-    status: "upcoming" as const,
+    status: "done" as const,
   },
   {
     id: "ev-4",
