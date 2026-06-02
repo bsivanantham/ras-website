@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Phone, Mail, MapPin, Clock, CheckCircle } from "lucide-react";
+import { Phone, Mail, MapPin, Clock, CheckCircle, QrCode } from "lucide-react";
+import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -314,6 +315,32 @@ export default function ContactPage() {
                   urgent matters, please call our office directly during business hours.
                 </p>
               </div>
+
+              {/* QR Code */}
+              <Card className="bg-white border border-[#0D3572]/10 shadow-sm">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-[#0D3572] text-lg font-bold flex items-center gap-2">
+                    <QrCode className="h-5 w-5 text-[#C9A227]" />
+                    Scan to Visit
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="flex flex-col items-center gap-3 pt-2 pb-5">
+                  <Image
+                    src="/images/ras-qr.png"
+                    alt="QR code for ras.sc"
+                    width={160}
+                    height={160}
+                    className="rounded-lg"
+                    unoptimized
+                  />
+                  <p className="text-xs text-gray-500 text-center">Scan to open <span className="font-semibold text-[#0D3572]">ras.sc</span></p>
+                  <a href="/images/ras-qr.png" download="ras-qr.png">
+                    <Button size="sm" variant="outline" className="border-[#0D3572]/30 text-[#0D3572] text-xs gap-1.5 hover:bg-[#0D3572] hover:text-white">
+                      Download QR Code
+                    </Button>
+                  </a>
+                </CardContent>
+              </Card>
             </div>
           </div>
         </div>
