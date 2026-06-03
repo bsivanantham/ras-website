@@ -147,6 +147,8 @@ const pillars = [
   },
 ];
 
+// TODO: Replace "#" with real government URLs once confirmed by RAS office
+// Suggested lookups: publichealth.gov.sc, sbs.gov.sc, env.gov.sc, employment.gov.sc
 const govLinks = [
   { name: "Public Health Authority of Seychelles", description: "Responsible for food safety inspections, health certificates, and enforcement.", url: "#" },
   { name: "Seychelles Bureau of Standards", description: "Sets and enforces product standards, labelling requirements, and certifications.", url: "#" },

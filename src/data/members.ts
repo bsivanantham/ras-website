@@ -25,6 +25,7 @@ export const members: Member[] = [
   { no: 14, shop: "POORNIMA SUPERMARKET", owner: "KRISHNASAMY MURUGAN", address: "ANSE AUX PINS", phone: "2570395", email: "murugan.pillay@gmail.com", rcpt: 356 },
   { no: 15, shop: "RAJ SUPERMARKET 2", owner: "RAJPRADEEP PILLAY", address: "ANSE AUX PINS", phone: "2737273", email: "rajsupermarketsey@gmail.com", rcpt: 276 },
   { no: 16, shop: "RUTHRAN SUPERMARKET", owner: "GANESH MARIYAPPAN", address: "ANSE AUX PINS", phone: "2879295", email: null, rcpt: 332 },
+  // TODO: rcpt pending — awaiting receipt number from RAS office (Sathish Kumar Chetty confirmed paying member)
   { no: 17, shop: "SAI VISHNU SHOPPING CENTRE", owner: "SATHISH KUMAR CHETTY", address: "ANSE AUX PINS", phone: "2810818", email: "vidhyasathishchetty@gmail.com", rcpt: null },
   { no: 18, shop: "SK GOPAL SHOPPING CENTRE", owner: "SK GOPAL", address: "ANSE AUX PINS", phone: "2717072", email: "gopalsey@gmail.com", rcpt: 360 },
   { no: 19, shop: "SRI VETRIVEL STORE", owner: "NAGARAJAN S", address: "ANSE AUX PINS", phone: "2814238", email: "vetrivelstore8913@gmail.com", rcpt: 354 },
@@ -116,6 +117,7 @@ export const members: Member[] = [
   { no: 105, shop: "TNR MINI MARKET", owner: "VELU", address: "BELONIE", phone: "2779779", email: null, rcpt: 307 },
   { no: 106, shop: "KOT GOPAL", owner: "KARTHIKEYAN", address: "BELVEDERE", phone: "2538373", email: "naikenkarthi@gmail.com", rcpt: null },
   { no: 107, shop: "G. T.RAVI CHANDRAN PILLAY", owner: "RAVI", address: "BELVEDERE", phone: "4321245", email: null, rcpt: null },
+  // TODO: rcpt pending — awaiting receipt number from RAS office (Harish confirmed paying member)
   { no: 108, shop: "HARSHIT MINI MARKET", owner: "HARISH", address: "BELVEDERE", phone: "2826466", email: null, rcpt: null },
   { no: 109, shop: "S.HARSITH MINI MARKET", owner: "SANTHOSH", address: "BELVEDERE", phone: "2713939", email: null, rcpt: null },
   { no: 110, shop: "SAI KURU", owner: "SARAVANNAN", address: "BELVEDERE", phone: "2824536", email: "sarav.raji@gmail.com", rcpt: 402 },
@@ -355,6 +357,7 @@ export const members: Member[] = [
   { no: 344, shop: "ABIRAMI SHOPPING CENTRE", owner: "RAJANDRAN PILLAY", address: "QUINCY VILLAGE", phone: "2748599", email: null, rcpt: null },
   { no: 345, shop: "RATHNA STORE", owner: "ELANCHEZHIAN RATHNASWAMY", address: "QUINCY VILLAGE", phone: "2716884", email: null, rcpt: null },
   { no: 346, shop: "P E.S MINI MARKET", owner: "SENTHIL EALANGOVAN", address: "REVOLUTION AVENUE", phone: null, email: null, rcpt: null },
+  // TODO: rcpt pending — awaiting receipt number from RAS office (Sri Ram confirmed paying member)
   { no: 347, shop: "BHARATHI RAM TRADING", owner: "SRI RAM", address: "ROCHON", phone: "2800830", email: null, rcpt: null },
   { no: 348, shop: "KOT VISHNU", owner: "VISHNU", address: "ROCHON", phone: "2826333", email: null, rcpt: null },
   { no: 349, shop: "R.P SHOPPING", owner: "RAMACHANDRAN NAIDOO", address: "ROCHON", phone: "2771655", email: null, rcpt: null },

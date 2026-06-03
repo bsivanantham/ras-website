@@ -50,7 +50,7 @@ export interface TranslationKeys {
   };
 }
 
-// "sc" = Seychellois Creole. Toggle is disabled in UI (coming soon).
+// TODO: Seychellois Creole ("sc") translations are stubs — fill in before enabling the language toggle in Navbar
 export const translations: Record<Locale, TranslationKeys> = {
   en: {
     nav: {
