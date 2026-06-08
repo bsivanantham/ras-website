@@ -147,13 +147,27 @@ const pillars = [
   },
 ];
 
-// TODO: Replace "#" with real government URLs once confirmed by RAS office
-// Suggested lookups: publichealth.gov.sc, sbs.gov.sc, env.gov.sc, employment.gov.sc
+// TODO: Confirm real URLs for: Public Health Authority (publichealth.gov.sc?), Seychelles Bureau of Standards (sbs.gov.sc?), Environmental Protection Agency (env.gov.sc?)
 const govLinks = [
   { name: "Public Health Authority of Seychelles", description: "Responsible for food safety inspections, health certificates, and enforcement.", url: "#" },
   { name: "Seychelles Bureau of Standards", description: "Sets and enforces product standards, labelling requirements, and certifications.", url: "#" },
   { name: "Environmental Protection Agency", description: "Oversees environmental compliance, waste disposal, and chemical handling.", url: "#" },
-  { name: "Labour Commissioner's Office", description: "Handles employment disputes, worker rights, and employer obligations.", url: "#" },
+  {
+    name: "Labour Commissioner's Office",
+    description: "Handles employment disputes, worker rights, and employer obligations.",
+    url: "https://www.employment.gov.sc",
+    contact: "Mr. Steve Monnaie",
+    contactTitle: "Principal Secretary for Labour Relations and Regulations",
+    email: "smonnaie@employment.gov.sc",
+  },
+  {
+    name: "Immigration & Civil Status",
+    description: "Work permits, residency matters, and civil documentation for businesses employing foreign nationals in Seychelles.",
+    url: "https://www.ics.gov.sc",
+    contact: "Mr. Alain Volcere",
+    contactTitle: "Principal Secretary for Immigration and Civil Status",
+    email: "avolcere@immigration.gov.sc",
+  },
 ];
 
 function PillarCard({ pillar }: Readonly<{ pillar: typeof pillars[0] }>) {
@@ -276,15 +290,35 @@ export default async function CompliancePage() {
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {govLinks.map((link) => (
-                  <a key={link.name} href={link.url} className="flex items-start gap-4 p-5 rounded-xl border border-[#0D3572]/10 bg-[#EFF4FF] hover:bg-[#e3ecff] hover:border-[#0D3572]/30 transition-colors group">
+                  <div key={link.name} className="flex items-start gap-4 p-5 rounded-xl border border-[#0D3572]/10 bg-[#EFF4FF] hover:bg-[#e3ecff] hover:border-[#0D3572]/30 transition-colors">
                     <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#0D3572] shrink-0">
                       <ExternalLink className="h-5 w-5 text-white" />
                     </div>
                     <div className="flex-1">
-                      <p className="font-semibold text-[#0D3572] text-sm group-hover:text-[#C9A227] transition-colors">{link.name}</p>
+                      <p className="font-semibold text-[#0D3572] text-sm">{link.name}</p>
                       <p className="text-xs text-gray-600 mt-1 leading-relaxed">{link.description}</p>
+                      {"contact" in link && (
+                        <div className="mt-2 space-y-0.5">
+                          <p className="text-xs font-semibold text-[#0D3572]">{link.contact}</p>
+                          <p className="text-[11px] text-gray-500">{link.contactTitle}</p>
+                        </div>
+                      )}
+                      <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-2">
+                        {link.url !== "#" && (
+                          <a href={link.url} target="_blank" rel="noopener noreferrer"
+                             className="text-xs text-[#0D3572] hover:underline flex items-center gap-1">
+                            <ExternalLink className="h-3 w-3" /> Website
+                          </a>
+                        )}
+                        {"email" in link && link.email && (
+                          <a href={`mailto:${link.email}`}
+                             className="text-xs text-[#C9A227] hover:underline flex items-center gap-1">
+                            <Mail className="h-3 w-3" /> {link.email}
+                          </a>
+                        )}
+                      </div>
                     </div>
-                  </a>
+                  </div>
                 ))}
               </div>
             </div>
