@@ -7,7 +7,6 @@ export interface TranslationKeys {
     home: string;
     about: string;
     resources: string;
-    compliance: string;
     directory: string;
     join: string;
     login: string;
@@ -59,7 +58,6 @@ export const translations: Record<Locale, TranslationKeys> = {
       home: "Home",
       about: "About",
       resources: "Resources",
-      compliance: "Compliance",
       directory: "Directory",
       join: "Join",
       login: "Login",
@@ -130,7 +128,6 @@ export const translations: Record<Locale, TranslationKeys> = {
       home: "Lakaz",
       about: "Lor Nou",
       resources: "Resours",
-      compliance: "Konformite",
       directory: "Direktori",
       join: "Zwenn",
       login: "Konekte",

@@ -3,7 +3,7 @@ import { Lock, CheckCircle, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 interface ContentGateProps {
-  page: "resources" | "compliance" | "directory";
+  page: "resources" | "directory";
 }
 
 const gateContent = {
@@ -16,17 +16,6 @@ const gateContent = {
       "Food safety, employment & licensing guides",
       "Association training workshop slide decks",
       "Member-exclusive compliance tool kit",
-    ],
-  },
-  compliance: {
-    title: "Full Compliance Hub — Members Only",
-    description:
-      "You're seeing one pillar. Members unlock all four compliance areas with full checklists, government links, and downloadable audit tools.",
-    bullets: [
-      "Food Handling Standards — full checklist",
-      "Expiry Date Monitoring procedures",
-      "Damaged Goods policy & templates",
-      "Government contact directory",
     ],
   },
   directory: {
