@@ -2,8 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 function buildEmailHtml(subject: string, message: string): string {
   return `<!DOCTYPE html>
 <html lang="en">
@@ -22,7 +20,7 @@ function buildEmailHtml(subject: string, message: string): string {
         <!-- Body -->
         <tr>
           <td style="padding:32px;">
-            <p style="margin:0 0 24px;color:#374151;font-size:15px;line-height:1.7;">${message.replace(/\n/g, "<br>")}</p>
+            <p style="margin:0 0 24px;color:#374151;font-size:15px;line-height:1.7;">${message.replaceAll("\n", "<br>")}</p>
             <table cellpadding="0" cellspacing="0">
               <tr>
                 <td style="background:#0D3572;border-radius:8px;">
@@ -50,6 +48,8 @@ export async function POST(req: NextRequest) {
   if (!userId) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
+
+  const resend = new Resend(process.env.RESEND_API_KEY);
 
   const adminEmails = (process.env.NOTIFY_ADMINS ?? "")
     .split(",")
