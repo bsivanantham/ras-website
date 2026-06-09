@@ -10,6 +10,7 @@ import {
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import NotifyButton from "@/components/NotifyButton";
 
 
 const events = [
@@ -213,6 +214,8 @@ export default async function MemberPage() {
                 </CardContent>
               </Card>
 
+
+              <NotifyButton />
 
               {/* Help card */}
               <Card className="bg-[#1B8A4B]/10 border border-[#1B8A4B]/20 shadow-sm">
