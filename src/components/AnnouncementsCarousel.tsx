@@ -50,6 +50,19 @@ export const publicAnnouncements: Announcement[] = [
 const announcements: Announcement[] = [
   // ── Newest first ─────────────────────────────────────────────────────────
   {
+    id: "ann-pilgrims-security",
+    badge: "Upcoming Meeting",
+    badgeColor: "bg-teal-100 text-teal-700",
+    Icon: CalendarDays,
+    title: "Meeting with Pilgrims Security Ltd — Security Solutions for Retailers",
+    description:
+      "RAS will meet with Pilgrims Security Ltd to discuss security solutions and services available to Seychelles retailers. The meeting includes a visit to their 24-hour Monitoring Station at their Headquarters in Providence.",
+    date: "Monday, 15 June 2026 — 11:00 a.m.",
+    href: null,
+    actionLabel: null,
+    preview: { type: "event", month: "JUN", day: "15", location: "Providence, Mahé" },
+  },
+  {
     id: "ann-nation-article",
     badge: "In the News",
     badgeColor: "bg-yellow-100 text-yellow-800",
