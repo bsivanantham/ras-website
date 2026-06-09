@@ -50,6 +50,19 @@ export const publicAnnouncements: Announcement[] = [
 const announcements: Announcement[] = [
   // ── Newest first ─────────────────────────────────────────────────────────
   {
+    id: "ann-stc-delivery-policy",
+    badge: "STC Policy Update",
+    badgeColor: "bg-sky-100 text-sky-700",
+    Icon: Truck,
+    title: "STC Revised Delivery Policy — Effective 15 June 2026",
+    description:
+      "STC has revised its delivery policy for Category 1 products. Free delivery applies to Category 1 orders of SCR 5,000+ and Category 2 orders of SCR 3,000+. Orders below these thresholds will incur a SCR 300 delivery fee. Consolidated Category 1 and non-Category 1 purchases can be delivered together if free delivery conditions are met.",
+    date: "Effective Monday, 15 June 2026",
+    href: "/images/stcannouce.jpeg",
+    actionLabel: "View Notice",
+    preview: { type: "image", src: "/images/stcannouce.jpeg" },
+  },
+  {
     id: "ann-pilgrims-security",
     badge: "Upcoming Meeting",
     badgeColor: "bg-teal-100 text-teal-700",
