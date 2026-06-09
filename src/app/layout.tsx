@@ -66,6 +66,9 @@ export const metadata: Metadata = {
       "Official body supporting retail businesses across Mahé, Praslin, and La Digue.",
     images: ["https://ras.sc/images/logo.jpg"],
   },
+  alternates: {
+    canonical: "https://ras.sc",
+  },
   verification: {
     other: {
       "msvalidate.01": "CCDA76ADA45C8B3150E744DB4C3E86E9",

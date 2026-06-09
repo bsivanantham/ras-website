@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: "About RAS",
   description:
     "Learn about the Retailers Association of Seychelles — our mission, history, and the committee leading retail businesses across Mahé, Praslin, and La Digue.",
+  alternates: { canonical: "https://ras.sc/about" },
 };
 
 const breadcrumbJsonLd = {

@@ -10,6 +10,7 @@ export const metadata: Metadata = {
   title: "Service Directory",
   description:
     "Find vetted service providers for Seychelles retailers — suppliers, logistics, legal, and financial services recommended by the Retailers Association of Seychelles.",
+  alternates: { canonical: "https://ras.sc/directory" },
 };
 
 const breadcrumbJsonLd = {

@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: "Member Directory",
   description:
     "Browse certified RAS members across Mahé, Praslin, and La Digue — the official directory of retail businesses in the Retailers Association of Seychelles.",
+  alternates: { canonical: "https://ras.sc/members" },
 };
 
 const breadcrumbJsonLd = {

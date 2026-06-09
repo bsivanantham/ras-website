@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   title: "Resources",
   description:
     "STC price lists, FTC notices, and Seychelles retail laws — official documents and compliance resources for RAS members.",
+  alternates: { canonical: "https://ras.sc/resources" },
 };
 
 const breadcrumbJsonLd = {

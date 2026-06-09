@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: "Media & Press Coverage",
   description:
     "Press features and news coverage of the Retailers Association of Seychelles — Seychelles Nation articles, State House meetings, and member event photos.",
+  alternates: { canonical: "https://ras.sc/media" },
 };
 
 const breadcrumbJsonLd = {
