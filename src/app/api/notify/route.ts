@@ -66,17 +66,21 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Subject and message are required" }, { status: 400 });
   }
 
-  const { error } = await resend.emails.send({
-    from: "RAS Notifications <notifications@ras.sc>",
+  // Use RESEND_FROM env var if set (requires domain verified in Resend dashboard),
+  // otherwise fall back to Resend's sandbox sender which works without verification
+  const from = process.env.RESEND_FROM ?? "RAS <onboarding@resend.dev>";
+
+  const { data, error } = await resend.emails.send({
+    from,
     to: adminEmails,
     subject,
     html: buildEmailHtml(subject, message),
   });
 
   if (error) {
-    console.error("Resend error:", error);
-    return NextResponse.json({ error: "Failed to send email" }, { status: 500 });
+    console.error("Resend error:", JSON.stringify(error));
+    return NextResponse.json({ error: (error as { message?: string }).message ?? "Failed to send email" }, { status: 500 });
   }
 
-  return NextResponse.json({ ok: true, sent: adminEmails.length });
+  return NextResponse.json({ ok: true, sent: adminEmails.length, id: data?.id });
 }
