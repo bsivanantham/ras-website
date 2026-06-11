@@ -5,6 +5,13 @@ import { Megaphone } from "lucide-react";
 
 const ads = [
   {
+    id: "ad-2",
+    title: "Shop for Rent — Au Cap",
+    description: "Commercial shop for rent at Au Cap. Equipped with chillar, freezer, and shelf units. Great location, secure premises — ideal for your business. Call: 2772788",
+    src: "/images/ads1.jpeg",
+    postedDate: "10 June 2026",
+  },
+  {
     id: "ad-1",
     title: "Shop for Rent",
     description: "Commercial space available for rent. Contact the advertiser for more details.",
