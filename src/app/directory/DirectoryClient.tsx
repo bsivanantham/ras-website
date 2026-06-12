@@ -27,6 +27,7 @@ const filterCategories = [
   "Health & Safety",
   "Finance & Tax",
   "Legal & Licensing",
+  "Traffic",
   "Police & Emergency",
 ];
 
@@ -168,9 +169,9 @@ export const providers: Provider[] = [
   },
   {
     id: "8",
-    name: "Seychelles Licensing Authority (SLA)",
-    category: "Legal & Licensing",
-    description: "Issues and manages business licences, trade licences, and other regulatory permits required for operating a retail business in Seychelles. Traffic Section: marquise@sla.sc / prisca@sla.sc",
+    name: "Seychelles Licensing Authority (SLA) — Traffic Section",
+    category: "Traffic",
+    description: "Traffic section of the Seychelles Licensing Authority. Handles vehicle licensing, road permits, and traffic-related regulatory matters.",
     website: "www.sla.gov.sc",
     websiteHref: "https://www.sla.gov.sc",
     email: "marquise@sla.sc",
