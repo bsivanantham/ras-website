@@ -1,4 +1,38 @@
-import { kv } from "@vercel/kv";
+import { put, list, del } from "@vercel/blob";
+
+// Vercel Blob-backed key-value store.
+// JSON data files are stored at ras-data/<key>.json in the Blob store.
+// Gallery images are stored at their own paths (handled by the gallery API route).
+
+const DATA_PREFIX = "ras-data/";
+
+async function kvGet<T>(key: string): Promise<T | null> {
+  try {
+    const { blobs } = await list({ prefix: `${DATA_PREFIX}${key}.json`, limit: 10 });
+    if (!blobs.length) return null;
+    const latest = blobs.toSorted(
+      (a, b) => new Date(b.uploadedAt).getTime() - new Date(a.uploadedAt).getTime()
+    )[0];
+    const res = await fetch(latest.url, { cache: "no-store" });
+    if (!res.ok) return null;
+    return res.json() as Promise<T>;
+  } catch {
+    return null;
+  }
+}
+
+async function kvSet<T>(key: string, value: T): Promise<void> {
+  // Delete any existing blobs at this path before writing new one
+  const { blobs } = await list({ prefix: `${DATA_PREFIX}${key}.json` });
+  if (blobs.length > 0) {
+    await del(blobs.map((b) => b.url));
+  }
+  await put(`${DATA_PREFIX}${key}.json`, JSON.stringify(value), {
+    access: "public",
+    addRandomSuffix: false,
+  });
+}
+
 export type StoredAnnouncement = {
   id: string;
   access: "public" | "member";
@@ -57,18 +91,6 @@ export type AuditEntry = {
   detail: string;
   timestamp: string;
 };
-
-async function kvGet<T>(key: string): Promise<T | null> {
-  try {
-    return await kv.get<T>(key);
-  } catch {
-    return null;
-  }
-}
-
-async function kvSet<T>(key: string, value: T): Promise<void> {
-  await kv.set(key, value);
-}
 
 export async function getAnnouncements(): Promise<StoredAnnouncement[] | null> {
   return kvGet<StoredAnnouncement[]>("announcements");
