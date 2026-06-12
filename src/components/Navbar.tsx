@@ -3,8 +3,8 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
-import { Show, UserButton, useAuth } from "@clerk/nextjs";
-import { LayoutDashboard } from "lucide-react";
+import { Show, UserButton, useAuth, useUser } from "@clerk/nextjs";
+import { LayoutDashboard, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import SeychellesFlag from "@/components/SeychellesFlag";
@@ -14,6 +14,8 @@ export default function Navbar() {
   const pathname = usePathname();
   const { t } = useLanguage();
   const { isSignedIn } = useAuth();
+  const { user } = useUser();
+  const isSuperAdmin = (user?.publicMetadata as { role?: string } | undefined)?.role === "super_admin";
 
   const navLinks = [
     { href: "/", label: t.nav.home },
@@ -99,6 +101,13 @@ export default function Navbar() {
                       labelIcon={<LayoutDashboard size={15} />}
                       href="/member"
                     />
+                    {isSuperAdmin && (
+                      <UserButton.Link
+                        label="Admin Panel"
+                        labelIcon={<ShieldCheck size={15} />}
+                        href="/admin"
+                      />
+                    )}
                   </UserButton.MenuItems>
                 </UserButton>
               </Show>
@@ -130,6 +139,13 @@ export default function Navbar() {
                       labelIcon={<LayoutDashboard size={15} />}
                       href="/member"
                     />
+                    {isSuperAdmin && (
+                      <UserButton.Link
+                        label="Admin Panel"
+                        labelIcon={<ShieldCheck size={15} />}
+                        href="/admin"
+                      />
+                    )}
                   </UserButton.MenuItems>
                 </UserButton>
               </Show>

@@ -1,5 +1,8 @@
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
+import { getEvents } from "@/lib/kv";
+import type { StoredEvent } from "@/lib/kv";
+import { isAdmin } from "@/lib/admin";
 import Link from "next/link";
 import {
   Calendar,
@@ -13,39 +16,11 @@ import { Badge } from "@/components/ui/badge";
 import NotifyButton from "@/components/NotifyButton";
 
 
-const events = [
-  {
-    id: "ev-1",
-    title: "Executive Committee Meeting — May 2026",
-    date: "May 20, 2026",
-    location: "Victoria, Mahé",
-    description: "Executive Committee meeting for May 2026 and handing over of documents. Meeting successfully held.",
-    status: "done" as const,
-  },
-  {
-    id: "ev-2",
-    title: "Handing Over of Documents",
-    date: "May 20, 2026",
-    location: "Victoria, Mahé",
-    description: "Official handing over of documents. Committee members were present.",
-    status: "done" as const,
-  },
-  {
-    id: "ev-3",
-    title: "FTC Meeting — RRP Clarification",
-    date: "Jun 1, 2026",
-    location: "Victoria, Mahé",
-    description: "Meeting with the Fair Trading Commission regarding RRP clarification, SIBA-related issues, and STC case updates.",
-    status: "done" as const,
-  },
-  {
-    id: "ev-4",
-    title: "SACOS Insurance Meeting",
-    date: "Jun 3, 2026",
-    location: "Victoria, Mahé",
-    description: "Meeting with SACOS Insurance to discuss possible insurance benefits and support packages for RAS members.",
-    status: "upcoming" as const,
-  },
+const FALLBACK_EVENTS: StoredEvent[] = [
+  { id: "ev-1", title: "Executive Committee Meeting — May 2026", date: "May 20, 2026", location: "Victoria, Mahé", description: "Executive Committee meeting for May 2026 and handing over of documents. Meeting successfully held.", status: "done" },
+  { id: "ev-2", title: "Handing Over of Documents", date: "May 20, 2026", location: "Victoria, Mahé", description: "Official handing over of documents. Committee members were present.", status: "done" },
+  { id: "ev-3", title: "FTC Meeting — RRP Clarification", date: "Jun 1, 2026", location: "Victoria, Mahé", description: "Meeting with the Fair Trading Commission regarding RRP clarification, SIBA-related issues, and STC case updates.", status: "done" },
+  { id: "ev-4", title: "SACOS Insurance Meeting", date: "Jun 3, 2026", location: "Victoria, Mahé", description: "Meeting with SACOS Insurance to discuss possible insurance benefits and support packages for RAS members.", status: "upcoming" },
 ];
 
 
@@ -59,6 +34,8 @@ export default async function MemberPage() {
   const user = await currentUser();
   const firstName = user?.firstName ?? "Member";
   const fullName = [user?.firstName, user?.lastName].filter(Boolean).join(" ") || "Member";
+  const events = (await getEvents()) ?? FALLBACK_EVENTS;
+  const userIsAdmin = isAdmin(user);
 
   return (
     <div className="flex flex-col">
@@ -215,7 +192,7 @@ export default async function MemberPage() {
               </Card>
 
 
-              <NotifyButton />
+              {userIsAdmin && <NotifyButton />}
 
               {/* Help card */}
               <Card className="bg-[#1B8A4B]/10 border border-[#1B8A4B]/20 shadow-sm">

@@ -3,20 +3,30 @@
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import type { StoredPhoto } from "@/lib/kv";
 
-export const photos = [
+type Photo = { src: string; alt: string; caption: string };
+
+export const photos: Photo[] = [
   { src: "/images/committee-2026.jpg", alt: "Retailers Association of Seychelles Committee 2026", caption: "Retailers Association of Seychelles Committee 2026" },
   { src: "/images/download%20(3).png", alt: "Executive Committee Meeting — 20 May 2026", caption: "Executive Committee Meeting — 20 May 2026" },
   { src: "/images/image1.jpeg", alt: "Retailers Association of Seychelles Event", caption: "Retailers Association of Seychelles Event" },
   { src: "/images/annouscemedia1.jpeg", alt: "RAS Member Newsletter — June 2026", caption: "RAS Member Newsletter — June 2026" },
 ];
 
-export default function GalleryClient() {
+export default function GalleryClient({ kvPhotos }: Readonly<{ kvPhotos?: StoredPhoto[] }>) {
+  const allPhotos: Photo[] = kvPhotos?.length ? kvPhotos : photos;
   const [lightbox, setLightbox] = useState<number | null>(null);
 
   const close = useCallback(() => setLightbox(null), []);
-  const prev = useCallback(() => setLightbox((i) => (i === null ? null : i === 0 ? photos.length - 1 : i - 1)), []);
-  const next = useCallback(() => setLightbox((i) => (i === null ? null : i === photos.length - 1 ? 0 : i + 1)), []);
+  const prev = useCallback(() => setLightbox((i) => {
+    if (i === null) return null;
+    return i === 0 ? allPhotos.length - 1 : i - 1;
+  }), [allPhotos.length]);
+  const next = useCallback(() => setLightbox((i) => {
+    if (i === null) return null;
+    return i === allPhotos.length - 1 ? 0 : i + 1;
+  }), [allPhotos.length]);
 
   useEffect(() => {
     if (lightbox === null) return;
@@ -33,7 +43,7 @@ export default function GalleryClient() {
     <>
       {/* Photo grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-        {photos.map((photo, i) => (
+        {allPhotos.map((photo, i) => (
           <button
             key={photo.src}
             onClick={() => setLightbox(i)}
@@ -85,15 +95,15 @@ export default function GalleryClient() {
             onClick={(e) => e.stopPropagation()}
           >
             <Image
-              src={photos[lightbox].src}
-              alt={photos[lightbox].alt}
+              src={allPhotos[lightbox].src}
+              alt={allPhotos[lightbox].alt}
               width={1200}
               height={800}
               className="w-full h-auto max-h-[80vh] object-contain rounded-lg"
               unoptimized
             />
             <p className="text-center text-white/80 text-sm mt-3">
-              {photos[lightbox].caption} — {lightbox + 1} / {photos.length}
+              {allPhotos[lightbox].caption} — {lightbox + 1} / {allPhotos.length}
             </p>
           </div>
 

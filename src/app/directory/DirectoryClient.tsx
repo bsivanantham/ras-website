@@ -374,16 +374,20 @@ function ProviderCard({ provider }: Readonly<{ provider: Provider }>) {
   );
 }
 
-const policeProviders = providers.filter((p) => p.category === "Police & Emergency");
+export default function DirectoryClient({ isLoggedIn, kvProviders }: Readonly<{ isLoggedIn: boolean; kvProviders?: Provider[] }>) {
+  const allProviders = kvProviders ?? providers;
+  const policeProviders = allProviders.filter((p) => p.category === "Police & Emergency");
 
-export default function DirectoryClient({ isLoggedIn }: Readonly<{ isLoggedIn: boolean }>) {
   const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState("All");
+
+  // Derive filter categories from live data so admin-added categories appear automatically
+  const liveCategories = ["All", ...Array.from(new Set(allProviders.map((p) => p.category))).sort((a, b) => a.localeCompare(b))];
 
   // Guests see police block only. Members use the unified filtered grid.
   const gridProviders = (() => {
     if (!isLoggedIn) return [];
-    const base = activeCategory === "All" ? providers : providers.filter((p) => p.category === activeCategory);
+    const base = activeCategory === "All" ? allProviders : allProviders.filter((p) => p.category === activeCategory);
     const term = search.toLowerCase();
     if (!term) return base;
     return base.filter(
@@ -411,7 +415,7 @@ export default function DirectoryClient({ isLoggedIn }: Readonly<{ isLoggedIn: b
                 />
               </div>
               <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-none -mx-4 px-4 sm:mx-0 sm:px-0 sm:flex-wrap">
-                {filterCategories.map((cat) => (
+                {liveCategories.map((cat) => (
                   <button
                     key={cat}
                     type="button"

@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -14,6 +15,7 @@ import {
 } from "lucide-react";
 import HeroCTA from "@/components/HeroCTA";
 import AnnouncementsCarousel, { publicAnnouncements } from "@/components/AnnouncementsCarousel";
+import type { StoredAnnouncement } from "@/lib/kv";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import SeychellesFlag from "@/components/SeychellesFlag";
@@ -28,6 +30,16 @@ export default function HomePage() {
   const { isSignedIn } = useAuth();
   const { user } = useUser();
   const firstName = user?.firstName ?? "Member";
+  const [kvItems, setKvItems] = useState<StoredAnnouncement[] | undefined>(undefined);
+
+  useEffect(() => {
+    fetch("/api/announcements")
+      .then((r) => r.json())
+      .then((d: { data: StoredAnnouncement[] | null }) => {
+        if (d.data?.length) setKvItems(d.data);
+      })
+      .catch(() => {});
+  }, [isSignedIn]);
 
   return (
     <div className="flex flex-col">
@@ -82,10 +94,10 @@ export default function HomePage() {
         </div>
       )}
 
-      {/* Announcements — members see all, guests see public only */}
+      {/* Announcements — KV data when available, falls back to hardcoded */}
       {isSignedIn
-        ? <AnnouncementsCarousel />
-        : <AnnouncementsCarousel items={publicAnnouncements} label="From RAS" />
+        ? <AnnouncementsCarousel kvItems={kvItems} />
+        : <AnnouncementsCarousel kvItems={kvItems?.filter((a) => a.access === "public")} items={publicAnnouncements} label="From RAS" />
       }
 
       {/* Stats bar */}

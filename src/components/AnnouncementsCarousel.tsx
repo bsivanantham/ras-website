@@ -4,6 +4,8 @@ import { useState, useEffect, useCallback } from "react";
 import { ChevronLeft, ChevronRight, Download, CalendarDays, FileText, Gavel, ExternalLink, Truck, Tag, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import { ICON_OPTIONS, BADGE_COLOURS } from "@/lib/iconMap";
+import type { StoredAnnouncement } from "@/lib/kv";
 
 const INTERVAL = 5000;
 
@@ -270,18 +272,34 @@ function PreviewPanel({ preview }: Readonly<{ preview: Preview }>) {
   );
 }
 
-export default function AnnouncementsCarousel({ items = announcements, label = "Latest for Members" }: Readonly<{ items?: Announcement[]; label?: string }>) {
+function fromKv(stored: StoredAnnouncement): Announcement {
+  return {
+    ...stored,
+    Icon: ICON_OPTIONS[stored.iconKey as keyof typeof ICON_OPTIONS] ?? FileText,
+    badgeColor: BADGE_COLOURS[stored.badgeColorKey] ?? "bg-blue-100 text-blue-700",
+  };
+}
+
+export default function AnnouncementsCarousel({
+  items,
+  kvItems,
+  label = "Latest for Members",
+}: Readonly<{ items?: Announcement[]; kvItems?: StoredAnnouncement[]; label?: string }>) {
+  const resolved: Announcement[] = kvItems?.length
+    ? kvItems.map(fromKv)
+    : (items ?? announcements);
+
   const [idx, setIdx] = useState(0);
   const [paused, setPaused] = useState(false);
   const [progress, setProgress] = useState(0);
 
   const next = useCallback(
-    () => setIdx((i) => (i === items.length - 1 ? 0 : i + 1)),
-    [items.length]
+    () => setIdx((i) => (i === resolved.length - 1 ? 0 : i + 1)),
+    [resolved.length]
   );
   const prev = () => {
     setProgress(0);
-    setIdx((i) => (i === 0 ? items.length - 1 : i - 1));
+    setIdx((i) => (i === 0 ? resolved.length - 1 : i - 1));
   };
   const goTo = (i: number) => {
     setProgress(0);
@@ -308,7 +326,7 @@ export default function AnnouncementsCarousel({ items = announcements, label = "
     return () => clearInterval(tick);
   }, [idx, paused]);
 
-  const ann = items[idx];
+  const ann = resolved[idx] ?? resolved[0];
   const { Icon } = ann;
 
   return (
@@ -327,7 +345,7 @@ onMouseEnter={() => setPaused(true)}
             </p>
             <h2 className="text-2xl font-bold text-[#0D3572]">Announcements</h2>
           </div>
-          {items.length > 1 && (
+          {resolved.length > 1 && (
             <div className="flex items-center gap-2">
               <button
                 type="button"
@@ -409,9 +427,9 @@ onMouseEnter={() => setPaused(true)}
         </div>
 
         {/* Dots */}
-        {items.length > 1 && (
+        {resolved.length > 1 && (
           <div className="flex justify-center gap-2 mt-5">
-            {items.map((item, i) => (
+            {resolved.map((item, i) => (
               <button
                 key={item.id}
                 type="button"

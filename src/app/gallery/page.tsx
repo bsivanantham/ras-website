@@ -1,11 +1,14 @@
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { ImageIcon } from "lucide-react";
+import { getGallery } from "@/lib/kv";
 import GalleryClient from "./GalleryClient";
 
 export default async function GalleryPage() {
   const { userId } = await auth();
   if (!userId) redirect("/sign-in");
+
+  const kvPhotos = await getGallery();
 
   return (
     <div className="flex flex-col">
@@ -28,7 +31,7 @@ export default async function GalleryPage() {
       {/* Photos */}
       <section className="py-10 sm:py-16 bg-[#EFF4FF] flex-1">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <GalleryClient />
+          <GalleryClient kvPhotos={kvPhotos ?? undefined} />
         </div>
       </section>
     </div>

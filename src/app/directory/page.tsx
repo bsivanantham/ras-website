@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { auth } from "@clerk/nextjs/server";
+import { getProviders } from "@/lib/kv";
 import { Button } from "@/components/ui/button";
 import SeychellesFlag from "@/components/SeychellesFlag";
 import DirectoryClient from "./DirectoryClient";
@@ -25,6 +26,7 @@ const breadcrumbJsonLd = {
 export default async function DirectoryPage() {
   const { userId } = await auth();
   const isLoggedIn = !!userId;
+  const kvProviders = await getProviders();
 
   return (
     <div className="flex flex-col">
@@ -72,7 +74,7 @@ export default async function DirectoryPage() {
         </div>
       )}
 
-      <DirectoryClient isLoggedIn={isLoggedIn} />
+      <DirectoryClient isLoggedIn={isLoggedIn} kvProviders={kvProviders ?? undefined} />
     </div>
   );
 }
