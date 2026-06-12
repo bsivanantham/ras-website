@@ -170,11 +170,12 @@ export const providers: Provider[] = [
     id: "8",
     name: "Seychelles Licensing Authority (SLA)",
     category: "Legal & Licensing",
-    description: "Issues and manages business licences, trade licences, and other regulatory permits required for operating a retail business in Seychelles. Traffic Section contact: marquise@sla.sc",
+    description: "Issues and manages business licences, trade licences, and other regulatory permits required for operating a retail business in Seychelles. Traffic Section: marquise@sla.sc / prisca@sla.sc",
     website: "www.sla.gov.sc",
     websiteHref: "https://www.sla.gov.sc",
     email: "marquise@sla.sc",
-    phone: null,
+    email2: "prisca@sla.sc",
+    phone: "+248 4283437",
   },
   // Police & Emergency
   {
