@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { auth } from "@clerk/nextjs/server";
-import { Scale, Download, ExternalLink, Lock, Building2, ShieldCheck } from "lucide-react";
+import { Scale, Download, ExternalLink, Lock, Building2, ShieldCheck, Sparkles } from "lucide-react";
 import SeychellesFlag from "@/components/SeychellesFlag";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -44,6 +44,44 @@ const categories = [
     title: "FTC Notices & Regulatory Updates",
     description: "Press releases and enforcement notices from the Fair Trading Commission of Seychelles.",
     resources: [
+      {
+        title: "Minutes — RAS × FTC Meeting, 1 June 2026",
+        description: "Formally signed minutes of the meeting between the RAS Executive Committee and the Fair Trading Commission. Covers the RRP clarification, STC tied/bundled sales complaint, and SIBA wholesale licensing concerns. Signed by the RAS Chairman and FTC Head of Competition on 10 June 2026.",
+        type: "PDF",
+        access: "member",
+        href: "/docs/RAS%20Minutes%20of%20FTC%20Meeting.pdf",
+        summary: [
+          {
+            section: "Recommended Retail Price (RRP)",
+            points: [
+              "RRP is a recommendation only — you are not required to sell at that price.",
+              "You have the full legal right to independently set your own selling prices.",
+              "RRP may only appear on the product itself — not on posters, shelf displays, stickers on chillers, or any promotional materials.",
+              "Displaying your own selling price alongside the RRP does not constitute dual pricing.",
+              "Supplier-applied RRP markings must not be altered, removed, covered, or modified.",
+              "Compliance deadline for manufacturers, distributors, and wholesalers: 24 August 2026.",
+            ],
+          },
+          {
+            section: "STC Tied/Bundled Sales Complaint",
+            points: [
+              "RAS formally complained to FTC about STC requiring purchase of unwanted products (e.g., soya bean oil) to access popular items.",
+              "FTC investigation is ongoing — STC claims the practice has since been discontinued.",
+              "RAS is not seeking penalties; it only requests that affected members be permitted to return unsold soya bean oil stock.",
+              "FTC confirmed: complaints can be filed based on verbal arrangements alone — written evidence is not required.",
+              "Similar allegations were raised against IFS; FTC is investigating those separately.",
+            ],
+          },
+          {
+            section: "Wholesale Licensing (SIBA)",
+            points: [
+              "RAS raised concerns about wholesalers engaging in retail sales without holding the appropriate retail licence.",
+              "FTC will liaise with the Seychelles Licensing Authority (SLA) to clarify licence requirements.",
+              "RAS to meet with SLA once a date is confirmed — further updates will follow.",
+            ],
+          },
+        ],
+      },
       { title: "FTC Press Release — Enforcement of Recommended Resale Price (RRP) Provisions", description: "The Fair Trading Commission clarifies Section 127(5) of the Fair Trading Act 2022: RRPs must appear on the product only — not on posters, shelf displays, or stickers affixed to chillers. Retailers retain the right to independently set their own resale prices. Date of commencement: 23 February 2026. Deadline for full compliance: 24 August 2026.", type: "Image", access: "public", href: "/images/FTCpressrelease.jpg" },
     ],
   },
@@ -60,7 +98,15 @@ const categories = [
   },
 ];
 
-type Resource = typeof categories[0]["resources"][0];
+type ResourceSummaryGroup = { section: string; points: string[] };
+type Resource = {
+  title: string;
+  description: string;
+  type: string;
+  access: string;
+  href: string | null;
+  summary?: ResourceSummaryGroup[];
+};
 
 function ResourceAction({ resource, showAll }: Readonly<{ resource: Resource; showAll: boolean }>) {
   const canAccess = resource.access === "public" || showAll;
@@ -117,6 +163,28 @@ function ResourceCard({ resource, showAll }: Readonly<{ resource: Resource; show
         <CardDescription className="text-gray-600 text-sm leading-relaxed">
           {resource.description}
         </CardDescription>
+        {canAccess && resource.summary && (
+          <div className="rounded-md bg-blue-50/70 border border-blue-100 p-3.5">
+            <p className="text-[11px] font-semibold text-blue-700 uppercase tracking-wider mb-3 flex items-center gap-1.5">
+              <Sparkles className="h-3 w-3" />AI Summary
+            </p>
+            <div className="space-y-3">
+              {resource.summary.map((group) => (
+                <div key={group.section}>
+                  <p className="text-[11px] font-semibold text-[#0D3572] mb-1.5">{group.section}</p>
+                  <ul className="space-y-1">
+                    {group.points.map((point) => (
+                      <li key={point} className="text-[11px] text-gray-700 flex gap-2 leading-relaxed">
+                        <span className="text-[#1B8A4B] shrink-0 mt-0.5">•</span>
+                        <span>{point}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
         {canAccess && resource.href && resource.type === "Image" && (
           <div className="rounded-md overflow-hidden border border-[#0D3572]/10 bg-gray-50">
             {/* eslint-disable-next-line @next/next/no-img-element */}
