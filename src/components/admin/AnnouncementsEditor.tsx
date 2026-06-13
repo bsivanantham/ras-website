@@ -34,11 +34,38 @@ function getSaveLabel(saving: boolean, editing: string | null): string {
   return "Add Announcement";
 }
 
-function Field({ label, children }: Readonly<{ label: string; children: React.ReactNode }>) {
+function buildPayload(
+  form: FormState,
+  editing: string | null,
+  items: StoredAnnouncement[]
+): StoredAnnouncement {
+  const existing = items.find((i) => i.id === form.id);
+  return {
+    ...form,
+    order: editing ? (existing?.order ?? items.length) : items.length,
+    createdAt: editing ? (existing?.createdAt ?? new Date().toISOString()) : new Date().toISOString(),
+  };
+}
+
+type ApiErrorBody = { error?: string | { fieldErrors?: Record<string, string[]> } };
+function parseApiError(data: ApiErrorBody): string {
+  if (typeof data.error === "object" && data.error?.fieldErrors) {
+    const msgs = Object.entries(data.error.fieldErrors)
+      .map(([k, v]) => `${k}: ${v[0]}`)
+      .join(", ");
+    return msgs || "Validation failed";
+  }
+  return typeof data.error === "string" ? data.error : "Save failed";
+}
+
+function Field({ label, children, error, required }: Readonly<{ label: string; children: React.ReactNode; error?: string; required?: boolean }>) {
   return (
     <div>
-      <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide block mb-1">{label}</label>
+      <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide block mb-1">
+        {label}{required && <span className="text-red-500 ml-0.5">*</span>}
+      </label>
       {children}
+      {error && <p className="text-xs text-red-500 mt-1">{error}</p>}
     </div>
   );
 }
@@ -54,6 +81,22 @@ export default function AnnouncementsEditor({ initial }: Readonly<{ initial: Sto
   const [confirmDelete, setConfirmDelete] = useState<string | null>(null);
   const [toast, setToast] = useState<{ type: "success" | "error"; msg: string } | null>(null);
   const [saving, setSaving] = useState(false);
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
+
+  function validate(f: FormState): Record<string, string> {
+    const e: Record<string, string> = {};
+    if (!f.badge.trim()) e.badge = "Required";
+    if (!f.date.trim()) e.date = "Required";
+    if (!f.title.trim()) e.title = "Required";
+    if (!f.description.trim()) e.description = "Required";
+    if ((f.preview.type === "image" || f.preview.type === "pdf") && !f.preview.src.trim())
+      e.previewSrc = "Image / PDF path is required";
+    if (f.preview.type === "event") {
+      if (!f.preview.day.trim()) e.previewDay = "Required";
+      if (!f.preview.location.trim()) e.previewLocation = "Required";
+    }
+    return e;
+  }
 
   function showToast(type: "success" | "error", msg: string) {
     setToast({ type, msg });
@@ -63,26 +106,36 @@ export default function AnnouncementsEditor({ initial }: Readonly<{ initial: Sto
   function openNew() {
     setForm({ ...EMPTY, id: `ann-${Date.now()}` });
     setEditing(null);
+    setFieldErrors({});
   }
 
   function openEdit(item: StoredAnnouncement) {
     setForm({ ...item });
     setEditing(item.id);
+    setFieldErrors({});
   }
 
   function closeForm() {
     setForm(null);
     setEditing(null);
+    setFieldErrors({});
   }
 
   function setField<K extends keyof FormState>(key: K, val: FormState[K]) {
     setForm((f) => f ? { ...f, [key]: val } : f);
+    setFieldErrors((prev) => { const next = { ...prev }; delete next[key as string]; return next; });
   }
 
   function setPreviewField(key: string, val: string) {
     setForm((f) => {
       if (!f) return f;
       return { ...f, preview: { ...f.preview, [key]: val } as StoredAnnouncement["preview"] };
+    });
+    setFieldErrors((prev) => {
+      const next = { ...prev };
+      delete next[`preview${key.charAt(0).toUpperCase()}${key.slice(1)}`];
+      delete next.previewSrc;
+      return next;
     });
   }
 
@@ -99,25 +152,23 @@ export default function AnnouncementsEditor({ initial }: Readonly<{ initial: Sto
 
   async function handleSave() {
     if (!form) return;
+    const errs = validate(form);
+    if (Object.keys(errs).length > 0) {
+      setFieldErrors(errs);
+      showToast("error", "Please fill in all required fields");
+      return;
+    }
     setSaving(true);
     const method = editing ? "PUT" : "POST";
-    const payload: StoredAnnouncement = {
-      ...form,
-      order: editing
-        ? (items.find((i) => i.id === form.id)?.order ?? items.length)
-        : items.length,
-      createdAt: editing
-        ? (items.find((i) => i.id === form.id)?.createdAt ?? new Date().toISOString())
-        : new Date().toISOString(),
-    };
+    const payload = buildPayload(form, editing, items);
     try {
       const res = await fetch("/api/admin/announcements", {
         method,
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-      const data = await res.json() as { error?: string };
-      if (!res.ok) throw new Error(typeof data.error === "string" ? data.error : "Save failed");
+      const data = await res.json() as ApiErrorBody;
+      if (!res.ok) throw new Error(parseApiError(data));
       if (editing) {
         setItems((prev) => prev.map((i) => (i.id === payload.id ? payload : i)));
       } else {
@@ -200,19 +251,19 @@ export default function AnnouncementsEditor({ initial }: Readonly<{ initial: Sto
           </CardHeader>
           <CardContent className="pt-4 space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <Field label="Badge text">
+              <Field label="Badge text" required error={fieldErrors.badge}>
                 <input value={form.badge} onChange={(e) => setField("badge", e.target.value)} className={InputCls()} placeholder="e.g. STC Policy Update" />
               </Field>
-              <Field label="Date / deadline">
+              <Field label="Date / deadline" required error={fieldErrors.date}>
                 <input value={form.date} onChange={(e) => setField("date", e.target.value)} className={InputCls()} placeholder="e.g. Effective 15 June 2026" />
               </Field>
             </div>
 
-            <Field label="Title">
+            <Field label="Title" required error={fieldErrors.title}>
               <input value={form.title} onChange={(e) => setField("title", e.target.value)} className={InputCls()} placeholder="Announcement title" />
             </Field>
 
-            <Field label="Description">
+            <Field label="Description" required error={fieldErrors.description}>
               <textarea value={form.description} onChange={(e) => setField("description", e.target.value)} rows={3} className={`${InputCls()} resize-none`} placeholder="Full announcement text…" />
             </Field>
 
@@ -282,7 +333,7 @@ export default function AnnouncementsEditor({ initial }: Readonly<{ initial: Sto
 
             {/* Preview fields */}
             {(form.preview.type === "image" || form.preview.type === "pdf") && (
-              <Field label={form.preview.type === "image" ? "Image path or URL" : "PDF path or URL"}>
+              <Field label={form.preview.type === "image" ? "Image path or URL" : "PDF path or URL"} required error={fieldErrors.previewSrc}>
                 <input value={form.preview.src} onChange={(e) => setPreviewField("src", e.target.value)} className={InputCls()} placeholder="/images/notice.jpeg" />
               </Field>
             )}
@@ -293,10 +344,10 @@ export default function AnnouncementsEditor({ initial }: Readonly<{ initial: Sto
                     {MONTHS.map((m) => <option key={m}>{m}</option>)}
                   </select>
                 </Field>
-                <Field label="Day">
+                <Field label="Day" required error={fieldErrors.previewDay}>
                   <input value={form.preview.day} onChange={(e) => setPreviewField("day", e.target.value)} className={InputCls()} placeholder="15" />
                 </Field>
-                <Field label="Location">
+                <Field label="Location" required error={fieldErrors.previewLocation}>
                   <input value={form.preview.location} onChange={(e) => setPreviewField("location", e.target.value)} className={InputCls()} placeholder="Victoria, Mahé" />
                 </Field>
               </div>
@@ -322,7 +373,7 @@ export default function AnnouncementsEditor({ initial }: Readonly<{ initial: Sto
             </div>
 
             <div className="flex gap-2 pt-2">
-              <Button onClick={handleSave} disabled={saving || !form.title.trim() || !form.description.trim()}
+              <Button onClick={handleSave} disabled={saving}
                 className="bg-[#0D3572] text-white hover:bg-[#0a2a5a] border-0 gap-2 text-sm">
                 <Check className="h-4 w-4" />
                 {getSaveLabel(saving, editing)}
