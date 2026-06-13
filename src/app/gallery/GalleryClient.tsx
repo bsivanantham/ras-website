@@ -8,6 +8,11 @@ import type { StoredPhoto } from "@/lib/kv";
 type Photo = { src: string; alt: string; caption: string };
 
 export const photos: Photo[] = [
+  { src: "/images/meetin3.jpeg", alt: "RAS delegation outside Shreeji Group offices, Seychelles — June 2026", caption: "RAS Delegation at Shreeji Group Offices — June 2026" },
+  { src: "/images/MEETING1.jpeg", alt: "RAS committee members seated at board meeting — June 2026", caption: "RAS Committee Board Meeting — June 2026" },
+  { src: "/images/meeting2.jpeg", alt: "RAS members gathered at committee board meeting — June 2026", caption: "RAS Committee Meeting — Members, June 2026" },
+  { src: "/images/meeting0.jpeg", alt: "RAS committee meeting with website presentation on screen — June 2026", caption: "RAS Meeting — Website Presentation, June 2026" },
+  { src: "/images/meeting.jpeg", alt: "RAS meeting with Pilgrims Security Services announcement — 15 June 2026", caption: "RAS × Pilgrims Security Services Meeting — 15 June 2026" },
   { src: "/images/committee-2026.jpg", alt: "Retailers Association of Seychelles Committee 2026", caption: "Retailers Association of Seychelles Committee 2026" },
   { src: "/images/download%20(3).png", alt: "Executive Committee Meeting — 20 May 2026", caption: "Executive Committee Meeting — 20 May 2026" },
   { src: "/images/image1.jpeg", alt: "Retailers Association of Seychelles Event", caption: "Retailers Association of Seychelles Event" },
