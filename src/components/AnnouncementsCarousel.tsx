@@ -52,6 +52,19 @@ export const publicAnnouncements: Announcement[] = [
 const announcements: Announcement[] = [
   // ── Newest first ─────────────────────────────────────────────────────────
   {
+    id: "ann-insurance-outcome",
+    badge: "Member Benefit",
+    badgeColor: "bg-green-100 text-green-700",
+    Icon: CheckCircle,
+    title: "RAS Secures Insurance Benefits for Certified Members",
+    description:
+      "RAS met with SACOS Insurance and Fidelity Insurance Brokers on 3 June 2026 to secure exclusive benefits for Certified Members. Key outcomes include discounted insurance packages starting from 10% off, life insurance and accident coverage for shop employees and business owners, improved claims support, and a member questionnaire being developed to prepare tailored proposals. Further details will be circulated shortly.",
+    date: "3 June 2026",
+    href: "/images/rasdiscount.jpeg",
+    actionLabel: "View Details",
+    preview: { type: "image", src: "/images/rasdiscount.jpeg" },
+  },
+  {
     id: "ann-stc-delivery-policy",
     badge: "STC Policy Update",
     badgeColor: "bg-sky-100 text-sky-700",
@@ -115,19 +128,6 @@ const announcements: Announcement[] = [
     href: null,
     actionLabel: null,
     preview: { type: "image", src: "/images/annouscemedia1.jpeg" },
-  },
-  {
-    id: "ann-sacos-meeting",
-    badge: "Upcoming Meeting",
-    badgeColor: "bg-teal-100 text-teal-700",
-    Icon: CalendarDays,
-    title: "SACOS Insurance Meeting",
-    description:
-      "Meeting with SACOS Insurance to discuss possible insurance benefits and support packages for RAS members.",
-    date: "3 June 2026",
-    href: null,
-    actionLabel: null,
-    preview: { type: "event", month: "JUN", day: "3", location: "Victoria, Mahé" },
   },
   {
     id: "ann-gsp",
