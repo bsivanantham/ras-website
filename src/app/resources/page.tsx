@@ -26,19 +26,6 @@ const breadcrumbJsonLd = {
 
 const categories = [
   {
-    id: "stc",
-    icon: Building2,
-    title: "STC Notices & Price Lists",
-    description: "Official notices, press releases, and Maximum Retail Price lists from the Seychelles Trading Corporation.",
-    resources: [
-      { title: "STC Press Release — Category 1 Product Expansion", description: "STC expands Category 1 essential product list to include pasta, juice, tea, corn flakes, liquid milk, chicken franks, long life yogurt, biscuits, and household essentials. Dated 20 February 2026.", type: "Image", access: "public", href: "/images/stcpressrelease.jpeg" },
-      { title: "STC Revised Category 1 MRP — Food Essentials", description: "Revised MRP for lentils, margarine, milk powder, salt (SCR 3.00), white sugar (SCR 17.50), sunflower oil (SCR 25.60), rice, flour, pasta, juice, tea, corn flakes, and perishables.", type: "Image", access: "member", href: "/images/stccataegoryrevised1.jpeg" },
-      { title: "STC Revised Category 1 MRP — Household Essentials", description: "Revised MRP for liquid milk (SCR 20.00), chicken franks, long life yogurt, biscuits, toilet paper, baby diapers (Confy range), adult diapers, baby wipes, and dishwashing paste.", type: "Image", access: "member", href: "/images/stcproduct1.jpeg" },
-      { title: "STC Delivery Schedule — Tuesday & Thursday (North Mahé)", description: "New STC delivery routes: Bel Ombre, Beau Vallon, St Louis, Glasic, Anse Etoile, Perseverance, English River, Central Victoria, Bel Air, Mont Fleuri, Plaisance, Les Mamelles, Cascade, Pointe Laure.", type: "Image", access: "member", href: "/images/stc1.jpeg" },
-      { title: "STC Delivery Schedule — Wednesday & Friday (South & Central Mahé)", description: "New STC delivery routes: La Louise, Fair View, La Misere, Grand Anse, Anse Boileau, Anse Aux Pins, Au Cap, Anse Royale, Anse Forbans, Takamaka. Orders via WhatsApp before 1:00 PM two days prior.", type: "Image", access: "member", href: "/images/stc2.jpeg" },
-    ],
-  },
-  {
     id: "ftc",
     icon: ShieldCheck,
     title: "FTC Notices & Regulatory Updates",
@@ -86,14 +73,27 @@ const categories = [
     ],
   },
   {
+    id: "stc",
+    icon: Building2,
+    title: "STC Notices & Price Lists",
+    description: "Official notices, press releases, and Maximum Retail Price lists from the Seychelles Trading Corporation.",
+    resources: [
+      { title: "STC Press Release — Category 1 Product Expansion", description: "STC expands Category 1 essential product list to include pasta, juice, tea, corn flakes, liquid milk, chicken franks, long life yogurt, biscuits, and household essentials. Dated 20 February 2026.", type: "Image", access: "public", href: "/images/stcpressrelease.jpeg" },
+      { title: "STC Revised Category 1 MRP — Food Essentials", description: "Revised MRP for lentils, margarine, milk powder, salt (SCR 3.00), white sugar (SCR 17.50), sunflower oil (SCR 25.60), rice, flour, pasta, juice, tea, corn flakes, and perishables.", type: "Image", access: "member", href: "/images/stccataegoryrevised1.jpeg" },
+      { title: "STC Revised Category 1 MRP — Household Essentials", description: "Revised MRP for liquid milk (SCR 20.00), chicken franks, long life yogurt, biscuits, toilet paper, baby diapers (Confy range), adult diapers, baby wipes, and dishwashing paste.", type: "Image", access: "member", href: "/images/stcproduct1.jpeg" },
+      { title: "STC Delivery Schedule — Tuesday & Thursday (North Mahé)", description: "New STC delivery routes: Bel Ombre, Beau Vallon, St Louis, Glasic, Anse Etoile, Perseverance, English River, Central Victoria, Bel Air, Mont Fleuri, Plaisance, Les Mamelles, Cascade, Pointe Laure.", type: "Image", access: "member", href: "/images/stc1.jpeg" },
+      { title: "STC Delivery Schedule — Wednesday & Friday (South & Central Mahé)", description: "New STC delivery routes: La Louise, Fair View, La Misere, Grand Anse, Anse Boileau, Anse Aux Pins, Au Cap, Anse Royale, Anse Forbans, Takamaka. Orders via WhatsApp before 1:00 PM two days prior.", type: "Image", access: "member", href: "/images/stc2.jpeg" },
+    ],
+  },
+  {
     id: "laws",
     icon: Scale,
     title: "Laws & Regulations",
     description: "Key legislation and regulatory orders that directly affect retail operations in Seychelles.",
     resources: [
+      { title: "GSP Price List — Effective 1 June 2026", description: "GSP private firm price list effective from 1st June 2026. Reference pricing for goods supplied by GSP.", type: "PDF", access: "member", href: "/docs/GSP%20Price%20List%20w.e.f_%201st%20Jun%202026.pdf" },
       { title: "Control of Supplies and Services Order 2026", description: "Maximum wholesale and retail mark-up now in effect. Category 1: 15% maximum margin. Category 2: 18% maximum margin (temporary — valid until 6 March 2027).", type: "PDF", access: "member", href: "/docs/SI%208%202026%20-%20Control%20of%20Supplies%20and%20Services%20(Maximum%20Wholesale%20and%20Retail%20Mark-up)%20Order%202026%20(1).pdf" },
       { title: "Competition Law in Seychelles", description: "Essential guide to competition law applicable to Seychelles retailers — anti-competitive practices, fair pricing obligations, and regulatory requirements.", type: "PDF", access: "member", href: "/docs/Competition-Law-in-Seychelles-148-x-210-mm-1.pdf" },
-      { title: "GSP Price List — Effective 1 June 2026", description: "GSP private firm price list effective from 1st June 2026. Reference pricing for goods supplied by GSP.", type: "PDF", access: "member", href: "/docs/GSP%20Price%20List%20w.e.f_%201st%20Jun%202026.pdf" },
     ],
   },
 ];
