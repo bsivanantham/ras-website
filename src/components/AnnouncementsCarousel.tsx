@@ -86,9 +86,9 @@ const announcements: Announcement[] = [
     description:
       "RAS will meet with Pilgrims Security Ltd to discuss security solutions and services available to Seychelles retailers. The meeting includes a visit to their 24-hour Monitoring Station at their Headquarters in Providence.",
     date: "Monday, 15 June 2026 — 11:00 a.m.",
-    href: null,
-    actionLabel: null,
-    preview: { type: "event", month: "JUN", day: "15", location: "Providence, Mahé" },
+    href: "/images/meeting.jpeg",
+    actionLabel: "View Flyer",
+    preview: { type: "image", src: "/images/meeting.jpeg" },
   },
   {
     id: "ann-nation-article",
