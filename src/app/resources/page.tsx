@@ -160,9 +160,11 @@ function ResourceCard({ resource, showAll }: Readonly<{ resource: Resource; show
         </div>
       </CardHeader>
       <CardContent className="flex flex-col gap-3">
-        <CardDescription className="text-gray-600 text-sm leading-relaxed">
-          {resource.description}
-        </CardDescription>
+        {canAccess && (
+          <CardDescription className="text-gray-600 text-sm leading-relaxed">
+            {resource.description}
+          </CardDescription>
+        )}
         {canAccess && resource.summary && (
           <div className="rounded-md bg-blue-50/70 border border-blue-100 p-3.5">
             <p className="text-[11px] font-semibold text-blue-700 uppercase tracking-wider mb-3 flex items-center gap-1.5">
