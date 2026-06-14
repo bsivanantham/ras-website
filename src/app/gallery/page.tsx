@@ -1,13 +1,16 @@
-import { auth } from "@clerk/nextjs/server";
+import { auth, currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { ImageIcon } from "lucide-react";
 import { getGallery } from "@/lib/kv";
+import { isAdmin } from "@/lib/admin";
 import GalleryClient from "./GalleryClient";
 
 export default async function GalleryPage() {
   const { userId } = await auth();
   if (!userId) redirect("/sign-in");
 
+  const user = await currentUser();
+  const admin = isAdmin(user);
   const kvPhotos = await getGallery();
 
   return (
@@ -31,7 +34,7 @@ export default async function GalleryPage() {
       {/* Photos */}
       <section className="py-10 sm:py-16 bg-[#EFF4FF] flex-1">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <GalleryClient kvPhotos={kvPhotos ?? undefined} />
+          <GalleryClient kvPhotos={kvPhotos ?? undefined} isAdmin={admin} />
         </div>
       </section>
     </div>

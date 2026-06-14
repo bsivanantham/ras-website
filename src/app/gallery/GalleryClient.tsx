@@ -2,8 +2,10 @@
 
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
-import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import { X, ChevronLeft, ChevronRight, Pencil } from "lucide-react";
 import type { StoredPhoto } from "@/lib/kv";
+import AdminBottomSheet from "@/components/admin/AdminBottomSheet";
+import GalleryManager from "@/components/admin/GalleryManager";
 
 type Photo = { src: string; alt: string; caption: string; group?: string };
 
@@ -143,12 +145,13 @@ function nextLightboxIndex(i: number | null, total: number): number | null {
   return i === total - 1 ? 0 : i + 1;
 }
 
-export default function GalleryClient({ kvPhotos }: Readonly<{ kvPhotos?: StoredPhoto[] }>) {
+export default function GalleryClient({ kvPhotos, isAdmin }: Readonly<{ kvPhotos?: StoredPhoto[]; isAdmin?: boolean }>) {
   const allPhotos: Photo[] = kvPhotos?.length ? kvPhotos : photos;
   const displayItems = buildDisplayItems(allPhotos);
   const total = allPhotos.length;
 
   const [lightbox, setLightbox] = useState<number | null>(null);
+  const [adminOpen, setAdminOpen] = useState(false);
 
   const close = useCallback(() => setLightbox(null), []);
   const prev  = useCallback(() => setLightbox(i => prevLightboxIndex(i, total)), [total]);
@@ -213,6 +216,21 @@ export default function GalleryClient({ kvPhotos }: Readonly<{ kvPhotos?: Stored
             <ChevronRight className="h-5 w-5" />
           </button>
         </div>
+      )}
+
+      {isAdmin && (
+        <>
+          <button
+            onClick={() => setAdminOpen(true)}
+            className="fixed bottom-6 right-6 z-40 h-14 w-14 rounded-full bg-[#0D3572] text-white shadow-lg hover:bg-[#0a2a5e] transition-colors flex items-center justify-center"
+            aria-label="Manage gallery"
+          >
+            <Pencil className="h-5 w-5" />
+          </button>
+          <AdminBottomSheet open={adminOpen} onClose={() => setAdminOpen(false)} title="Manage Gallery">
+            <GalleryManager initial={kvPhotos ?? []} />
+          </AdminBottomSheet>
+        </>
       )}
     </>
   );

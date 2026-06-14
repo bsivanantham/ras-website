@@ -1,7 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { Search, Globe, Mail, Phone } from "lucide-react";
+import { Search, Globe, Mail, Phone, Pencil } from "lucide-react";
+import AdminBottomSheet from "@/components/admin/AdminBottomSheet";
+import DirectoryEditor from "@/components/admin/DirectoryEditor";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -374,12 +376,13 @@ function ProviderCard({ provider }: Readonly<{ provider: Provider }>) {
   );
 }
 
-export default function DirectoryClient({ isLoggedIn, kvProviders }: Readonly<{ isLoggedIn: boolean; kvProviders?: Provider[] }>) {
+export default function DirectoryClient({ isLoggedIn, kvProviders, isAdmin }: Readonly<{ isLoggedIn: boolean; kvProviders?: Provider[]; isAdmin?: boolean }>) {
   const allProviders = kvProviders ?? providers;
   const policeProviders = allProviders.filter((p) => p.category === "Police & Emergency");
 
   const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState("All");
+  const [adminOpen, setAdminOpen] = useState(false);
 
   // Derive filter categories from live data so admin-added categories appear automatically
   const liveCategories = ["All", ...Array.from(new Set(allProviders.map((p) => p.category))).sort((a, b) => a.localeCompare(b))];
@@ -498,6 +501,21 @@ export default function DirectoryClient({ isLoggedIn, kvProviders }: Readonly<{ 
           </a>
         </div>
       </section>
+
+      {isAdmin && (
+        <>
+          <button
+            onClick={() => setAdminOpen(true)}
+            className="fixed bottom-6 right-6 z-40 h-14 w-14 rounded-full bg-[#0D3572] text-white shadow-lg hover:bg-[#0a2a5e] transition-colors flex items-center justify-center"
+            aria-label="Manage directory"
+          >
+            <Pencil className="h-5 w-5" />
+          </button>
+          <AdminBottomSheet open={adminOpen} onClose={() => setAdminOpen(false)} title="Manage Directory">
+            <DirectoryEditor initial={allProviders} />
+          </AdminBottomSheet>
+        </>
+      )}
     </>
   );
 }

@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { auth } from "@clerk/nextjs/server";
+import { auth, currentUser } from "@clerk/nextjs/server";
 import { getProviders } from "@/lib/kv";
+import { isAdmin } from "@/lib/admin";
 import { Button } from "@/components/ui/button";
 import SeychellesFlag from "@/components/SeychellesFlag";
 import DirectoryClient from "./DirectoryClient";
@@ -26,6 +27,8 @@ const breadcrumbJsonLd = {
 export default async function DirectoryPage() {
   const { userId } = await auth();
   const isLoggedIn = !!userId;
+  const user = await currentUser();
+  const admin = isAdmin(user);
   const kvProviders = await getProviders();
 
   return (
@@ -74,7 +77,7 @@ export default async function DirectoryPage() {
         </div>
       )}
 
-      <DirectoryClient isLoggedIn={isLoggedIn} kvProviders={kvProviders ?? undefined} />
+      <DirectoryClient isLoggedIn={isLoggedIn} kvProviders={kvProviders ?? undefined} isAdmin={admin} />
     </div>
   );
 }

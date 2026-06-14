@@ -14,6 +14,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import NotifyButton from "@/components/NotifyButton";
+import EventsAdminPanel from "@/components/admin/EventsAdminPanel";
 
 
 const FALLBACK_EVENTS: StoredEvent[] = [
@@ -214,6 +215,7 @@ export default async function MemberPage() {
           </div>
         </div>
       </section>
+      <EventsAdminPanel isAdmin={userIsAdmin} initial={events} />
     </div>
   );
 }

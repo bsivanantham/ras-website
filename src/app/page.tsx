@@ -12,7 +12,10 @@ import {
   Scale,
   ClipboardList,
   ArrowRight,
+  Pencil,
 } from "lucide-react";
+import AdminBottomSheet from "@/components/admin/AdminBottomSheet";
+import AnnouncementsEditor from "@/components/admin/AnnouncementsEditor";
 import HeroCTA from "@/components/HeroCTA";
 import AnnouncementsCarousel, { publicAnnouncements } from "@/components/AnnouncementsCarousel";
 import type { StoredAnnouncement } from "@/lib/kv";
@@ -30,7 +33,9 @@ export default function HomePage() {
   const { isSignedIn } = useAuth();
   const { user } = useUser();
   const firstName = user?.firstName ?? "Member";
+  const userIsAdmin = (user?.publicMetadata as { role?: string })?.role === "super_admin";
   const [kvItems, setKvItems] = useState<StoredAnnouncement[] | undefined>(undefined);
+  const [adminOpen, setAdminOpen] = useState(false);
 
   useEffect(() => {
     fetch("/api/announcements")
@@ -227,7 +232,20 @@ export default function HomePage() {
         </section>
       )}
 
-
+      {userIsAdmin && (
+        <>
+          <button
+            onClick={() => setAdminOpen(true)}
+            className="fixed bottom-6 right-6 z-40 h-14 w-14 rounded-full bg-[#0D3572] text-white shadow-lg hover:bg-[#0a2a5e] transition-colors flex items-center justify-center"
+            aria-label="Manage announcements"
+          >
+            <Pencil className="h-5 w-5" />
+          </button>
+          <AdminBottomSheet open={adminOpen} onClose={() => setAdminOpen(false)} title="Manage Announcements">
+            <AnnouncementsEditor initial={kvItems ?? []} />
+          </AdminBottomSheet>
+        </>
+      )}
     </div>
   );
 }
