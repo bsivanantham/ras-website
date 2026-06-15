@@ -377,7 +377,8 @@ function ProviderCard({ provider }: Readonly<{ provider: Provider }>) {
 }
 
 export default function DirectoryClient({ isLoggedIn, kvProviders, isAdmin }: Readonly<{ isLoggedIn: boolean; kvProviders?: Provider[]; isAdmin?: boolean }>) {
-  const allProviders = kvProviders ?? providers;
+  // Hardcoded providers always shown; KV entries are admin-added extras merged on top
+  const allProviders = kvProviders?.length ? [...providers, ...kvProviders] : providers;
   const policeProviders = allProviders.filter((p) => p.category === "Police & Emergency");
 
   const [search, setSearch] = useState("");
@@ -512,7 +513,7 @@ export default function DirectoryClient({ isLoggedIn, kvProviders, isAdmin }: Re
             <Pencil className="h-5 w-5" />
           </button>
           <AdminBottomSheet open={adminOpen} onClose={() => setAdminOpen(false)} title="Manage Directory">
-            <DirectoryEditor initial={allProviders} />
+            <DirectoryEditor initial={kvProviders ?? []} />
           </AdminBottomSheet>
         </>
       )}
