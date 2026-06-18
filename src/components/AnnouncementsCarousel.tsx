@@ -35,6 +35,19 @@ type Announcement = {
 
 export const publicAnnouncements: Announcement[] = [
   {
+    id: "ann-constitution-day-2026",
+    badge: "National Day",
+    badgeColor: "bg-blue-100 text-blue-700",
+    Icon: CalendarDays,
+    title: "Happy Constitution Day, Seychelles! — 18 June 2026",
+    description:
+      "The Retailers Association of Seychelles joins the nation in celebrating Constitution Day. Today we honour the foundation of our democracy, rights, and national progress. Let us continue to build a peaceful, prosperous, and united Seychelles — for generations to come.",
+    date: "18 June 2026",
+    href: "/images/seycehllesday.jpeg",
+    actionLabel: "View Message",
+    preview: { type: "image", src: "/images/seycehllesday.jpeg" },
+  },
+  {
     id: "ann-energy",
     badge: "Notice",
     badgeColor: "bg-green-100 text-green-700",
@@ -51,6 +64,19 @@ export const publicAnnouncements: Announcement[] = [
 
 const announcements: Announcement[] = [
   // ── Newest first ─────────────────────────────────────────────────────────
+  {
+    id: "ann-constitution-day-2026",
+    badge: "National Day",
+    badgeColor: "bg-blue-100 text-blue-700",
+    Icon: CalendarDays,
+    title: "Happy Constitution Day, Seychelles! — 18 June 2026",
+    description:
+      "The Retailers Association of Seychelles joins the nation in celebrating Constitution Day. Today we honour the foundation of our democracy, rights, and national progress. Let us continue to build a peaceful, prosperous, and united Seychelles — for generations to come.",
+    date: "18 June 2026",
+    href: "/images/seycehllesday.jpeg",
+    actionLabel: "View Message",
+    preview: { type: "image", src: "/images/seycehllesday.jpeg" },
+  },
   {
     id: "ann-insurance-outcome",
     badge: "Member Benefit",
