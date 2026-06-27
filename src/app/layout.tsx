@@ -6,6 +6,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { LanguageProvider } from "@/components/LanguageProvider";
+import WelcomePopup from "@/components/WelcomePopup";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -143,6 +144,7 @@ export default function RootLayout({
         />
         <ClerkProvider>
           <LanguageProvider>
+            <WelcomePopup />
             <Navbar />
             <main className="flex-1">{children}</main>
             <Footer />
