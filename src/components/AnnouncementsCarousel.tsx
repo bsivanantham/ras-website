@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { ChevronLeft, ChevronRight, Download, CalendarDays, FileText, Gavel, ExternalLink, Truck, Tag, CheckCircle } from "lucide-react";
+import { ChevronLeft, ChevronRight, Download, CalendarDays, FileText, Gavel, ExternalLink, Truck, Tag, CheckCircle, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { ICON_OPTIONS, BADGE_COLOURS } from "@/lib/iconMap";
@@ -35,6 +35,19 @@ type Announcement = {
 
 export const publicAnnouncements: Announcement[] = [
   {
+    id: "ann-pm-india-visit-2026",
+    badge: "Historic Visit",
+    badgeColor: "bg-orange-100 text-orange-700",
+    Icon: Star,
+    title: "RAS Warmly Welcomes PM Narendra Modi to Seychelles",
+    description:
+      "The Retailers Association of Seychelles proudly joins the nation in welcoming His Excellency Shri Narendra Damodardas Modi, Prime Minister of India, to the Republic of Seychelles on the occasion of our 50th Independence Day — 29 June 2026. This historic visit celebrates the deep and enduring friendship between India and Seychelles, built on unity, trust, and a shared vision for a brighter future.",
+    date: "29 June 2026",
+    href: "/images/pm-india-visit-2026.jpeg",
+    actionLabel: "View Welcome Message",
+    preview: { type: "image", src: "/images/pm-india-visit-2026.jpeg" },
+  },
+  {
     id: "ann-constitution-day-2026",
     badge: "National Day",
     badgeColor: "bg-blue-100 text-blue-700",
@@ -64,6 +77,19 @@ export const publicAnnouncements: Announcement[] = [
 
 const announcements: Announcement[] = [
   // ── Newest first ─────────────────────────────────────────────────────────
+  {
+    id: "ann-pm-india-visit-2026",
+    badge: "Historic Visit",
+    badgeColor: "bg-orange-100 text-orange-700",
+    Icon: Star,
+    title: "RAS Warmly Welcomes PM Narendra Modi to Seychelles",
+    description:
+      "The Retailers Association of Seychelles proudly joins the nation in welcoming His Excellency Shri Narendra Damodardas Modi, Prime Minister of India, to the Republic of Seychelles on the occasion of our 50th Independence Day — 29 June 2026. This historic visit celebrates the deep and enduring friendship between India and Seychelles, built on unity, trust, and a shared vision for a brighter future.",
+    date: "29 June 2026",
+    href: "/images/pm-india-visit-2026.jpeg",
+    actionLabel: "View Welcome Message",
+    preview: { type: "image", src: "/images/pm-india-visit-2026.jpeg" },
+  },
   {
     id: "ann-constitution-day-2026",
     badge: "National Day",
