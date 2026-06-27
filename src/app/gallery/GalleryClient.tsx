@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
 import { X, ChevronLeft, ChevronRight, Pencil } from "lucide-react";
 import type { StoredPhoto } from "@/lib/kv";
@@ -51,12 +51,24 @@ function GroupPhotoCard({ item, onOpen }: Readonly<{ item: GroupItem; onOpen: (f
   const [active, setActive] = useState(0);
   const total   = item.items.length;
   const current = item.items[active];
+  const touchStartX = useRef<number | null>(null);
 
   const goPrev = useCallback(() => setActive(a => (a - 1 + total) % total), [total]);
   const goNext = useCallback(() => setActive(a => (a + 1) % total), [total]);
 
   return (
-    <div className="rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow border border-[#0D3572]/10 bg-white">
+    <div
+      className="rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow border border-[#0D3572]/10 bg-white"
+      onTouchStart={(e) => { touchStartX.current = e.touches[0].clientX; }}
+      onTouchEnd={(e) => {
+        const startX = touchStartX.current;
+        touchStartX.current = null;
+        if (startX === null) return;
+        const delta = e.changedTouches[0].clientX - startX;
+        if (delta < -50) goNext();
+        else if (delta > 50) goPrev();
+      }}
+    >
       {/* Image — click opens lightbox */}
       <button
         className="relative aspect-[4/3] w-full block overflow-hidden group"

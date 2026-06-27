@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { Plus, Pencil, Trash2, ChevronUp, ChevronDown, X, Check, AlertCircle } from "lucide-react";
+import { useState, useRef } from "react";
+import { Plus, Pencil, Trash2, ChevronUp, ChevronDown, X, Check, AlertCircle, Upload } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -82,6 +82,8 @@ export default function AnnouncementsEditor({ initial }: Readonly<{ initial: Sto
   const [toast, setToast] = useState<{ type: "success" | "error"; msg: string } | null>(null);
   const [saving, setSaving] = useState(false);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
+  const [uploadingImage, setUploadingImage] = useState(false);
+  const imgUploadRef = useRef<HTMLInputElement>(null);
 
   function validate(f: FormState): Record<string, string> {
     const e: Record<string, string> = {};
@@ -148,6 +150,22 @@ export default function AnnouncementsEditor({ initial }: Readonly<{ initial: Sto
           : { type, src: "" };
       return { ...f, preview };
     });
+  }
+
+  async function handleImageUpload(file: File) {
+    setUploadingImage(true);
+    try {
+      const fd = new FormData();
+      fd.append("file", file);
+      const res = await fetch("/api/admin/upload", { method: "POST", body: fd });
+      const data = await res.json() as { url?: string; error?: string };
+      if (!res.ok) throw new Error(data.error ?? "Upload failed");
+      setPreviewField("src", data.url!);
+    } catch (e) {
+      showToast("error", e instanceof Error ? e.message : "Upload failed");
+    } finally {
+      setUploadingImage(false);
+    }
   }
 
   async function handleSave() {
@@ -333,8 +351,34 @@ export default function AnnouncementsEditor({ initial }: Readonly<{ initial: Sto
 
             {/* Preview fields */}
             {(form.preview.type === "image" || form.preview.type === "pdf") && (
-              <Field label={form.preview.type === "image" ? "Image path or URL" : "PDF path or URL"} required error={fieldErrors.previewSrc}>
-                <input value={form.preview.src} onChange={(e) => setPreviewField("src", e.target.value)} className={InputCls()} placeholder="/images/notice.jpeg" />
+              <Field label={form.preview.type === "image" ? "Image — upload or paste URL" : "PDF path or URL"} required error={fieldErrors.previewSrc}>
+                <div className="flex gap-2 items-center">
+                  <input value={form.preview.src} onChange={(e) => setPreviewField("src", e.target.value)} className={`${InputCls()} flex-1`} placeholder="/images/notice.jpeg or https://…" />
+                  {form.preview.type === "image" && (
+                    <>
+                      <input
+                        ref={imgUploadRef}
+                        type="file"
+                        accept="image/jpeg,image/png,image/webp"
+                        className="hidden"
+                        onChange={(e) => { const f = e.target.files?.[0]; if (f) { void handleImageUpload(f); } e.target.value = ""; }}
+                      />
+                      <button
+                        type="button"
+                        onClick={() => imgUploadRef.current?.click()}
+                        disabled={uploadingImage}
+                        className="shrink-0 h-[38px] px-3 rounded-lg border-2 border-dashed border-[#0D3572]/40 text-[#0D3572] text-xs font-semibold flex items-center gap-1.5 hover:border-[#0D3572] hover:bg-[#EFF4FF] disabled:opacity-50 transition-colors touch-manipulation"
+                      >
+                        <Upload className="h-3.5 w-3.5" />
+                        {uploadingImage ? "Uploading…" : "Upload"}
+                      </button>
+                    </>
+                  )}
+                </div>
+                {form.preview.src && form.preview.type === "image" && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={form.preview.src} alt="preview" className="mt-2 h-16 w-16 rounded-lg object-cover border border-gray-200" />
+                )}
               </Field>
             )}
             {form.preview.type === "event" && (

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { ChevronLeft, ChevronRight, Download, CalendarDays, FileText, Gavel, ExternalLink, Truck, Tag, CheckCircle, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
@@ -343,40 +343,24 @@ export default function AnnouncementsCarousel({
 
   const [idx, setIdx] = useState(0);
   const [paused, setPaused] = useState(false);
-  const [progress, setProgress] = useState(0);
+  const touchStartX = useRef<number | null>(null);
 
   const next = useCallback(
     () => setIdx((i) => (i === resolved.length - 1 ? 0 : i + 1)),
     [resolved.length]
   );
-  const prev = () => {
-    setProgress(0);
-    setIdx((i) => (i === 0 ? resolved.length - 1 : i - 1));
-  };
-  const goTo = (i: number) => {
-    setProgress(0);
-    setIdx(i);
-  };
+  const prev = useCallback(
+    () => setIdx((i) => (i === 0 ? resolved.length - 1 : i - 1)),
+    [resolved.length]
+  );
+  const goTo = (i: number) => setIdx(i);
 
   // Auto-advance
   useEffect(() => {
     if (paused) return;
-    const timer = setInterval(() => {
-      setProgress(0);
-      next();
-    }, INTERVAL);
+    const timer = setInterval(next, INTERVAL);
     return () => clearInterval(timer);
   }, [paused, next]);
-
-  // Progress bar tick
-  useEffect(() => {
-    if (paused) return;
-    setProgress(0);
-    const tick = setInterval(() => {
-      setProgress((p) => Math.min(p + 100 / (INTERVAL / 100), 100));
-    }, 100);
-    return () => clearInterval(tick);
-  }, [idx, paused]);
 
   const ann = resolved[idx] ?? resolved[0];
   const { Icon } = ann;
@@ -385,8 +369,18 @@ export default function AnnouncementsCarousel({
     <section
       className="py-12 bg-white"
       aria-label="Announcements carousel"
-onMouseEnter={() => setPaused(true)}
+      onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
+      onTouchStart={(e) => { touchStartX.current = e.touches[0].clientX; setPaused(true); }}
+      onTouchEnd={(e) => {
+        const startX = touchStartX.current;
+        touchStartX.current = null;
+        setPaused(false);
+        if (startX === null) return;
+        const delta = e.changedTouches[0].clientX - startX;
+        if (delta < -50) next();
+        else if (delta > 50) prev();
+      }}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
@@ -401,7 +395,7 @@ onMouseEnter={() => setPaused(true)}
             <div className="flex items-center gap-2">
               <button
                 type="button"
-                onClick={() => { setProgress(0); prev(); }}
+                onClick={prev}
                 className="h-11 w-11 rounded-full border border-[#0D3572]/20 flex items-center justify-center hover:bg-[#0D3572] hover:text-white hover:border-[#0D3572] transition-colors"
                 aria-label="Previous"
               >
@@ -409,7 +403,7 @@ onMouseEnter={() => setPaused(true)}
               </button>
               <button
                 type="button"
-                onClick={() => { setProgress(0); next(); }}
+                onClick={next}
                 className="h-11 w-11 rounded-full border border-[#0D3572]/20 flex items-center justify-center hover:bg-[#0D3572] hover:text-white hover:border-[#0D3572] transition-colors"
                 aria-label="Next"
               >
@@ -419,11 +413,19 @@ onMouseEnter={() => setPaused(true)}
           )}
         </div>
 
-        {/* Progress bar */}
+        {/* Progress bar — CSS animated, resets on slide change, pauses on hover/touch */}
+        <style>{`@keyframes ras-progress{from{transform:scaleX(0)}to{transform:scaleX(1)}}`}</style>
         <div className="h-0.5 bg-[#0D3572]/10 rounded-full mb-4 overflow-hidden">
           <div
-            className="h-full bg-[#C9A227] transition-none rounded-full"
-            style={{ width: `${progress}%` }}
+            key={idx}
+            className="h-full w-full bg-[#C9A227] rounded-full origin-left"
+            style={{
+              animationName: "ras-progress",
+              animationDuration: `${INTERVAL}ms`,
+              animationTimingFunction: "linear",
+              animationFillMode: "forwards",
+              animationPlayState: paused ? "paused" : "running",
+            }}
           />
         </div>
 

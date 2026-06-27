@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { X } from "lucide-react";
 
-const POPUP_KEY = "ras_welcome_v1";
+const POPUP_KEY = "ras_popup_pm-india-visit-2026";
 
 export default function WelcomePopup() {
   const [visible, setVisible] = useState(false);
