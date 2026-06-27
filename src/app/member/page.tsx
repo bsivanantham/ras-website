@@ -1,6 +1,6 @@
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
-import { getEvents } from "@/lib/kv";
+import { getEvents, getNewsletters } from "@/lib/kv";
 import type { StoredEvent } from "@/lib/kv";
 import { isAdmin } from "@/lib/admin";
 import Link from "next/link";
@@ -9,12 +9,14 @@ import {
   CheckCircle,
   Bell,
   Users,
+  FileText,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import NotifyButton from "@/components/NotifyButton";
 import EventsAdminPanel from "@/components/admin/EventsAdminPanel";
+import NewsletterAdminPanel from "@/components/admin/NewsletterAdminPanel";
 
 
 const FALLBACK_EVENTS: StoredEvent[] = [
@@ -36,6 +38,7 @@ export default async function MemberPage() {
   const firstName = user?.firstName ?? "Member";
   const fullName = [user?.firstName, user?.lastName].filter(Boolean).join(" ") || "Member";
   const events = (await getEvents()) ?? FALLBACK_EVENTS;
+  const newsletters = (await getNewsletters()) ?? [];
   const userIsAdmin = isAdmin(user);
 
   return (
@@ -75,13 +78,43 @@ export default async function MemberPage() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="pt-4">
-                  <div className="flex flex-col items-center justify-center py-8 text-center gap-2">
-                    <Bell className="h-8 w-8 text-gray-200" />
-                    <p className="text-sm font-medium text-gray-400">No newsletters yet</p>
-                    <p className="text-xs text-gray-400">
-                      Newsletters will appear here when published by Retailers Association of Seychelles.
-                    </p>
-                  </div>
+                  {newsletters.length === 0 ? (
+                    <div className="flex flex-col items-center justify-center py-8 text-center gap-2">
+                      <Bell className="h-8 w-8 text-gray-200" />
+                      <p className="text-sm font-medium text-gray-400">No newsletters yet</p>
+                      <p className="text-xs text-gray-400">
+                        Newsletters will appear here when published by the Retailers Association of Seychelles.
+                      </p>
+                    </div>
+                  ) : (
+                    <div className="space-y-4">
+                      {newsletters.map((nl) => (
+                        <div key={nl.id} className="pb-4 border-b border-gray-50 last:border-0 last:pb-0">
+                          <div className="flex items-start gap-3">
+                            <div className="h-8 w-8 rounded-lg bg-[#EFF4FF] flex items-center justify-center shrink-0 mt-0.5">
+                              <FileText className="h-4 w-4 text-[#0D3572]" />
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <p className="font-semibold text-[#0D3572] text-sm">{nl.title}</p>
+                              <p className="text-xs text-gray-400 mt-0.5">{nl.date}</p>
+                              <p className="text-sm text-gray-600 mt-2 leading-relaxed">{nl.summary}</p>
+                              {nl.pdfUrl && (
+                                <a
+                                  href={nl.pdfUrl}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="inline-flex items-center gap-1.5 mt-3 text-xs font-semibold text-[#0D3572] border border-[#0D3572]/30 rounded-lg px-3 py-1.5 hover:bg-[#EFF4FF] transition-colors"
+                                >
+                                  <FileText className="h-3.5 w-3.5" />
+                                  View / Download PDF
+                                </a>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </CardContent>
               </Card>
 
@@ -216,6 +249,7 @@ export default async function MemberPage() {
         </div>
       </section>
       <EventsAdminPanel isAdmin={userIsAdmin} initial={events} />
+      <NewsletterAdminPanel isAdmin={userIsAdmin} initial={newsletters} />
     </div>
   );
 }

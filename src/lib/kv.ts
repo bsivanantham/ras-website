@@ -84,6 +84,16 @@ export type StoredPhoto = {
   uploadedAt: string;
 };
 
+export type StoredNewsletter = {
+  id: string;
+  title: string;
+  date: string;
+  summary: string;
+  pdfUrl: string | null;
+  sentAt: string | null;
+  createdAt: string;
+};
+
 export type AuditEntry = {
   action: "create" | "update" | "delete";
   resource: "announcements" | "events" | "directory" | "gallery";
@@ -118,6 +128,13 @@ export async function getGallery(): Promise<StoredPhoto[] | null> {
 }
 export async function setGallery(data: StoredPhoto[]): Promise<void> {
   await kvSet("gallery", data);
+}
+
+export async function getNewsletters(): Promise<StoredNewsletter[] | null> {
+  return kvGet<StoredNewsletter[]>("newsletters");
+}
+export async function setNewsletters(data: StoredNewsletter[]): Promise<void> {
+  await kvSet("newsletters", data);
 }
 
 export async function appendAuditLog(entry: AuditEntry): Promise<void> {
