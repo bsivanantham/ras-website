@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { X } from "lucide-react";
 
-const POPUP_KEY = "ras_popup_pm-india-visit-2026";
+const POPUP_KEY = "ras_popup_independence-50th-2026";
 
 export default function WelcomePopup() {
   const [visible, setVisible] = useState(false);
@@ -62,8 +62,8 @@ export default function WelcomePopup() {
           {/* Image */}
           <div className="rounded-t-3xl sm:rounded-3xl overflow-hidden shadow-2xl">
             <Image
-              src="/images/pm-india-visit-2026.jpeg"
-              alt="Retailers Association of Seychelles welcomes Prime Minister Narendra Modi to Seychelles — 50th Independence Day, 29 June 2026"
+              src="/images/ras50.jpeg"
+              alt="Happy 50th Independence Day, Seychelles! — Retailers Association of Seychelles celebrates 29 June 2026"
               width={600}
               height={800}
               className="w-full h-auto block max-h-[88dvh] sm:max-h-[82dvh] object-contain"

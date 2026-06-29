@@ -35,6 +35,19 @@ type Announcement = {
 
 export const publicAnnouncements: Announcement[] = [
   {
+    id: "ann-independence-50th-2026",
+    badge: "50th Independence Day",
+    badgeColor: "bg-yellow-100 text-yellow-800",
+    Icon: Star,
+    title: "Happy 50th Independence Day, Seychelles! — 29 June 2026",
+    description:
+      "The Retailers Association of Seychelles joins every Seychellois in celebrating 50 years of independence. Today we honour our sovereignty, our unity, and the remarkable journey of our nation. Here's to the next 50 years — stronger, prouder, and more prosperous than ever. Happy 50th Independence Day, Seychelles! 🇸🇨",
+    date: "29 June 2026",
+    href: "/images/ras50.jpeg",
+    actionLabel: "View Celebration",
+    preview: { type: "image", src: "/images/ras50.jpeg" },
+  },
+  {
     id: "ann-pm-india-visit-2026",
     badge: "Historic Visit",
     badgeColor: "bg-orange-100 text-orange-700",
@@ -77,6 +90,19 @@ export const publicAnnouncements: Announcement[] = [
 
 const announcements: Announcement[] = [
   // ── Newest first ─────────────────────────────────────────────────────────
+  {
+    id: "ann-independence-50th-2026",
+    badge: "50th Independence Day",
+    badgeColor: "bg-yellow-100 text-yellow-800",
+    Icon: Star,
+    title: "Happy 50th Independence Day, Seychelles! — 29 June 2026",
+    description:
+      "The Retailers Association of Seychelles joins every Seychellois in celebrating 50 years of independence. Today we honour our sovereignty, our unity, and the remarkable journey of our nation. Here's to the next 50 years — stronger, prouder, and more prosperous than ever. Happy 50th Independence Day, Seychelles! 🇸🇨",
+    date: "29 June 2026",
+    href: "/images/ras50.jpeg",
+    actionLabel: "View Celebration",
+    preview: { type: "image", src: "/images/ras50.jpeg" },
+  },
   {
     id: "ann-pm-india-visit-2026",
     badge: "Historic Visit",

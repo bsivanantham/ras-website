@@ -10,6 +10,7 @@ import GalleryManager from "@/components/admin/GalleryManager";
 type Photo = { src: string; alt: string; caption: string; group?: string };
 
 export const photos: Photo[] = [
+  { src: "/images/ras50.jpeg", alt: "RAS celebrates Seychelles 50th Independence Day — 29 June 2026", caption: "50th Independence Day — 29 June 2026" },
   { src: "/images/meetin3.jpeg",   alt: "RAS delegation outside Shreeji Group offices — June 2026",              caption: "Outside Shreeji Group Offices",       group: "RAS Executive Committee Meeting — June 2026" },
   { src: "/images/MEETING1.jpeg",  alt: "RAS committee members at board table, full room — June 2026",           caption: "Board Room — Full Table",             group: "RAS Executive Committee Meeting — June 2026" },
   { src: "/images/meeting2.jpeg",  alt: "RAS committee members gathered at board meeting — June 2026",           caption: "Board Room — All Members",            group: "RAS Executive Committee Meeting — June 2026" },
