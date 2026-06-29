@@ -7,6 +7,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { LanguageProvider } from "@/components/LanguageProvider";
 import WelcomePopup from "@/components/WelcomePopup";
+import CelebrationEffect from "@/components/CelebrationEffect";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -144,6 +145,7 @@ export default function RootLayout({
         />
         <ClerkProvider>
           <LanguageProvider>
+            <CelebrationEffect />
             <WelcomePopup />
             <Navbar />
             <main className="flex-1">{children}</main>
