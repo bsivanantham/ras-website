@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
-import { ChevronLeft, ChevronRight, Download, CalendarDays, FileText, Gavel, ExternalLink, Truck, Tag, CheckCircle, Star } from "lucide-react";
+import { ChevronLeft, ChevronRight, Download, CalendarDays, FileText, Gavel, ExternalLink, Truck, Tag, CheckCircle, Star, PlayCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { ICON_OPTIONS, BADGE_COLOURS } from "@/lib/iconMap";
@@ -12,6 +12,7 @@ const INTERVAL = 5000;
 type Preview =
   | { type: "image"; src: string }
   | { type: "pdf"; src: string }
+  | { type: "video"; src: string }
   | { type: "event"; month: string; day: string; location: string };
 
 const CTRL_PDF =
@@ -34,6 +35,19 @@ type Announcement = {
 };
 
 export const publicAnnouncements: Announcement[] = [
+  {
+    id: "ann-video-jul2026",
+    badge: "Video Message",
+    badgeColor: "bg-purple-100 text-purple-700",
+    Icon: PlayCircle,
+    title: "50th Independence Day — RAS Official Video",
+    description:
+      "Watch RAS's special video message celebrating Seychelles' historic 50th Independence Day. A moment of pride, unity, and gratitude — press play on the right to watch.",
+    date: "July 2026",
+    href: null,
+    actionLabel: null,
+    preview: { type: "video", src: "/images/celebration-jul2026.mp4" },
+  },
   {
     id: "ann-independence-50th-2026",
     badge: "50th Independence Day",
@@ -90,6 +104,19 @@ export const publicAnnouncements: Announcement[] = [
 
 const announcements: Announcement[] = [
   // ── Newest first ─────────────────────────────────────────────────────────
+  {
+    id: "ann-video-jul2026",
+    badge: "Video Message",
+    badgeColor: "bg-purple-100 text-purple-700",
+    Icon: PlayCircle,
+    title: "50th Independence Day — RAS Official Video",
+    description:
+      "Watch RAS's special video message celebrating Seychelles' historic 50th Independence Day. A moment of pride, unity, and gratitude — press play on the right to watch.",
+    date: "July 2026",
+    href: null,
+    actionLabel: null,
+    preview: { type: "video", src: "/images/celebration-jul2026.mp4" },
+  },
   {
     id: "ann-independence-50th-2026",
     badge: "50th Independence Day",
@@ -301,7 +328,24 @@ const announcements: Announcement[] = [
   },
 ];
 
-function PreviewPanel({ preview }: Readonly<{ preview: Preview }>) {
+function PreviewPanel({ preview, onPlay, onStop }: Readonly<{ preview: Preview; onPlay?: () => void; onStop?: () => void }>) {
+  if (preview.type === "video") {
+    return (
+      <div className="relative w-full h-full min-h-[240px] bg-black flex items-center justify-center">
+        {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
+        <video
+          src={preview.src}
+          controls
+          playsInline
+          className="w-full max-h-[400px] object-contain"
+          onPlay={onPlay}
+          onPause={onStop}
+          onEnded={onStop}
+        />
+      </div>
+    );
+  }
+
   if (preview.type === "image") {
     return (
       <div className="relative w-full h-full min-h-[240px]">
@@ -502,7 +546,7 @@ export default function AnnouncementsCarousel({
 
           {/* Right — preview */}
           <div className="md:w-[300px] lg:w-[400px] bg-white border-t md:border-t-0 md:border-l border-[#0D3572]/10 overflow-hidden min-h-[200px]">
-            <PreviewPanel preview={ann.preview} />
+            <PreviewPanel preview={ann.preview} onPlay={() => setPaused(true)} onStop={() => setPaused(false)} />
           </div>
         </div>
 

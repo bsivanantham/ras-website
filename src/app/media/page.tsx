@@ -174,6 +174,29 @@ export default async function MediaPage() {
         </div>
       </section>
 
+      {/* RAS Videos */}
+      <section className="py-12 bg-white">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <p className="text-[#C9A227] text-sm font-semibold uppercase tracking-wider mb-2">Videos</p>
+          <h2 className="text-2xl font-bold text-[#0D3572] mb-6">RAS Video Messages</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-2xl">
+            <div className="rounded-2xl border border-[#0D3572]/10 overflow-hidden shadow-sm bg-white">
+              {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
+              <video
+                src="/images/celebration-jul2026.mp4"
+                controls
+                playsInline
+                className="w-full block bg-black"
+              />
+              <div className="p-4">
+                <p className="font-bold text-[#0D3572] text-sm">50th Independence Day — RAS Official Video</p>
+                <p className="text-xs text-gray-400 mt-0.5">29 June 2026</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Gallery — members only */}
       {isLoggedIn && (
         <section className="py-12 bg-white">
