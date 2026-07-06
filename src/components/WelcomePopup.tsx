@@ -1,12 +1,14 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { X } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import { X, Volume2, VolumeX } from "lucide-react";
 
 const POPUP_KEY = "ras_popup_video-jul2026";
 
 export default function WelcomePopup() {
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible]   = useState(false);
+  const [muted, setMuted]       = useState(true);
+  const videoRef                = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     try {
@@ -16,6 +18,13 @@ export default function WelcomePopup() {
       }
     } catch {}
   }, []);
+
+  const unmute = () => {
+    if (videoRef.current) {
+      videoRef.current.muted = false;
+      setMuted(false);
+    }
+  };
 
   const close = () => {
     try { localStorage.setItem(POPUP_KEY, "1"); } catch {}
@@ -33,10 +42,9 @@ export default function WelcomePopup() {
         .ras-popup-card { animation: ras-rise 0.32s ease forwards }
       `}</style>
 
-      {/* Full-screen overlay */}
       <div className="ras-popup-bg fixed inset-0 z-[200] flex items-end sm:items-center justify-center">
 
-        {/* Backdrop — tap to close */}
+        {/* Backdrop */}
         <button
           className="absolute inset-0 bg-black/80 backdrop-blur-[3px]"
           onClick={close}
@@ -44,7 +52,6 @@ export default function WelcomePopup() {
           tabIndex={-1}
         />
 
-        {/* Card */}
         <div
           className="ras-popup-card relative z-10 w-full sm:w-auto sm:mx-4"
           style={{ maxWidth: "min(480px, 100vw)" }}
@@ -58,18 +65,34 @@ export default function WelcomePopup() {
             <X className="h-5 w-5 stroke-[2.5]" />
           </button>
 
-          {/* Video */}
-          <div className="rounded-t-3xl sm:rounded-3xl overflow-hidden shadow-2xl bg-black">
+          {/* Video wrapper */}
+          <div className="rounded-t-3xl sm:rounded-3xl overflow-hidden shadow-2xl bg-black relative">
             {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
             <video
+              ref={videoRef}
               src="/images/celebration-jul2026.mp4"
               autoPlay
               muted
               loop
               playsInline
-              controls
               className="w-full h-auto block max-h-[82dvh] sm:max-h-[78dvh] object-contain"
             />
+
+            {/* Sound toggle — bottom-left corner */}
+            <button
+              onClick={unmute}
+              className={`absolute bottom-3 left-3 flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold shadow-lg transition-all touch-manipulation
+                ${muted
+                  ? "bg-white text-gray-900 animate-pulse"
+                  : "bg-white/20 text-white backdrop-blur-sm"
+                }`}
+              aria-label={muted ? "Unmute video" : "Video has sound"}
+            >
+              {muted
+                ? <><VolumeX className="h-3.5 w-3.5" /> Tap for sound</>
+                : <><Volume2 className="h-3.5 w-3.5" /> Sound on</>
+              }
+            </button>
           </div>
 
           {/* Bottom handle — mobile only */}
