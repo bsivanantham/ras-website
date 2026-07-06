@@ -189,8 +189,8 @@ export default async function MediaPage() {
                 className="w-full block bg-black"
               />
               <div className="p-4">
-                <p className="font-bold text-[#0D3572] text-sm">50th Independence Day — RAS Official Video</p>
-                <p className="text-xs text-gray-400 mt-0.5">29 June 2026</p>
+                <p className="font-bold text-[#0D3572] text-sm">15 Years of RAS — Energy Saving Campaign</p>
+                <p className="text-xs text-gray-400 mt-0.5">July 2026</p>
               </div>
             </div>
           </div>

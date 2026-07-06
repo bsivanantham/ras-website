@@ -37,12 +37,12 @@ type Announcement = {
 export const publicAnnouncements: Announcement[] = [
   {
     id: "ann-video-jul2026",
-    badge: "Video Message",
-    badgeColor: "bg-purple-100 text-purple-700",
+    badge: "15 Years of RAS",
+    badgeColor: "bg-green-100 text-green-700",
     Icon: PlayCircle,
-    title: "50th Independence Day — RAS Official Video",
+    title: "15 Years of RAS — Energy Saving Campaign",
     description:
-      "Watch RAS's special video message celebrating Seychelles' historic 50th Independence Day. A moment of pride, unity, and gratitude — press play on the right to watch.",
+      "See how the Retailers Association of Seychelles marks 15 years of supporting retail businesses — with a focus on our ongoing energy saving campaign, guiding members to reduce consumption, cut costs, and protect the nation's resources.",
     date: "July 2026",
     href: null,
     actionLabel: null,
@@ -106,12 +106,12 @@ const announcements: Announcement[] = [
   // ── Newest first ─────────────────────────────────────────────────────────
   {
     id: "ann-video-jul2026",
-    badge: "Video Message",
-    badgeColor: "bg-purple-100 text-purple-700",
+    badge: "15 Years of RAS",
+    badgeColor: "bg-green-100 text-green-700",
     Icon: PlayCircle,
-    title: "50th Independence Day — RAS Official Video",
+    title: "15 Years of RAS — Energy Saving Campaign",
     description:
-      "Watch RAS's special video message celebrating Seychelles' historic 50th Independence Day. A moment of pride, unity, and gratitude — press play on the right to watch.",
+      "See how the Retailers Association of Seychelles marks 15 years of supporting retail businesses — with a focus on our ongoing energy saving campaign, guiding members to reduce consumption, cut costs, and protect the nation's resources.",
     date: "July 2026",
     href: null,
     actionLabel: null,
