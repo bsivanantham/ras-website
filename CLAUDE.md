@@ -73,6 +73,5 @@ Members-only pages (`/members`, `/gallery`) redirect to `/sign-in` if not logged
 
 ## Known pending items (see TODOs in code)
 - `compliance/page.tsx` — 4 government link URLs are `"#"` placeholder; need real URLs from RAS
-- `members.ts` — 3 shops have `rcpt: null` pending receipt number confirmation from RAS office
 - `translations.ts` — Seychellois Creole (`sc`) locale exists but toggle is disabled in UI
 - `/contact` and `/join` pages are CLIENT components — cannot export `metadata` without refactor
