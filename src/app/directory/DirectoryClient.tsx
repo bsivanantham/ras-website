@@ -20,7 +20,10 @@ type Provider = {
   phone: string | null;
   phone2?: string | null;
   email2?: string | null;
+  region?: string | null; // Mahé | Praslin | La Digue — undefined defaults to Mahé
 };
+
+const regionOf = (p: Provider) => p.region ?? "Mahé";
 
 const filterCategories = [
   "All",
@@ -81,22 +84,22 @@ export const providers: Provider[] = [
     id: "2",
     name: "Ministry of Employment & Human Resource Planning",
     category: "Employment & Labour",
-    description: "The primary government body for employment law, labour regulations, work permits, and workforce development in Seychelles. Principal Secretary: Mr. Steve Monnaie.",
+    description: "The primary government body for employment law, labour regulations, work permits, and workforce development in Seychelles. Principal Secretary: Mr. Steve Monnaie. No permanent Praslin office.",
     website: "www.employment.gov.sc",
     websiteHref: "https://www.employment.gov.sc",
     email: "smonnaie@employment.gov.sc",
-    email2: "employment@gov.sc",
-    phone: null,
+    email2: "employment@employment.gov.sc",
+    phone: "+248 429 7200",
   },
   {
     id: "3",
     name: "Seychelles Qualifications Authority (SQA)",
     category: "Employment & Labour",
-    description: "Accreditation and recognition of qualifications, training standards, and professional certifications for Seychelles workers.",
+    description: "Accreditation and recognition of qualifications, training standards, and professional certifications for Seychelles workers. No dedicated Praslin office — services coordinated from Mahé.",
     website: "www.sqa.sc",
     websiteHref: "https://www.sqa.sc",
     email: "info@sqa.sc",
-    phone: null,
+    phone: "+248 432 4055",
   },
   {
     id: "4",
@@ -105,28 +108,29 @@ export const providers: Provider[] = [
     description: "Responsible for public health regulations, food safety inspections, health certificates, and sanitation standards for retail businesses.",
     website: "www.health.gov.sc",
     websiteHref: "https://www.health.gov.sc",
-    email: "info@health.gov.sc",
-    phone: null,
+    email: "enquiries@health.gov.sc",
+    email2: "info@health.gov.sc",
+    phone: "+248 438 8000",
   },
   {
     id: "pha",
     name: "Public Health Authority of Seychelles",
     category: "Health & Safety",
-    description: "Responsible for food safety inspections, health certificates, pest control oversight, and enforcement of public health regulations for retail premises.",
+    description: "Responsible for food safety inspections, health certificates, pest control oversight, and enforcement of public health regulations for retail premises. On Praslin, services run through Praslin Hospital and Health Centre.",
     website: null,
     websiteHref: null,
-    email: null,
-    phone: null,
+    email: "pha@health.gov.sc",
+    phone: "+248 438 8000",
   },
   {
     id: "sbs",
     name: "Seychelles Bureau of Standards",
     category: "Health & Safety",
-    description: "Sets and enforces product standards, labelling requirements, weights & measures, and quality certifications for goods sold in Seychelles.",
-    website: null,
-    websiteHref: null,
-    email: null,
-    phone: null,
+    description: "Sets and enforces product standards, labelling requirements, weights & measures, and quality certifications for goods sold in Seychelles. No permanent Praslin office.",
+    website: "www.sbs.sc",
+    websiteHref: "https://www.sbs.sc",
+    email: "info@sbs.sc",
+    phone: "+248 438 0400",
   },
   {
     id: "epa",
@@ -162,12 +166,12 @@ export const providers: Provider[] = [
     id: "7",
     name: "Fair Trading Commission (FTC)",
     category: "Legal & Licensing",
-    description: "Oversees fair competition and trade practices in Seychelles. Contact for price-fixing complaints, anti-competitive behaviour, and consumer protection.",
+    description: "Oversees fair competition and trade practices in Seychelles. Contact for price-fixing complaints, anti-competitive behaviour, and consumer protection. No Praslin branch — FTC officers visit Praslin when required.",
     website: "www.ftc.sc",
     websiteHref: "https://www.ftc.sc",
-    email: "jean-philip.esparon@ftc.gov.sc",
-    email2: "jean-Philippe.tambara@ftc.gov.sc",
-    phone: null,
+    email: "info@ftc.sc",
+    email2: "jean-philip.esparon@ftc.gov.sc",
+    phone: "+248 432 5250",
   },
   {
     id: "8",
@@ -189,6 +193,7 @@ export const providers: Provider[] = [
     website: null,
     websiteHref: null,
     email: "info@police.gov.sc",
+    email2: "police@police.gov.sc",
     phone: "+248 428 8000",
   },
   {
@@ -286,6 +291,7 @@ export const providers: Provider[] = [
     description: "District police station — Baie Sainte Anne, Praslin.",
     website: null, websiteHref: null, email: null,
     phone: "+248 428 8120",
+    region: "Praslin",
   },
   {
     id: "40",
@@ -294,6 +300,7 @@ export const providers: Provider[] = [
     description: "District police station — Grand Anse, Praslin.",
     website: null, websiteHref: null, email: null,
     phone: "+248 428 8121",
+    region: "Praslin",
   },
   // Security & Alarms
   {
@@ -303,6 +310,86 @@ export const providers: Provider[] = [
     description: "District police station — La Digue.",
     website: null, websiteHref: null, email: null,
     phone: "+248 428 8125",
+    region: "La Digue",
+  },
+  // Praslin government & regulatory contacts
+  {
+    id: "moh-praslin",
+    name: "Praslin Hospital & Health Centre",
+    category: "Health & Safety",
+    description: "Ministry of Health — general health and public health services for Praslin. Cap Samy, Grand Anse, Praslin.",
+    website: "www.health.gov.sc",
+    websiteHref: "https://www.health.gov.sc",
+    email: "enquiries@health.gov.sc",
+    phone: "+248 438 8000",
+    region: "Praslin",
+  },
+  {
+    id: "immigration-praslin",
+    name: "Immigration & Civil Status — Praslin Office",
+    category: "Legal & Licensing",
+    description: "Ground Floor, Pension Fund Complex, Grand Anse, Praslin. Immigration permits, civil documentation, and residency services.",
+    website: "www.ics.gov.sc",
+    websiteHref: "https://www.ics.gov.sc",
+    email: "info@immigration.gov.sc",
+    phone: "+248 429 3683",
+    phone2: "+248 429 3684",
+    region: "Praslin",
+  },
+  {
+    id: "fire-praslin",
+    name: "Praslin Fire Station",
+    category: "Fire & Rescue",
+    description: "Seychelles Fire & Rescue Services Agency station for Praslin — Baie Ste Anne.",
+    website: null,
+    websiteHref: null,
+    email: "fire@gov.sc",
+    phone: "+248 423 2149",
+    region: "Praslin",
+  },
+  {
+    id: "src-praslin",
+    name: "SRC Customs & Revenue — Praslin",
+    category: "Finance & Tax",
+    description: "Seychelles Revenue Commission customs and revenue services, available at Praslin Airport and Jetty.",
+    website: "www.src.gov.sc",
+    websiteHref: "https://www.src.gov.sc",
+    email: "enquiries@src.gov.sc",
+    email2: "customs@src.gov.sc",
+    phone: "+248 429 3737",
+    region: "Praslin",
+  },
+  {
+    id: "stc-praslin",
+    name: "STC Regional Office — Praslin",
+    category: "STC Sales",
+    description: "Seychelles Trading Company regional office serving Praslin retailers.",
+    website: "www.stc.sc",
+    websiteHref: "https://www.stc.sc",
+    email: "info@stc.sc",
+    phone: "+248 260 9571",
+    region: "Praslin",
+  },
+  // Additional Mahé HQ contacts
+  {
+    id: "sla-main",
+    name: "Seychelles Licensing Authority (SLA)",
+    category: "Legal & Licensing",
+    description: "Business and trade licensing for Seychelles. No permanent Praslin office — main office on Mahé.",
+    website: "www.sla.gov.sc",
+    websiteHref: "https://www.sla.gov.sc",
+    email: "info@sla.gov.sc",
+    phone: "+248 428 3400",
+  },
+  {
+    id: "cbs",
+    name: "Central Bank of Seychelles (CBS)",
+    category: "Finance & Tax",
+    description: "Central bank of Seychelles — banking regulation and financial services oversight. No Praslin office.",
+    website: "www.cbs.sc",
+    websiteHref: "https://www.cbs.sc",
+    email: "info@cbs.sc",
+    phone: "+248 428 2000",
   },
 ];
 
@@ -313,12 +400,20 @@ function ProviderCard({ provider }: Readonly<{ provider: Provider }>) {
         <CardTitle className="text-[#0D3572] text-base font-semibold leading-tight">
           {provider.name}
         </CardTitle>
-        <Badge
-          variant="outline"
-          className="self-start border-[#C9A227]/40 text-[#C9A227] bg-[#C9A227]/10 text-xs"
-        >
-          {provider.category}
-        </Badge>
+        <div className="flex flex-wrap gap-1.5">
+          <Badge
+            variant="outline"
+            className="border-[#C9A227]/40 text-[#C9A227] bg-[#C9A227]/10 text-xs"
+          >
+            {provider.category}
+          </Badge>
+          <Badge
+            variant="outline"
+            className="border-[#1B8A4B]/40 text-[#1B8A4B] bg-[#1B8A4B]/10 text-xs"
+          >
+            {regionOf(provider)}
+          </Badge>
+        </div>
       </CardHeader>
       <CardContent className="flex flex-col gap-3 flex-1">
         <CardDescription className="text-gray-600 text-sm leading-relaxed">
@@ -383,15 +478,18 @@ export default function DirectoryClient({ isLoggedIn, kvProviders, isAdmin }: Re
 
   const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState("All");
+  const [activeRegion, setActiveRegion] = useState("All");
   const [adminOpen, setAdminOpen] = useState(false);
 
   // Derive filter categories from live data so admin-added categories appear automatically
   const liveCategories = ["All", ...Array.from(new Set(allProviders.map((p) => p.category))).sort((a, b) => a.localeCompare(b))];
+  const liveRegions = ["All", ...Array.from(new Set(allProviders.map(regionOf)))];
 
   // Guests see police block only. Members use the unified filtered grid.
   const gridProviders = (() => {
     if (!isLoggedIn) return [];
-    const base = activeCategory === "All" ? allProviders : allProviders.filter((p) => p.category === activeCategory);
+    let base = activeCategory === "All" ? allProviders : allProviders.filter((p) => p.category === activeCategory);
+    if (activeRegion !== "All") base = base.filter((p) => regionOf(p) === activeRegion);
     const term = search.toLowerCase();
     if (!term) return base;
     return base.filter(
@@ -431,6 +529,22 @@ export default function DirectoryClient({ isLoggedIn, kvProviders, isAdmin }: Re
                     }`}
                   >
                     {cat}
+                  </button>
+                ))}
+              </div>
+              <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-none -mx-4 px-4 sm:mx-0 sm:px-0 sm:flex-wrap">
+                {liveRegions.map((region) => (
+                  <button
+                    key={region}
+                    type="button"
+                    onClick={() => setActiveRegion(region)}
+                    className={`px-4 py-2 rounded-full text-xs font-medium transition-colors shrink-0 ${
+                      activeRegion === region
+                        ? "bg-[#1B8A4B] text-white"
+                        : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                    }`}
+                  >
+                    {region === "All" ? "All Islands" : `📍 ${region}`}
                   </button>
                 ))}
               </div>

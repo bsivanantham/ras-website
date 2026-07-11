@@ -51,7 +51,7 @@ export default async function DirectoryPage() {
               {!isLoggedIn && <span className="text-[#C9A227] font-semibold">Join to access the full directory.</span>}
             </p>
             <div className="inline-flex items-center gap-2 mt-4 bg-white/10 rounded-full px-4 py-1.5 text-sm font-semibold">
-              25 contacts
+              36 contacts
             </div>
           </div>
         </div>
