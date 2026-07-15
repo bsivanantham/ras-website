@@ -36,6 +36,19 @@ type Announcement = {
 
 export const publicAnnouncements: Announcement[] = [
   {
+    id: "ann-amsa-offer-jul2026",
+    badge: "Member Benefit",
+    badgeColor: "bg-purple-100 text-purple-700",
+    Icon: Tag,
+    title: "50% Off GP Consultations — AMSA Medical Centre Partnership",
+    description:
+      "Exclusive offer for RAS Certified Members & GOP holders, in partnership with AMSA Medical Centre — effective 15 July 2026. Get 50% off GP consultations (GP consultations only), GOP renewal at SCR 299, and Food Handling Test (FHT) at SCR 420. Simply present your valid RAS membership number and GOP. AMSA Medical Centre, Hassanali House, Victoria, Mahé · Tel 437 8686 · Weekdays 8:00–20:00, Weekends 8:00–16:00. Together, partnering for a healthier Seychelles.",
+    date: "15 July 2026",
+    href: "/images/annouce23.jpeg",
+    actionLabel: "View Offer",
+    preview: { type: "image", src: "/images/annouce23.jpeg" },
+  },
+  {
     id: "ann-video-jul2026",
     badge: "15 Years of RAS",
     badgeColor: "bg-green-100 text-green-700",
@@ -104,6 +117,19 @@ export const publicAnnouncements: Announcement[] = [
 
 const announcements: Announcement[] = [
   // ── Newest first ─────────────────────────────────────────────────────────
+  {
+    id: "ann-amsa-offer-jul2026",
+    badge: "Member Benefit",
+    badgeColor: "bg-purple-100 text-purple-700",
+    Icon: Tag,
+    title: "50% Off GP Consultations — AMSA Medical Centre Partnership",
+    description:
+      "Exclusive offer for RAS Certified Members & GOP holders, in partnership with AMSA Medical Centre — effective 15 July 2026. Get 50% off GP consultations (GP consultations only), GOP renewal at SCR 299, and Food Handling Test (FHT) at SCR 420. Simply present your valid RAS membership number and GOP. AMSA Medical Centre, Hassanali House, Victoria, Mahé · Tel 437 8686 · Weekdays 8:00–20:00, Weekends 8:00–16:00. Together, partnering for a healthier Seychelles.",
+    date: "15 July 2026",
+    href: "/images/annouce23.jpeg",
+    actionLabel: "View Offer",
+    preview: { type: "image", src: "/images/annouce23.jpeg" },
+  },
   {
     id: "ann-video-jul2026",
     badge: "15 Years of RAS",
