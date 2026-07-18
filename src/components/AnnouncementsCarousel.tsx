@@ -36,6 +36,19 @@ type Announcement = {
 
 export const publicAnnouncements: Announcement[] = [
   {
+    id: "ann-fht-moh-jul2026",
+    badge: "Important Notice",
+    badgeColor: "bg-red-100 text-red-700",
+    Icon: FileText,
+    title: "Food Handling Test Certificate Required — Ministry of Health",
+    description:
+      "All food-related shop workers must hold a Food Handling Test Certificate, valid for 2 years — this is mandatory for all food-related shops. Workers in takeaways, kitchens, restaurants and cafés must take the Food Handling Test once every 6 months. RAS kindly urges all employers and workers to comply with these Ministry of Health requirements to ensure food safety and support a healthy community. RAS met MOH on 16 July 2026 — working together for a safer and healthier Seychelles.",
+    date: "16 July 2026",
+    href: "/images/annouce.jpeg",
+    actionLabel: "View Notice",
+    preview: { type: "image", src: "/images/annouce.jpeg" },
+  },
+  {
     id: "ann-amsa-offer-jul2026",
     badge: "Member Benefit",
     badgeColor: "bg-purple-100 text-purple-700",
@@ -117,6 +130,19 @@ export const publicAnnouncements: Announcement[] = [
 
 const announcements: Announcement[] = [
   // ── Newest first ─────────────────────────────────────────────────────────
+  {
+    id: "ann-fht-moh-jul2026",
+    badge: "Important Notice",
+    badgeColor: "bg-red-100 text-red-700",
+    Icon: FileText,
+    title: "Food Handling Test Certificate Required — Ministry of Health",
+    description:
+      "All food-related shop workers must hold a Food Handling Test Certificate, valid for 2 years — this is mandatory for all food-related shops. Workers in takeaways, kitchens, restaurants and cafés must take the Food Handling Test once every 6 months. RAS kindly urges all employers and workers to comply with these Ministry of Health requirements to ensure food safety and support a healthy community. RAS met MOH on 16 July 2026 — working together for a safer and healthier Seychelles.",
+    date: "16 July 2026",
+    href: "/images/annouce.jpeg",
+    actionLabel: "View Notice",
+    preview: { type: "image", src: "/images/annouce.jpeg" },
+  },
   {
     id: "ann-amsa-offer-jul2026",
     badge: "Member Benefit",
