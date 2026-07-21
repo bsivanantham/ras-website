@@ -84,6 +84,19 @@ export type StoredPhoto = {
   uploadedAt: string;
 };
 
+export type StoredMemorial = {
+  id: string;
+  name: string;
+  shop: string | null;
+  district: string | null;
+  yearFrom: number | null;
+  yearTo: number | null;
+  photoSrc: string | null;
+  tribute: string | null;
+  order: number;
+  createdAt: string;
+};
+
 export type StoredNewsletter = {
   id: string;
   title: string;
@@ -96,7 +109,7 @@ export type StoredNewsletter = {
 
 export type AuditEntry = {
   action: "create" | "update" | "delete";
-  resource: "announcements" | "events" | "directory" | "gallery";
+  resource: "announcements" | "events" | "directory" | "gallery" | "memorials";
   userId: string;
   detail: string;
   timestamp: string;
@@ -128,6 +141,13 @@ export async function getGallery(): Promise<StoredPhoto[] | null> {
 }
 export async function setGallery(data: StoredPhoto[]): Promise<void> {
   await kvSet("gallery", data);
+}
+
+export async function getMemorials(): Promise<StoredMemorial[] | null> {
+  return kvGet<StoredMemorial[]>("memorials");
+}
+export async function setMemorials(data: StoredMemorial[]): Promise<void> {
+  await kvSet("memorials", data);
 }
 
 export async function getNewsletters(): Promise<StoredNewsletter[] | null> {

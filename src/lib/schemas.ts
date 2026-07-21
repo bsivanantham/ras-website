@@ -58,3 +58,16 @@ export const PhotoSchema = z.object({
   order: z.number(),
   uploadedAt: z.string(),
 });
+
+export const MemorialSchema = z.object({
+  id: z.string().min(1),
+  name: z.string().min(1).max(200),
+  shop: z.string().max(200).nullable(),
+  district: z.string().max(200).nullable(),
+  yearFrom: z.number().int().nullable(),
+  yearTo: z.number().int().nullable(),
+  photoSrc: z.string().nullable(),
+  tribute: z.string().max(1000).nullable(),
+  order: z.number(),
+  createdAt: z.string(),
+});

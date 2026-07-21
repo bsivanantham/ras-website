@@ -24,7 +24,7 @@ export default function Navbar() {
     { href: "/resources", label: t.nav.resources },
     { href: "/directory", label: t.nav.directory },
     ...(isSignedIn
-      ? [{ href: "/members", label: "Members" }, { href: "/advertisements", label: "Ads" }]
+      ? [{ href: "/members", label: "Members" }, { href: "/memory", label: "In Memory" }, { href: "/advertisements", label: "Ads" }]
       : [{ href: "/join", label: t.nav.join }]),
   ];
 
