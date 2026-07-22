@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
-import { ChevronLeft, ChevronRight, Download, CalendarDays, FileText, Gavel, ExternalLink, Truck, Tag, CheckCircle, Star, PlayCircle, Heart } from "lucide-react";
+import { ChevronLeft, ChevronRight, Download, CalendarDays, FileText, Gavel, ExternalLink, Truck, Tag, CheckCircle, Star, PlayCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { ICON_OPTIONS, BADGE_COLOURS } from "@/lib/iconMap";
@@ -35,19 +35,6 @@ type Announcement = {
 };
 
 export const publicAnnouncements: Announcement[] = [
-  {
-    id: "ann-condolence-sapillay-jul2026",
-    badge: "In Memoriam",
-    badgeColor: "bg-gray-200 text-gray-700",
-    Icon: Heart,
-    title: "In Loving Memory of S.A. Pillay",
-    description:
-      "With profound sadness, the Retailers Association of Seychelles mourns the passing of our respected member S.A. Pillay of Santhi Avamthram, Baie Ste Anne (Praslin). We extend our heartfelt condolences and deepest sympathy to his family, friends and staff during this difficult time. May his soul rest in eternal peace.",
-    date: "20 July 2026",
-    href: "/images/annouc3.jpeg",
-    actionLabel: "View Tribute",
-    preview: { type: "image", src: "/images/annouc3.jpeg" },
-  },
   {
     id: "ann-fht-moh-jul2026",
     badge: "Important Notice",
@@ -143,19 +130,6 @@ export const publicAnnouncements: Announcement[] = [
 
 const announcements: Announcement[] = [
   // ── Newest first ─────────────────────────────────────────────────────────
-  {
-    id: "ann-condolence-sapillay-jul2026",
-    badge: "In Memoriam",
-    badgeColor: "bg-gray-200 text-gray-700",
-    Icon: Heart,
-    title: "In Loving Memory of S.A. Pillay",
-    description:
-      "With profound sadness, the Retailers Association of Seychelles mourns the passing of our respected member S.A. Pillay of Santhi Avamthram, Baie Ste Anne (Praslin). We extend our heartfelt condolences and deepest sympathy to his family, friends and staff during this difficult time. May his soul rest in eternal peace.",
-    date: "20 July 2026",
-    href: "/images/annouc3.jpeg",
-    actionLabel: "View Tribute",
-    preview: { type: "image", src: "/images/annouc3.jpeg" },
-  },
   {
     id: "ann-fht-moh-jul2026",
     badge: "Important Notice",
