@@ -22,6 +22,45 @@ export const seedMemorials: StoredMemorial[] = [
     order: 0,
     createdAt: "2026-07-20T00:00:00.000Z",
   },
+  {
+    id: "mem-seed-shivaroshini",
+    name: "Miss. Shivaroshini Nayanmar",
+    shop: null,
+    district: "Mont Buxton, Mahé",
+    yearFrom: null,
+    yearTo: 2026,
+    photoSrc: "/images/memo1.jpeg",
+    tribute:
+      "It is with a heavy heart that the Retailers Association of Seychelles informs the sad demise of Miss. Shivaroshini Nayanmar of Mont Buxton, Mahé. We extend our deepest sympathies to her family, relatives and friends during this difficult time. May her soul rest in eternal peace.",
+    order: 1,
+    createdAt: "2026-06-30T00:00:00.000Z",
+  },
+  {
+    id: "mem-seed-sivasekaran",
+    name: "Mr. Sivasekaran",
+    shop: "Hari Meena Store",
+    district: "Providence",
+    yearFrom: null,
+    yearTo: 2026,
+    photoSrc: "/images/mem3.jpeg",
+    tribute:
+      "The Retailers Association of Seychelles extends its deepest condolences on the passing of Mr. Sivasekaran. We extend our heartfelt sympathies to his family, and to the management and staff of Hari Meena Store, Providence, during this difficult time. May his soul rest in eternal peace.",
+    order: 2,
+    createdAt: "2026-06-24T00:00:00.000Z",
+  },
+  {
+    id: "mem-seed-rethinasamy",
+    name: "Mr. Rethinasamy Arunachalam",
+    shop: "New Shop (La Retraite) & Rathna Store (Quincy Village)",
+    district: null,
+    yearFrom: 1941,
+    yearTo: 2026,
+    photoSrc: "/images/memo2.jpeg",
+    tribute:
+      "The Retailers Association of Seychelles extends our deepest condolences to the family on the sad passing of Mr. Rethinasamy Arunachalam. Our thoughts and prayers are with the family during this time of immense sorrow. May his soul rest in eternal peace.",
+    order: 3,
+    createdAt: "2026-06-15T00:00:00.000Z",
+  },
 ];
 
 function initials(name: string): string {
