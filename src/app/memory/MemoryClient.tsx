@@ -10,6 +10,19 @@ import MemorialManager from "@/components/admin/MemorialManager";
 // Shown when no admin-added tributes exist yet.
 export const seedMemorials: StoredMemorial[] = [
   {
+    id: "mem-seed-krishnamoorthy",
+    name: "Mr. E. Krishna Moorthy Nayudu (Tonton)",
+    shop: "Chitra Store",
+    district: "Point Laure",
+    yearFrom: 1953,
+    yearTo: 2026,
+    photoSrc: "/images/condolence-krishna-moorthy-aug2026.jpeg",
+    tribute:
+      "The Retailers Association of Seychelles extends its deepest and heartfelt condolences to the family, friends and staff of the late Mr. E. Krishna Moorthy Nayudu (Tonton) of Chitra Store, Point Laure. The funeral service will be held on Monday, 10 August 2026 from 8:30 a.m. to 11:00 a.m. at Surya Memorial Hall, followed by burial at Mont Fleuri Cemetery. May his soul rest in eternal peace.",
+    order: 0,
+    createdAt: "2026-08-10T00:00:00.000Z",
+  },
+  {
     id: "mem-seed-sapillay",
     name: "S.A. Pillay",
     shop: "Santhi Avamthram",
@@ -19,7 +32,7 @@ export const seedMemorials: StoredMemorial[] = [
     photoSrc: "/images/annouc3.jpeg",
     tribute:
       "With profound sadness, the Retailers Association of Seychelles mourns the passing of our respected member S.A. Pillay. We extend our heartfelt condolences and deepest sympathy to his family, friends and staff during this difficult time. May his soul rest in eternal peace.",
-    order: 0,
+    order: 1,
     createdAt: "2026-07-20T00:00:00.000Z",
   },
   {
@@ -32,7 +45,7 @@ export const seedMemorials: StoredMemorial[] = [
     photoSrc: "/images/memo1.jpeg",
     tribute:
       "It is with a heavy heart that the Retailers Association of Seychelles informs the sad demise of Miss. Shivaroshini Nayanmar of Mont Buxton, Mahé. We extend our deepest sympathies to her family, relatives and friends during this difficult time. May her soul rest in eternal peace.",
-    order: 1,
+    order: 2,
     createdAt: "2026-06-30T00:00:00.000Z",
   },
   {
@@ -45,7 +58,7 @@ export const seedMemorials: StoredMemorial[] = [
     photoSrc: "/images/mem3.jpeg",
     tribute:
       "The Retailers Association of Seychelles extends its deepest condolences on the passing of Mr. Sivasekaran. We extend our heartfelt sympathies to his family, and to the management and staff of Hari Meena Store, Providence, during this difficult time. May his soul rest in eternal peace.",
-    order: 2,
+    order: 3,
     createdAt: "2026-06-24T00:00:00.000Z",
   },
   {
@@ -58,7 +71,7 @@ export const seedMemorials: StoredMemorial[] = [
     photoSrc: "/images/memo2.jpeg",
     tribute:
       "The Retailers Association of Seychelles extends our deepest condolences to the family on the sad passing of Mr. Rethinasamy Arunachalam. Our thoughts and prayers are with the family during this time of immense sorrow. May his soul rest in eternal peace.",
-    order: 3,
+    order: 4,
     createdAt: "2026-06-15T00:00:00.000Z",
   },
 ];
