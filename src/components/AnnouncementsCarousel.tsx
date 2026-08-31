@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
-import { ChevronLeft, ChevronRight, Download, CalendarDays, FileText, Gavel, ExternalLink, Truck, Tag, CheckCircle, Star, PlayCircle } from "lucide-react";
+import { ChevronLeft, ChevronRight, Download, CalendarDays, FileText, Gavel, ExternalLink, Truck, Tag, CheckCircle, Star, PlayCircle, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { ICON_OPTIONS, BADGE_COLOURS } from "@/lib/iconMap";
@@ -35,6 +35,32 @@ type Announcement = {
 };
 
 export const publicAnnouncements: Announcement[] = [
+  {
+    id: "ann-wedding-harish-aishwarya-aug2026",
+    badge: "Congratulations",
+    badgeColor: "bg-pink-100 text-pink-700",
+    Icon: Heart,
+    title: "Heartiest Congratulations — Mr. S. Harish & Mrs. G.K. Aishwarya",
+    description:
+      "RAS extends its warmest wishes to our Assistant Secretary, Mr. S. Harish, and Mrs. G.K. Aishwarya, on their wedding on 31 August 2026. May your journey together be filled with love, happiness, good health, prosperity and endless blessings. With warm wishes and blessings from the RAS Committee & Members.",
+    date: "31 August 2026",
+    href: "/images/congrats-harish-aishwarya-aug2026.jpeg",
+    actionLabel: "View Message",
+    preview: { type: "image", src: "/images/congrats-harish-aishwarya-aug2026.jpeg" },
+  },
+  {
+    id: "ann-airtel-efasil-aug2026",
+    badge: "Member Notice",
+    badgeColor: "bg-red-100 text-red-700",
+    Icon: FileText,
+    title: "Airtel e-Fasil Online — Facility Update for Members",
+    description:
+      "Retailers who wish to use the Airtel e-Fasil online facility can now be set up through RAS. Please contact Suzanne on 2780952 — she will handle the back-end process and share your link, username and password. Together, we are stronger.",
+    date: "31 August 2026",
+    href: "/images/airtel-efasil-update-aug2026.jpeg",
+    actionLabel: "View Notice",
+    preview: { type: "image", src: "/images/airtel-efasil-update-aug2026.jpeg" },
+  },
   {
     id: "ann-fht-moh-jul2026",
     badge: "Important Notice",
@@ -130,6 +156,32 @@ export const publicAnnouncements: Announcement[] = [
 
 const announcements: Announcement[] = [
   // ── Newest first ─────────────────────────────────────────────────────────
+  {
+    id: "ann-wedding-harish-aishwarya-aug2026",
+    badge: "Congratulations",
+    badgeColor: "bg-pink-100 text-pink-700",
+    Icon: Heart,
+    title: "Heartiest Congratulations — Mr. S. Harish & Mrs. G.K. Aishwarya",
+    description:
+      "RAS extends its warmest wishes to our Assistant Secretary, Mr. S. Harish, and Mrs. G.K. Aishwarya, on their wedding on 31 August 2026. May your journey together be filled with love, happiness, good health, prosperity and endless blessings. With warm wishes and blessings from the RAS Committee & Members.",
+    date: "31 August 2026",
+    href: "/images/congrats-harish-aishwarya-aug2026.jpeg",
+    actionLabel: "View Message",
+    preview: { type: "image", src: "/images/congrats-harish-aishwarya-aug2026.jpeg" },
+  },
+  {
+    id: "ann-airtel-efasil-aug2026",
+    badge: "Member Notice",
+    badgeColor: "bg-red-100 text-red-700",
+    Icon: FileText,
+    title: "Airtel e-Fasil Online — Facility Update for Members",
+    description:
+      "Retailers who wish to use the Airtel e-Fasil online facility can now be set up through RAS. Please contact Suzanne on 2780952 — she will handle the back-end process and share your link, username and password. Together, we are stronger.",
+    date: "31 August 2026",
+    href: "/images/airtel-efasil-update-aug2026.jpeg",
+    actionLabel: "View Notice",
+    preview: { type: "image", src: "/images/airtel-efasil-update-aug2026.jpeg" },
+  },
   {
     id: "ann-fht-moh-jul2026",
     badge: "Important Notice",
