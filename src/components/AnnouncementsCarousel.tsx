@@ -36,6 +36,19 @@ type Announcement = {
 
 export const publicAnnouncements: Announcement[] = [
   {
+    id: "ann-airtel-efasil-aug2026",
+    badge: "Member Notice",
+    badgeColor: "bg-red-100 text-red-700",
+    Icon: FileText,
+    title: "Airtel e-Fasil Online — Facility Update for Members",
+    description:
+      "Retailers who wish to use the Airtel e-Fasil online facility can now be set up through RAS. Please contact Suzanne on 2780952 — she will handle the back-end process and share your link, username and password. Together, we are stronger.",
+    date: "31 August 2026",
+    href: "/images/airtel-efasil-update-aug2026.jpeg",
+    actionLabel: "View Notice",
+    preview: { type: "image", src: "/images/airtel-efasil-update-aug2026.jpeg" },
+  },
+  {
     id: "ann-fht-moh-jul2026",
     badge: "Important Notice",
     badgeColor: "bg-red-100 text-red-700",
@@ -130,6 +143,19 @@ export const publicAnnouncements: Announcement[] = [
 
 const announcements: Announcement[] = [
   // ── Newest first ─────────────────────────────────────────────────────────
+  {
+    id: "ann-airtel-efasil-aug2026",
+    badge: "Member Notice",
+    badgeColor: "bg-red-100 text-red-700",
+    Icon: FileText,
+    title: "Airtel e-Fasil Online — Facility Update for Members",
+    description:
+      "Retailers who wish to use the Airtel e-Fasil online facility can now be set up through RAS. Please contact Suzanne on 2780952 — she will handle the back-end process and share your link, username and password. Together, we are stronger.",
+    date: "31 August 2026",
+    href: "/images/airtel-efasil-update-aug2026.jpeg",
+    actionLabel: "View Notice",
+    preview: { type: "image", src: "/images/airtel-efasil-update-aug2026.jpeg" },
+  },
   {
     id: "ann-fht-moh-jul2026",
     badge: "Important Notice",
