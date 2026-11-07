@@ -1,35 +1,60 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import { X, Volume2, VolumeX } from "lucide-react";
+import { useState, useEffect, useCallback } from "react";
+import { X } from "lucide-react";
+import confetti from "canvas-confetti";
+import { celebration, celebrationActive } from "@/lib/celebration";
 
-const POPUP_KEY = "ras_popup_video-jul2026";
+const POPUP_KEY = `ras_popup_${celebration.key}`;
+
+// Diwali palette: gold, saffron, deep red, warm white
+const SPARK_COLORS = ["#C9A227", "#FFD700", "#FF9933", "#B91C1C", "#FFF4D6"];
+
+// One short, gentle burst when the popup opens. Skipped for users who ask
+// for reduced motion. Canvas sits above the popup but ignores clicks.
+function sparkle() {
+  try {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    void confetti({
+      particleCount: 60,
+      spread: 70,
+      startVelocity: 32,
+      ticks: 140,
+      origin: { y: 0.6 },
+      colors: SPARK_COLORS,
+      zIndex: 250,
+      disableForReducedMotion: true,
+    });
+  } catch {}
+}
 
 export default function WelcomePopup() {
-  const [visible, setVisible]   = useState(false);
-  const [muted, setMuted]       = useState(true);
-  const videoRef                = useRef<HTMLVideoElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  const close = useCallback(() => {
+    try { localStorage.setItem(POPUP_KEY, "1"); } catch {}
+    setVisible(false);
+  }, []);
 
   useEffect(() => {
+    if (!celebrationActive()) return;
     try {
       if (!localStorage.getItem(POPUP_KEY)) {
-        const t = setTimeout(() => setVisible(true), 500);
+        const t = setTimeout(() => {
+          setVisible(true);
+          sparkle();
+        }, 500);
         return () => clearTimeout(t);
       }
     } catch {}
   }, []);
 
-  const unmute = () => {
-    if (videoRef.current) {
-      videoRef.current.muted = false;
-      setMuted(false);
-    }
-  };
-
-  const close = () => {
-    try { localStorage.setItem(POPUP_KEY, "1"); } catch {}
-    setVisible(false);
-  };
+  useEffect(() => {
+    if (!visible) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") close(); };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [visible, close]);
 
   if (!visible) return null;
 
@@ -42,8 +67,12 @@ export default function WelcomePopup() {
         .ras-popup-card { animation: ras-rise 0.32s ease forwards }
       `}</style>
 
-      <div className="ras-popup-bg fixed inset-0 z-[200] flex items-end sm:items-center justify-center">
-
+      <div
+        className="ras-popup-bg fixed inset-0 z-[200] flex items-end sm:items-center justify-center"
+        role="dialog"
+        aria-modal="true"
+        aria-label={celebration.bannerHeadline}
+      >
         {/* Backdrop */}
         <button
           className="absolute inset-0 bg-black/80 backdrop-blur-[3px]"
@@ -54,45 +83,28 @@ export default function WelcomePopup() {
 
         <div
           className="ras-popup-card relative z-10 w-full sm:w-auto sm:mx-4"
-          style={{ maxWidth: "min(480px, 100vw)" }}
+          style={{ maxWidth: "min(720px, 100vw)" }}
         >
           {/* Close button */}
           <button
             onClick={close}
             className="absolute -top-5 right-3 z-20 h-12 w-12 rounded-full bg-white shadow-2xl flex items-center justify-center text-gray-800 active:scale-90 transition-transform touch-manipulation"
             aria-label="Close"
+            autoFocus
           >
             <X className="h-5 w-5 stroke-[2.5]" />
           </button>
 
-          {/* Video wrapper */}
-          <div className="rounded-t-3xl sm:rounded-3xl overflow-hidden shadow-2xl bg-black relative">
-            {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
-            <video
-              ref={videoRef}
-              src="/images/celebration-jul2026.mp4"
-              autoPlay
-              muted
-              loop
-              playsInline
+          {/* Poster */}
+          <div className="rounded-t-3xl sm:rounded-3xl overflow-hidden shadow-2xl bg-[#FFF8EC]">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={celebration.poster}
+              alt={celebration.posterAlt}
+              width={1536}
+              height={1024}
               className="w-full h-auto block max-h-[82dvh] sm:max-h-[78dvh] object-contain"
             />
-
-            {/* Sound toggle — bottom-left corner */}
-            <button
-              onClick={unmute}
-              className={`absolute bottom-3 left-3 flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold shadow-lg transition-all touch-manipulation
-                ${muted
-                  ? "bg-white text-gray-900 animate-pulse"
-                  : "bg-white/20 text-white backdrop-blur-sm"
-                }`}
-              aria-label={muted ? "Unmute video" : "Video has sound"}
-            >
-              {muted
-                ? <><VolumeX className="h-3.5 w-3.5" /> Tap for sound</>
-                : <><Volume2 className="h-3.5 w-3.5" /> Sound on</>
-              }
-            </button>
           </div>
 
           {/* Bottom handle — mobile only */}

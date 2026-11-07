@@ -2,14 +2,21 @@
 
 import { useState, useEffect } from "react";
 import { X } from "lucide-react";
+import { celebration, celebrationActive } from "@/lib/celebration";
 
-const BANNER_KEY = "ras_banner_independence_50th";
+const BANNER_KEY = `ras_banner_${celebration.key}`;
 
 export default function CelebrationBanner() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    if (!localStorage.getItem(BANNER_KEY)) setVisible(true);
+    if (!celebrationActive()) return;
+    let dismissed = false;
+    try { dismissed = !!localStorage.getItem(BANNER_KEY); } catch {}
+    if (dismissed) return;
+    // Defer to after hydration so server and client markup match.
+    const t = setTimeout(() => setVisible(true), 0);
+    return () => clearTimeout(t);
   }, []);
 
   if (!visible) return null;
@@ -21,13 +28,13 @@ export default function CelebrationBanner() {
 
   return (
     <div className="relative w-full bg-[#0D3572] py-2.5 px-10 flex items-center justify-center gap-2.5">
-      <span className="text-base leading-none select-none">🇸🇨</span>
+      <span className="text-base leading-none select-none" aria-hidden="true">🪔</span>
       <p className="text-sm text-center leading-snug">
-        <span className="text-[#C9A227] font-bold">Happy 50th Independence Day, Seychelles!</span>
-        <span className="text-white/70 hidden sm:inline"> — Retailers Association of Seychelles celebrates with the nation</span>
-        <span className="text-white/50 ml-2 text-xs">29 June 2026</span>
+        <span className="text-[#C9A227] font-bold">{celebration.bannerHeadline}</span>
+        <span className="text-white/70 hidden sm:inline"> — {celebration.bannerSub}</span>
+        <span className="text-white/50 ml-2 text-xs whitespace-nowrap">{celebration.bannerDate}</span>
       </p>
-      <span className="text-base leading-none select-none">🎊</span>
+      <span className="text-base leading-none select-none" aria-hidden="true">🪔</span>
       <button
         onClick={dismiss}
         aria-label="Dismiss"
