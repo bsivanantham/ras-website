@@ -34,7 +34,22 @@ type Announcement = {
   done?: boolean;
 };
 
+const diwali2026: Announcement = {
+    id: "ann-diwali-2026",
+    badge: "Festival Greetings",
+    badgeColor: "bg-orange-100 text-orange-700",
+    Icon: Star,
+    title: "Happy Diwali from RAS! — 8 November 2026",
+    description:
+      "On the joyful occasion of Diwali, the Retailers Association of Seychelles extends its warmest wishes to all retailers, our valued customers, business partners and the entire community of Seychelles. May this Festival of Lights bring happiness, good health, prosperity and continued success to you, your business and your loved ones.",
+    date: "8 November 2026",
+    href: "/images/diwali-2026.jpg",
+    actionLabel: "View Poster",
+    preview: { type: "image", src: "/images/diwali-2026.jpg" },
+  };
+
 export const publicAnnouncements: Announcement[] = [
+  diwali2026,
   {
     id: "ann-fht-moh-jul2026",
     badge: "Important Notice",
@@ -130,6 +145,7 @@ export const publicAnnouncements: Announcement[] = [
 
 const announcements: Announcement[] = [
   // ── Newest first ─────────────────────────────────────────────────────────
+  diwali2026,
   {
     id: "ann-fht-moh-jul2026",
     badge: "Important Notice",
@@ -338,7 +354,7 @@ const announcements: Announcement[] = [
     actionLabel: "Download Guide (PDF)",
     preview: { type: "pdf", src: COMP_PDF },
   },
-  ...publicAnnouncements,
+  ...publicAnnouncements.filter((a) => a.id !== diwali2026.id),
   {
     id: "ann-stc-press",
     badge: "STC Press Release",
