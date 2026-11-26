@@ -17,7 +17,8 @@ import {
 import AdminBottomSheet from "@/components/admin/AdminBottomSheet";
 import AnnouncementsEditor from "@/components/admin/AnnouncementsEditor";
 import HeroCTA from "@/components/HeroCTA";
-import AnnouncementsCarousel, { publicAnnouncements } from "@/components/AnnouncementsCarousel";
+import AnnouncementsCarousel from "@/components/AnnouncementsCarousel";
+import { publicAnnouncements } from "@/data/announcements";
 import type { StoredAnnouncement } from "@/lib/kv";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";

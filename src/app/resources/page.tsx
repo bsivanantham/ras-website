@@ -2,11 +2,12 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { auth } from "@clerk/nextjs/server";
-import { Scale, Download, ExternalLink, Lock, Building2, ShieldCheck, Sparkles } from "lucide-react";
+import { Scale, Download, ExternalLink, Lock, Building2, ShieldCheck, Sparkles, Megaphone } from "lucide-react";
 import SeychellesFlag from "@/components/SeychellesFlag";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { archivedAnnouncements, type Announcement, type ArchiveTarget } from "@/data/announcements";
 
 export const metadata: Metadata = {
   title: "Resources",
@@ -24,7 +25,14 @@ const breadcrumbJsonLd = {
   ],
 };
 
-const categories = [
+const categories: Category[] = [
+  {
+    id: "ras",
+    icon: Megaphone,
+    title: "RAS Notices & Member Benefits",
+    description: "Past notices, meetings, and member offers from the Retailers Association of Seychelles.",
+    resources: [],
+  },
   {
     id: "ftc",
     icon: ShieldCheck,
@@ -105,8 +113,28 @@ type Resource = {
   type: string;
   access: string;
   href: string | null;
+  date?: string;
   summary?: ResourceSummaryGroup[];
 };
+type Category = {
+  id: ArchiveTarget;
+  icon: React.ElementType;
+  title: string;
+  description: string;
+  resources: Resource[];
+};
+
+// Announcements that rolled off the homepage carousel, shown as resource cards.
+function toResource(a: Announcement): Resource {
+  return {
+    title: a.title,
+    description: a.description,
+    date: a.date,
+    type: a.preview.type === "pdf" ? "PDF" : "Image",
+    access: a.access,
+    href: a.preview.type === "image" || a.preview.type === "pdf" ? a.preview.src : a.href,
+  };
+}
 
 function ResourceAction({ resource, showAll }: Readonly<{ resource: Resource; showAll: boolean }>) {
   const canAccess = resource.access === "public" || showAll;
@@ -160,6 +188,7 @@ function ResourceCard({ resource, showAll }: Readonly<{ resource: Resource; show
         </div>
       </CardHeader>
       <CardContent className="flex flex-col gap-3">
+        {resource.date && <p className="text-xs text-gray-400 font-medium">{resource.date}</p>}
         {canAccess && (
           <CardDescription className="text-gray-600 text-sm leading-relaxed">
             {resource.description}
@@ -208,7 +237,7 @@ function ResourceCard({ resource, showAll }: Readonly<{ resource: Resource; show
   );
 }
 
-function ResourceCategory({ category, showAll }: Readonly<{ category: typeof categories[0]; showAll: boolean }>) {
+function ResourceCategory({ category, showAll }: Readonly<{ category: Category; showAll: boolean }>) {
   return (
     <div>
       <div className="flex items-center gap-3 mb-6">
@@ -262,9 +291,12 @@ export default async function ResourcesPage() {
       {/* Resource Categories */}
       <section className="py-12 bg-[#EFF4FF]">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-12">
-          {categories.map((category) => (
-            <ResourceCategory key={category.id} category={category} showAll={isLoggedIn} />
-          ))}
+          {categories.map((category) => {
+            const resources = [...archivedAnnouncements(category.id, isLoggedIn).map(toResource), ...category.resources];
+            return resources.length > 0 && (
+              <ResourceCategory key={category.id} category={{ ...category, resources }} showAll={isLoggedIn} />
+            );
+          })}
         </div>
       </section>
 
