@@ -1,6 +1,14 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { ScrollText, ChevronRight } from "lucide-react";
 import SeychellesFlag from "@/components/SeychellesFlag";
+
+export const metadata: Metadata = {
+  title: "RAS Constitution",
+  description:
+    "The Constitution of the Retailers Association of Seychelles — aims and objects, membership, fees, general meetings, management committee, amendment and dissolution.",
+  alternates: { canonical: "https://ras.sc/constitution" },
+};
 
 const articles = [
   {

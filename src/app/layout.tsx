@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
 import { Inter, Geist_Mono } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { LanguageProvider } from "@/components/LanguageProvider";
+import WelcomePopup from "@/components/WelcomePopup";
+import CelebrationBanner from "@/components/CelebrationBanner";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -17,28 +20,61 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://retailers.sc"),
-  title: "Retailers Association of Seychelles | Fair Service to Our Nation",
+  metadataBase: new URL("https://ras.sc"),
+  title: {
+    template: "%s | Retailers Association of Seychelles",
+    default: "Retailers Association of Seychelles (RAS) — Official Website",
+  },
   description:
-    "The Retailers Association of Seychelles (RAS) supports retail businesses across Mahé and the islands with compliance guidance, resources, and a strong member community.",
+    "The Retailers Association of Seychelles (RAS) is the official body supporting retail businesses across Mahé, Praslin, and La Digue — compliance guidance, STC & FTC notices, and a certified member directory.",
   keywords: [
-    "Seychelles",
-    "retailers",
-    "retail association",
+    "Retailers Association of Seychelles",
+    "RAS Seychelles",
     "RAS",
-    "business",
-    "Victoria",
-    "Mahé",
+    "seychelles retailers",
+    "retail association seychelles",
+    "seychelles retail membership",
+    "seychelles business association",
+    "retail business seychelles",
+    "seychelles trading corporation retailers",
+    "FTC seychelles",
+    "Mahé retailers",
+    "Praslin retailers",
+    "La Digue retailers",
+    "Victoria Seychelles retail",
+    "seychelles compliance retail",
   ],
-  authors: [{ name: "Balavivek Sivanantham", url: "https://www.balavivek.pro/" }],
-  creator: "Balavivek Sivanantham",
   openGraph: {
-    title: "Retailers Association of Seychelles",
-    description: "Fair Service to Our Nation — supporting Seychelles retailers since inception.",
-    url: "https://retailers.sc",
+    title: "Retailers Association of Seychelles (RAS)",
+    description:
+      "Official body supporting retail businesses across Mahé, Praslin, and La Digue — compliance guidance, STC & FTC notices, certified member directory.",
+    url: "https://ras.sc",
     siteName: "Retailers Association of Seychelles",
     locale: "en_SC",
     type: "website",
+    images: [
+      {
+        url: "https://ras.sc/images/logo.jpg",
+        width: 800,
+        height: 800,
+        alt: "Retailers Association of Seychelles Logo",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary",
+    title: "Retailers Association of Seychelles (RAS)",
+    description:
+      "Official body supporting retail businesses across Mahé, Praslin, and La Digue.",
+    images: ["https://ras.sc/images/logo.jpg"],
+  },
+  alternates: {
+    canonical: "https://ras.sc",
+  },
+  verification: {
+    other: {
+      "msvalidate.01": "CCDA76ADA45C8B3150E744DB4C3E86E9",
+    },
   },
 };
 
@@ -46,24 +82,48 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "WebSite",
+      "@type": "Organization",
+      "@id": "https://ras.sc/#organization",
       name: "Retailers Association of Seychelles",
-      url: "https://retailers.sc",
-      description:
-        "The Retailers Association of Seychelles supports retail businesses across Mahé and the islands with compliance guidance, resources, and a strong member community.",
-      creator: {
-        "@type": "Person",
-        name: "Balavivek Sivanantham",
-        url: "https://www.balavivek.pro/",
-        jobTitle: "Full Stack Developer",
+      alternateName: "RAS",
+      url: "https://ras.sc",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://ras.sc/images/logo.jpg",
       },
+      description:
+        "The Retailers Association of Seychelles (RAS) is the official body supporting retail businesses across Mahé, Praslin, and La Digue with compliance guidance, STC & FTC notices, and a certified member directory.",
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "Docklands",
+        addressLocality: "Victoria",
+        addressRegion: "Mahé",
+        addressCountry: "SC",
+      },
+      contactPoint: [
+        {
+          "@type": "ContactPoint",
+          telephone: "+248-2-521-500",
+          contactType: "customer support",
+          availableLanguage: "English",
+        },
+      ],
+      sameAs: ["https://ras.sc"],
     },
     {
-      "@type": "Person",
-      name: "Balavivek Sivanantham",
-      url: "https://www.balavivek.pro/",
-      jobTitle: "Full Stack Developer",
-      sameAs: ["https://www.balavivek.pro/"],
+      "@type": "WebSite",
+      "@id": "https://ras.sc/#website",
+      name: "Retailers Association of Seychelles",
+      url: "https://ras.sc",
+      publisher: { "@id": "https://ras.sc/#organization" },
+      potentialAction: {
+        "@type": "SearchAction",
+        target: {
+          "@type": "EntryPoint",
+          urlTemplate: "https://ras.sc/members?q={search_term_string}",
+        },
+        "query-input": "required name=search_term_string",
+      },
     },
   ],
 };
@@ -85,11 +145,14 @@ export default function RootLayout({
         />
         <ClerkProvider>
           <LanguageProvider>
+            <WelcomePopup />
+            <CelebrationBanner />
             <Navbar />
             <main className="flex-1">{children}</main>
             <Footer />
           </LanguageProvider>
         </ClerkProvider>
+        <Analytics />
       </body>
     </html>
   );
