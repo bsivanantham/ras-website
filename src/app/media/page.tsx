@@ -4,6 +4,7 @@ import { auth } from "@clerk/nextjs/server";
 import { ExternalLink } from "lucide-react";
 import GalleryClient from "@/app/gallery/GalleryClient";
 import SeychellesFlag from "@/components/SeychellesFlag";
+import { archivedAnnouncements } from "@/data/announcements";
 
 export const metadata: Metadata = {
   title: "Media & Press Coverage",
@@ -72,6 +73,9 @@ const newsArticles = [
 export default async function MediaPage() {
   const { userId } = await auth();
   const isLoggedIn = !!userId;
+  const pastAnnouncements = archivedAnnouncements("media", isLoggedIn).filter(
+    (a) => a.access === "public" || isLoggedIn
+  );
 
   const newsArticlesJsonLd = {
     "@context": "https://schema.org",
@@ -196,6 +200,45 @@ export default async function MediaPage() {
           </div>
         </div>
       </section>
+
+      {/* Past announcements — rolled off the homepage carousel */}
+      {pastAnnouncements.length > 0 && (
+        <section className="py-12 bg-[#EFF4FF]">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <p className="text-[#C9A227] text-sm font-semibold uppercase tracking-wider mb-2">Archive</p>
+            <h2 className="text-2xl font-bold text-[#0D3572] mb-6">Past Announcements</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {pastAnnouncements.map((a) => {
+                const img = a.preview.type === "image" ? a.preview.src : null;
+                return (
+                  <a
+                    key={a.id}
+                    href={a.href ?? img ?? undefined}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex flex-col rounded-2xl border border-[#0D3572]/10 overflow-hidden hover:shadow-md transition-shadow bg-white"
+                  >
+                    {img && (
+                      <div className="relative h-56 bg-gray-50">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src={img} alt={a.title} className="w-full h-full object-contain p-2" />
+                        <span className={`absolute top-3 left-3 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full ${a.badgeColor}`}>
+                          {a.badge}
+                        </span>
+                      </div>
+                    )}
+                    <div className="p-4 sm:p-5 flex flex-col gap-2 flex-1">
+                      <h3 className="text-[#0D3572] font-bold text-sm leading-snug group-hover:underline">{a.title}</h3>
+                      <p className="text-gray-500 text-xs leading-relaxed flex-1">{a.description}</p>
+                      <p className="text-xs text-gray-400 font-medium">{a.date}</p>
+                    </div>
+                  </a>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Gallery — members only */}
       {isLoggedIn && (
