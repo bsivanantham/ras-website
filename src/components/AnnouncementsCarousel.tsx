@@ -48,7 +48,22 @@ const diwali2026: Announcement = {
     preview: { type: "image", src: "/images/diwali-2026.jpg" },
   };
 
+const egmNov2026: Announcement = {
+    id: "ann-egm-nov2026",
+    badge: "Save the Date",
+    badgeColor: "bg-red-100 text-red-700",
+    Icon: CalendarDays,
+    title: "Extraordinary General Meeting (EGM) — 28 November 2026",
+    description:
+      "All RAS Members are cordially invited to attend and actively participate in this important meeting at the STC Conference Room, Victoria. Agenda: 1. Welcome Address · 2. Proposed Separation of Liquor and Cigarette Sales from Grocery Shops · 3. Proposed 5% Pension Fund Contribution (based on the salaries of expatriates) · 4. Impact of Price Controls on Product Demand, Supply and Availability · 5. Review of the STC Retail Profit Margin on MRP Products · 6. Wholesale Business Practices (including Cash on Delivery and Single-Piece Sales to the General Public) · 7. Impact of Roadside Vendors on Licensed Retailers and Fair Competition · 8. Any Other Business (AOB) · 9. Resolutions and Agreed Course of Action · 10. Closing Remarks and Adjournment.",
+    date: "Saturday, 28 November 2026 · 2:30 PM",
+    href: "/images/egm-nov2026.jpg",
+    actionLabel: "View Agenda",
+    preview: { type: "image", src: "/images/egm-nov2026.jpg" },
+  };
+
 export const publicAnnouncements: Announcement[] = [
+  egmNov2026,
   diwali2026,
   {
     id: "ann-fht-moh-jul2026",
@@ -145,6 +160,7 @@ export const publicAnnouncements: Announcement[] = [
 
 const announcements: Announcement[] = [
   // ── Newest first ─────────────────────────────────────────────────────────
+  egmNov2026,
   diwali2026,
   {
     id: "ann-fht-moh-jul2026",
@@ -354,7 +370,7 @@ const announcements: Announcement[] = [
     actionLabel: "Download Guide (PDF)",
     preview: { type: "pdf", src: COMP_PDF },
   },
-  ...publicAnnouncements.filter((a) => a.id !== diwali2026.id),
+  ...publicAnnouncements.filter((a) => a.id !== diwali2026.id && a.id !== egmNov2026.id),
   {
     id: "ann-stc-press",
     badge: "STC Press Release",
