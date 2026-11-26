@@ -7,7 +7,6 @@ export interface TranslationKeys {
     home: string;
     about: string;
     resources: string;
-    compliance: string;
     directory: string;
     join: string;
     login: string;
@@ -50,7 +49,7 @@ export interface TranslationKeys {
   };
 }
 
-// "sc" = Seychellois Creole. Toggle is disabled in UI (coming soon).
+// TODO: Seychellois Creole ("sc") translations are stubs — fill in before enabling the language toggle in Navbar
 export const translations: Record<Locale, TranslationKeys> = {
   en: {
     nav: {
@@ -59,7 +58,6 @@ export const translations: Record<Locale, TranslationKeys> = {
       home: "Home",
       about: "About",
       resources: "Resources",
-      compliance: "Compliance",
       directory: "Directory",
       join: "Join",
       login: "Login",
@@ -105,7 +103,7 @@ export const translations: Record<Locale, TranslationKeys> = {
     },
     cta: {
       title: "Ready to grow your business?",
-      desc: "Join 355 Seychelles retailers who rely on RAS for compliance, resources, and community support.",
+      desc: "Join 370+ Seychelles retailers who rely on RAS for compliance, resources, and community support.",
       button: "Become a Member Today",
     },
     partner: {
@@ -130,7 +128,6 @@ export const translations: Record<Locale, TranslationKeys> = {
       home: "Lakaz",
       about: "Lor Nou",
       resources: "Resours",
-      compliance: "Konformite",
       directory: "Direktori",
       join: "Zwenn",
       login: "Konekte",

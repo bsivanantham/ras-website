@@ -3,41 +3,30 @@ import { Lock, CheckCircle, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 interface ContentGateProps {
-  page: "resources" | "compliance" | "directory";
+  page: "resources" | "directory";
 }
 
 const gateContent = {
   resources: {
     title: "Full Resource Library — Members Only",
     description:
-      "You're seeing a preview. RAS members get unrestricted access to all 5 categories including forms, guides, training materials, and compliance documents.",
+      "You're seeing a preview. Retailers Association of Seychelles members get unrestricted access to all 5 categories including forms, guides, training materials, and compliance documents.",
     bullets: [
       "20+ downloadable forms, templates & checklists",
       "Food safety, employment & licensing guides",
-      "RAS training workshop slide decks",
+      "Association training workshop slide decks",
       "Member-exclusive compliance tool kit",
-    ],
-  },
-  compliance: {
-    title: "Full Compliance Hub — Members Only",
-    description:
-      "You're seeing one pillar. Members unlock all four compliance areas with full checklists, government links, and downloadable audit tools.",
-    bullets: [
-      "Food Handling Standards — full checklist",
-      "Expiry Date Monitoring procedures",
-      "Damaged Goods policy & templates",
-      "Government contact directory",
     ],
   },
   directory: {
     title: "Full Provider Directory — Members Only",
     description:
-      "You're seeing a preview. RAS members access the complete verified directory of trusted service providers across Seychelles.",
+      "You're seeing a preview. Retailers Association of Seychelles members access the complete verified directory of trusted service providers across Seychelles.",
     bullets: [
       "10+ vetted provider categories",
       "Verified contact numbers & locations",
       "Pest control, cleaning, IT, legal & more",
-      "RAS-endorsed providers only",
+      "Association-endorsed providers only",
     ],
   },
 };
@@ -90,7 +79,7 @@ export default function ContentGate({ page }: ContentGateProps) {
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link href="/join">
               <Button className="bg-[#0D3572] text-white hover:bg-[#0a2a5a] border-0 font-bold gap-2 w-full sm:w-auto">
-                Join RAS — Get Full Access
+                Join Retailers Association of Seychelles — Get Full Access
                 <ArrowRight className="h-4 w-4" />
               </Button>
             </Link>

@@ -1,69 +1,31 @@
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
+import { getEvents, getNewsletters } from "@/lib/kv";
+import type { StoredEvent } from "@/lib/kv";
+import { isAdmin } from "@/lib/admin";
 import Link from "next/link";
 import {
-  BookOpen,
-  FileText,
-  Shield,
   Calendar,
   CheckCircle,
   Bell,
   Users,
-  ArrowRight,
-  Download,
+  FileText,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import NotifyButton from "@/components/NotifyButton";
+import EventsAdminPanel from "@/components/admin/EventsAdminPanel";
+import NewsletterAdminPanel from "@/components/admin/NewsletterAdminPanel";
 
-const newsletters = [
-  {
-    id: "nl-1",
-    title: "RAS Newsletter — April 2026",
-    date: "April 15, 2026",
-    summary:
-      "Public Health Authority inspection updates, new waste disposal guidelines, and member spotlight on CoolMart Victoria.",
-  },
-  {
-    id: "nl-2",
-    title: "RAS Newsletter — March 2026",
-    date: "March 15, 2026",
-    summary:
-      "Trade licence renewal reminder, pest control compliance tips, and summary of the March member meeting.",
-  },
-  {
-    id: "nl-3",
-    title: "RAS Newsletter — February 2026",
-    date: "February 15, 2026",
-    summary:
-      "New food labelling requirements from Seychelles Bureau of Standards, and a Q&A with the Labour Commissioner's Office.",
-  },
+
+const FALLBACK_EVENTS: StoredEvent[] = [
+  { id: "ev-1", title: "Executive Committee Meeting — May 2026", date: "May 20, 2026", location: "Victoria, Mahé", description: "Executive Committee meeting for May 2026 and handing over of documents. Meeting successfully held.", status: "done" },
+  { id: "ev-2", title: "Handing Over of Documents", date: "May 20, 2026", location: "Victoria, Mahé", description: "Official handing over of documents. Committee members were present.", status: "done" },
+  { id: "ev-3", title: "FTC Meeting — RRP Clarification", date: "Jun 1, 2026", location: "Victoria, Mahé", description: "Meeting with the Fair Trading Commission regarding RRP clarification, SIBA-related issues, and STC case updates.", status: "done" },
+  { id: "ev-4", title: "SACOS Insurance Meeting", date: "Jun 3, 2026", location: "Victoria, Mahé", description: "Meeting with SACOS Insurance to discuss possible insurance benefits and support packages for RAS members.", status: "upcoming" },
 ];
 
-const events = [
-  {
-    id: "ev-1",
-    title: "RAS Annual General Meeting 2026",
-    date: "June 12, 2026",
-    location: "Victoria, Mahé",
-    description: "Annual member meeting to review 2025/26 activities and elect the 2027 committee.",
-  },
-  {
-    id: "ev-2",
-    title: "Food Safety Compliance Workshop",
-    date: "May 28, 2026",
-    location: "RAS Office, Bois De Rose Avenue",
-    description:
-      "Hands-on workshop covering the latest Public Health Authority food handling standards.",
-  },
-];
-
-const quickLinks = [
-  { href: "/resources", icon: BookOpen, label: "Resource Library", desc: "Laws, guides & forms" },
-  { href: "/compliance", icon: Shield, label: "Compliance Hub", desc: "Checklists & standards" },
-  { href: "/directory", icon: Users, label: "Service Directory", desc: "Vetted providers" },
-  { href: "/contact", icon: FileText, label: "Contact RAS", desc: "Get support" },
-];
 
 export default async function MemberPage() {
   const { userId } = await auth();
@@ -75,6 +37,9 @@ export default async function MemberPage() {
   const user = await currentUser();
   const firstName = user?.firstName ?? "Member";
   const fullName = [user?.firstName, user?.lastName].filter(Boolean).join(" ") || "Member";
+  const events = (await getEvents()) ?? FALLBACK_EVENTS;
+  const newsletters = (await getNewsletters()) ?? [];
+  const userIsAdmin = isAdmin(user);
 
   return (
     <div className="flex flex-col">
@@ -102,76 +67,54 @@ export default async function MemberPage() {
       <section className="py-10 bg-[#EFF4FF] flex-1">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {/* Main content — 2 columns */}
+            {/* Main content — newsletters + events */}
             <div className="lg:col-span-2 space-y-6">
               {/* Recent Newsletters */}
               <Card className="bg-white border border-[#0D3572]/10 shadow-sm">
                 <CardHeader className="border-b border-gray-100">
-                  <div className="flex items-center justify-between">
-                    <CardTitle className="text-[#0D3572] font-bold flex items-center gap-2">
-                      <Bell className="h-5 w-5 text-[#C9A227]" />
-                      Recent Newsletters
-                    </CardTitle>
-                    <Button
-                      size="sm"
-                      variant="ghost"
-                      className="text-[#C9A227] hover:text-[#b8911f] hover:bg-[#C9A227]/10 text-xs gap-1"
-                    >
-                      View all
-                      <ArrowRight className="h-3 w-3" />
-                    </Button>
-                  </div>
-                </CardHeader>
-                <CardContent className="pt-4 space-y-4">
-                  {newsletters.map((nl) => (
-                    <div
-                      key={nl.id}
-                      className="flex items-start justify-between gap-4 pb-4 border-b border-gray-50 last:border-0 last:pb-0"
-                    >
-                      <div className="flex-1">
-                        <p className="font-semibold text-[#0D3572] text-sm">{nl.title}</p>
-                        <p className="text-xs text-gray-400 mt-0.5">{nl.date}</p>
-                        <p className="text-xs text-gray-600 mt-1.5 leading-relaxed">{nl.summary}</p>
-                      </div>
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        className="shrink-0 border-[#0D3572]/20 text-[#0D3572] hover:bg-[#0D3572] hover:text-white gap-1.5 text-xs"
-                      >
-                        <Download className="h-3 w-3" />
-                        PDF
-                      </Button>
-                    </div>
-                  ))}
-                </CardContent>
-              </Card>
-
-              {/* Quick Resource Links */}
-              <Card className="bg-white border border-[#0D3572]/10 shadow-sm">
-                <CardHeader className="border-b border-gray-100">
                   <CardTitle className="text-[#0D3572] font-bold flex items-center gap-2">
-                    <BookOpen className="h-5 w-5 text-[#C9A227]" />
-                    My Resources
+                    <Bell className="h-5 w-5 text-[#C9A227]" />
+                    Recent Newsletters
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="pt-4">
-                  <div className="grid grid-cols-2 gap-3">
-                    {quickLinks.map((link) => (
-                      <Link key={link.href} href={link.href}>
-                        <div className="flex items-center gap-3 p-3 rounded-xl border border-[#0D3572]/10 hover:border-[#0D3572]/30 hover:bg-[#EFF4FF] transition-colors group">
-                          <div className="h-9 w-9 rounded-lg bg-[#0D3572]/10 flex items-center justify-center shrink-0">
-                            <link.icon className="h-4 w-4 text-[#0D3572]" />
-                          </div>
-                          <div>
-                            <p className="text-sm font-semibold text-[#0D3572] group-hover:text-[#C9A227] transition-colors">
-                              {link.label}
-                            </p>
-                            <p className="text-xs text-gray-500">{link.desc}</p>
+                  {newsletters.length === 0 ? (
+                    <div className="flex flex-col items-center justify-center py-8 text-center gap-2">
+                      <Bell className="h-8 w-8 text-gray-200" />
+                      <p className="text-sm font-medium text-gray-400">No newsletters yet</p>
+                      <p className="text-xs text-gray-400">
+                        Newsletters will appear here when published by the Retailers Association of Seychelles.
+                      </p>
+                    </div>
+                  ) : (
+                    <div className="space-y-4">
+                      {newsletters.map((nl) => (
+                        <div key={nl.id} className="pb-4 border-b border-gray-50 last:border-0 last:pb-0">
+                          <div className="flex items-start gap-3">
+                            <div className="h-8 w-8 rounded-lg bg-[#EFF4FF] flex items-center justify-center shrink-0 mt-0.5">
+                              <FileText className="h-4 w-4 text-[#0D3572]" />
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <p className="font-semibold text-[#0D3572] text-sm">{nl.title}</p>
+                              <p className="text-xs text-gray-400 mt-0.5">{nl.date}</p>
+                              <p className="text-sm text-gray-600 mt-2 leading-relaxed">{nl.summary}</p>
+                              {nl.pdfUrl && (
+                                <a
+                                  href={nl.pdfUrl}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="inline-flex items-center gap-1.5 mt-3 text-xs font-semibold text-[#0D3572] border border-[#0D3572]/30 rounded-lg px-3 py-1.5 hover:bg-[#EFF4FF] transition-colors"
+                                >
+                                  <FileText className="h-3.5 w-3.5" />
+                                  View / Download PDF
+                                </a>
+                              )}
+                            </div>
                           </div>
                         </div>
-                      </Link>
-                    ))}
-                  </div>
+                      ))}
+                    </div>
+                  )}
                 </CardContent>
               </Card>
 
@@ -184,7 +127,7 @@ export default async function MemberPage() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="pt-4 space-y-4">
-                  {events.map((event) => (
+                  {events.filter((e) => e.status === "upcoming").map((event) => (
                     <div
                       key={event.id}
                       className="flex gap-4 pb-4 border-b border-gray-50 last:border-0 last:pb-0"
@@ -201,12 +144,45 @@ export default async function MemberPage() {
                       </div>
                       <div>
                         <p className="font-semibold text-[#0D3572] text-sm">{event.title}</p>
-                        <p className="text-xs text-[#1B8A4B] font-medium mt-0.5">
-                          {event.location}
-                        </p>
-                        <p className="text-xs text-gray-600 mt-1 leading-relaxed">
-                          {event.description}
-                        </p>
+                        <p className="text-xs text-[#1B8A4B] font-medium mt-0.5">{event.location}</p>
+                        <p className="text-xs text-gray-600 mt-1 leading-relaxed">{event.description}</p>
+                      </div>
+                    </div>
+                  ))}
+                </CardContent>
+              </Card>
+
+              {/* Past Events */}
+              <Card className="bg-white border border-[#0D3572]/10 shadow-sm">
+                <CardHeader className="border-b border-gray-100">
+                  <CardTitle className="text-[#0D3572] font-bold flex items-center gap-2">
+                    <CheckCircle className="h-5 w-5 text-[#1B8A4B]" />
+                    Past Events
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="pt-4 space-y-4">
+                  {events.filter((e) => e.status === "done").map((event) => (
+                    <div
+                      key={event.id}
+                      className="flex gap-4 pb-4 border-b border-gray-50 last:border-0 last:pb-0 opacity-70"
+                    >
+                      <div className="flex flex-col items-center justify-start shrink-0 w-12">
+                        <div className="bg-gray-200 rounded-lg px-2 py-1 text-center w-full">
+                          <p className="text-gray-500 text-xs font-bold leading-tight">
+                            {event.date.split(" ")[0].toUpperCase().slice(0, 3)}
+                          </p>
+                          <p className="text-gray-600 text-base font-bold leading-tight">
+                            {event.date.split(" ")[1].replace(",", "")}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <p className="font-semibold text-gray-500 text-sm">{event.title}</p>
+                          <Badge className="bg-[#1B8A4B] text-white text-[10px] px-1.5 py-0.5 h-auto">Done</Badge>
+                        </div>
+                        <p className="text-xs text-gray-400 font-medium mt-0.5">{event.location}</p>
+                        <p className="text-xs text-gray-400 mt-1 leading-relaxed">{event.description}</p>
                       </div>
                     </div>
                   ))}
@@ -214,7 +190,7 @@ export default async function MemberPage() {
               </Card>
             </div>
 
-            {/* Sidebar — 1 column */}
+            {/* Sidebar */}
             <div className="space-y-6">
               {/* Membership card */}
               <Card className="bg-[#0D3572] text-white border-0 shadow-sm">
@@ -233,16 +209,8 @@ export default async function MemberPage() {
                     </div>
                   </div>
                   <div>
-                    <p className="text-white/60 text-xs uppercase tracking-wide">Member Since</p>
-                    <p className="text-white font-semibold text-sm mt-1">January 2026</p>
-                  </div>
-                  <div>
                     <p className="text-white/60 text-xs uppercase tracking-wide">Tier</p>
-                    <p className="text-white font-semibold text-sm mt-1">Annual Membership</p>
-                  </div>
-                  <div>
-                    <p className="text-white/60 text-xs uppercase tracking-wide">Renewal Due</p>
-                    <p className="text-white font-semibold text-sm mt-1">January 2027</p>
+                    <p className="text-white font-semibold text-sm mt-1">Annual — SCR 500</p>
                   </div>
                   <div className="pt-2 border-t border-white/20">
                     <Link href="/contact">
@@ -250,59 +218,15 @@ export default async function MemberPage() {
                         size="sm"
                         className="w-full bg-[#C9A227] text-[#0D3572] hover:bg-[#b8911f] border-0 font-semibold text-xs"
                       >
-                        Contact RAS
+                        Contact Us
                       </Button>
                     </Link>
                   </div>
                 </CardContent>
               </Card>
 
-              {/* Compliance Status */}
-              <Card className="bg-white border border-[#0D3572]/10 shadow-sm">
-                <CardHeader className="border-b border-gray-100">
-                  <CardTitle className="text-[#0D3572] font-bold flex items-center gap-2 text-base">
-                    <Shield className="h-5 w-5 text-[#C9A227]" />
-                    Compliance Status
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="pt-4 space-y-3">
-                  {[
-                    { label: "Health & Safety", status: "green" },
-                    { label: "Food Handling", status: "green" },
-                    { label: "Expiry Monitoring", status: "amber" },
-                    { label: "Pest Control Cert.", status: "green" },
-                  ].map((item) => (
-                    <div key={item.label} className="flex items-center justify-between">
-                      <span className="text-sm text-gray-700">{item.label}</span>
-                      <span
-                        className={`flex items-center gap-1 text-xs font-semibold ${
-                          item.status === "green"
-                            ? "text-[#1B8A4B]"
-                            : "text-[#C9A227]"
-                        }`}
-                      >
-                        <span
-                          className={`h-2 w-2 rounded-full ${
-                            item.status === "green" ? "bg-[#1B8A4B]" : "bg-[#C9A227]"
-                          }`}
-                        />
-                        {item.status === "green" ? "OK" : "Review"}
-                      </span>
-                    </div>
-                  ))}
-                  <div className="pt-2 border-t border-gray-100">
-                    <Link href="/compliance">
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        className="w-full border-[#0D3572]/20 text-[#0D3572] hover:bg-[#0D3572] hover:text-white text-xs"
-                      >
-                        Full Compliance Hub
-                      </Button>
-                    </Link>
-                  </div>
-                </CardContent>
-              </Card>
+
+              {userIsAdmin && <NotifyButton />}
 
               {/* Help card */}
               <Card className="bg-[#1B8A4B]/10 border border-[#1B8A4B]/20 shadow-sm">
@@ -311,20 +235,21 @@ export default async function MemberPage() {
                     Need help or have a compliance question? Our team is available Monday to
                     Friday, 8:30 AM – 4:30 PM.
                   </CardDescription>
-                  <a href="tel:+2484323343">
-                    <Button
-                      size="sm"
-                      className="w-full bg-[#1B8A4B] text-white hover:bg-[#166d3a] border-0 font-semibold text-xs"
-                    >
-                      Call +248 4 323 343
-                    </Button>
-                  </a>
+                  <div className="flex items-center justify-center gap-3 text-sm font-semibold text-[#1B8A4B]">
+                    <a href="tel:+2482521500" className="hover:underline">+248 2 521 500</a>
+                    <span className="text-gray-400">/</span>
+                    <a href="tel:+2482737273" className="hover:underline">+248 2 737 273</a>
+                    <span className="text-gray-400">/</span>
+                    <a href="tel:+2482819678" className="hover:underline">+248 281 96 78</a>
+                  </div>
                 </CardContent>
               </Card>
             </div>
           </div>
         </div>
       </section>
+      <EventsAdminPanel isAdmin={userIsAdmin} initial={events} />
+      <NewsletterAdminPanel isAdmin={userIsAdmin} initial={newsletters} />
     </div>
   );
 }

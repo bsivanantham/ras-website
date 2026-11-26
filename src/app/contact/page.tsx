@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Phone, Mail, MapPin, Clock, CheckCircle } from "lucide-react";
+import { Phone, Mail, MapPin, Clock, CheckCircle, QrCode } from "lucide-react";
+import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -19,8 +20,12 @@ const subjects = [
   "Other",
 ];
 
+const WEB3FORMS_KEY = "a26361ba-bd5f-418b-a4dd-990c9accfe92";
+
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState("");
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -35,9 +40,36 @@ export default function ContactPage() {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setSubmitted(true);
+    setSubmitting(true);
+    setError("");
+    try {
+      const data = new FormData();
+      data.append("access_key", WEB3FORMS_KEY);
+      data.append("subject", `RAS Contact: ${form.subject} — ${form.name}`);
+      data.append("from_name", "RAS Website");
+      data.append("Name", form.name);
+      data.append("Email", form.email);
+      data.append("Business Name", form.businessName || "Not provided");
+      data.append("Subject", form.subject);
+      data.append("Message", form.message);
+
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: data,
+      });
+      const json = await res.json();
+      if (json.success) {
+        setSubmitted(true);
+      } else {
+        setError("Something went wrong. Please email us directly at admin@ras.sc");
+      }
+    } catch {
+      setError("Something went wrong. Please email us directly at admin@ras.sc");
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   return (
@@ -51,7 +83,7 @@ export default function ContactPage() {
             </p>
             <h1 className="text-4xl md:text-5xl font-bold mb-6">Get in Touch</h1>
             <p className="text-white/80 text-lg leading-relaxed">
-              Have a question, need support, or want to learn more about RAS membership? Our team
+              Have a question, need support, or want to learn more about Retailers Association of Seychelles membership? Our team
               is ready to help.
             </p>
           </div>
@@ -151,7 +183,7 @@ export default function ContactPage() {
                           value={form.subject}
                           onChange={handleChange}
                           required
-                          className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#C9A227]/50 focus:border-[#C9A227]"
+                          className="w-full rounded-lg border border-gray-300 bg-white px-3 py-3 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#C9A227]/50 focus:border-[#C9A227]"
                         >
                           <option value="">Select a subject...</option>
                           {subjects.map((s) => (
@@ -178,10 +210,14 @@ export default function ContactPage() {
                       </div>
                       <Button
                         type="submit"
-                        className="w-full bg-[#0D3572] text-white hover:bg-[#0a2a5a] border-0 font-semibold h-10"
+                        disabled={submitting}
+                        className="w-full bg-[#0D3572] text-white hover:bg-[#0a2a5a] border-0 font-semibold h-10 disabled:opacity-60"
                       >
-                        Send Message
+                        {submitting ? "Sending…" : "Send Message"}
                       </Button>
+                      {error && (
+                        <p className="text-xs text-red-500 text-center mt-2">{error}</p>
+                      )}
                     </form>
                   )}
                 </CardContent>
@@ -205,11 +241,7 @@ export default function ContactPage() {
                     <div>
                       <p className="text-sm font-semibold text-[#0D3572]">Address</p>
                       <p className="text-sm text-gray-600 leading-relaxed">
-                        Bois De Rose Avenue,
-                        <br />
-                        Victoria, Mahé,
-                        <br />
-                        Seychelles
+                        Docklands, Victoria,<br />Mahé, Seychelles
                       </p>
                     </div>
                   </div>
@@ -219,11 +251,14 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <p className="text-sm font-semibold text-[#0D3572]">Phone</p>
-                      <a
-                        href="tel:+2484323343"
-                        className="text-sm text-gray-600 hover:text-[#C9A227] transition-colors"
-                      >
-                        +248 4 323 343
+                      <a href="tel:+2482521500" className="text-sm text-gray-600 hover:text-[#C9A227] transition-colors block">
+                        +248 2 521 500
+                      </a>
+                      <a href="tel:+2482737273" className="text-sm text-gray-600 hover:text-[#C9A227] transition-colors block">
+                        +248 2 737 273
+                      </a>
+                      <a href="tel:+2482819678" className="text-sm text-gray-600 hover:text-[#C9A227] transition-colors block">
+                        +248 281 96 78
                       </a>
                     </div>
                   </div>
@@ -234,17 +269,10 @@ export default function ContactPage() {
                     <div>
                       <p className="text-sm font-semibold text-[#0D3572]">Email</p>
                       <a
-                        href="mailto:info@retailers.sc"
+                        href="mailto:admin@ras.sc"
                         className="text-sm text-gray-600 hover:text-[#C9A227] transition-colors"
                       >
-                        info@retailers.sc
-                      </a>
-                      <br />
-                      <a
-                        href="mailto:retailersassociationsey@yahoo.com"
-                        className="text-sm text-gray-600 hover:text-[#C9A227] transition-colors"
-                      >
-                        retailersassociationsey@yahoo.com
+                        admin@ras.sc
                       </a>
                     </div>
                   </div>
@@ -262,7 +290,7 @@ export default function ContactPage() {
               </Card>
 
               {/* Map placeholder */}
-              <div className="rounded-xl border border-[#0D3572]/10 bg-[#0D3572]/5 h-52 flex flex-col items-center justify-center text-center px-6 gap-3">
+              <div className="rounded-xl border border-[#0D3572]/10 bg-[#0D3572]/5 h-36 sm:h-52 flex flex-col items-center justify-center text-center px-6 gap-3">
                 <MapPin className="h-8 w-8 text-[#0D3572]/40" />
                 <div>
                   <p className="font-semibold text-[#0D3572] text-sm">
@@ -287,6 +315,32 @@ export default function ContactPage() {
                   urgent matters, please call our office directly during business hours.
                 </p>
               </div>
+
+              {/* QR Code */}
+              <Card className="bg-white border border-[#0D3572]/10 shadow-sm">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-[#0D3572] text-lg font-bold flex items-center gap-2">
+                    <QrCode className="h-5 w-5 text-[#C9A227]" />
+                    Scan to Visit
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="flex flex-col items-center gap-3 pt-2 pb-5">
+                  <Image
+                    src="/images/ras-qr.png"
+                    alt="QR code for ras.sc"
+                    width={160}
+                    height={160}
+                    className="rounded-lg"
+                    unoptimized
+                  />
+                  <p className="text-xs text-gray-500 text-center">Scan to open <span className="font-semibold text-[#0D3572]">ras.sc</span></p>
+                  <a href="/images/ras-qr.png" download="ras-qr.png">
+                    <Button size="sm" variant="outline" className="border-[#0D3572]/30 text-[#0D3572] text-xs gap-1.5 hover:bg-[#0D3572] hover:text-white">
+                      Download QR Code
+                    </Button>
+                  </a>
+                </CardContent>
+              </Card>
             </div>
           </div>
         </div>
