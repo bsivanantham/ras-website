@@ -37,6 +37,21 @@ export const CAROUSEL_SIZE = 5;
 // Newest first. Public visitors see `access: "public"` only; signed-in members see all.
 export const announcements: Announcement[] = [
   {
+    id: "ann-egm-thanks-nov2026",
+    access: "public",
+    archive: "media",
+    badge: "Thank You",
+    badgeColor: "bg-green-100 text-green-700",
+    Icon: CheckCircle,
+    title: "Thank You for Attending the EGM — 28 November 2026",
+    description:
+      "We, the Executive Committee members, would like to thank each and every member for taking the time and effort to attend the EGM today. With your support and voice, we shall strive to achieve unity with one voice.",
+    date: "28 November 2026",
+    href: "/images/egm-thanks-nov2026.jpg",
+    actionLabel: "View Photos",
+    preview: { type: "image", src: "/images/egm-thanks-nov2026.jpg" },
+  },
+  {
     id: "ann-egm-nov2026",
     access: "public",
     archive: "ras",
